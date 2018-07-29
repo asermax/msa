@@ -25,7 +25,7 @@ services:
       - db
     volumes:
       - ./api:/opt/app
-      - api-deps:/usr/local/lib/python3.7/site-packages
+      - api_deps:/usr/local/lib/python3.7/site-packages
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -41,4 +41,4 @@ services:
 
 volumes:
   database:
-  api-deps:
+  api_deps:
