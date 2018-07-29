@@ -11,6 +11,6 @@
     ["ramda", {
       "useEs": true
     }],
-    "emotion",
+    ["emotion", { "sourceMap": true }],
   ]
 }

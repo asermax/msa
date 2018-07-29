@@ -11,7 +11,8 @@
     "plugin:react/recommended"
   ],
   "plugins": [
-    "react"
+    "react",
+    "emotion"
   ],
   "env": {
     "browser": true,
