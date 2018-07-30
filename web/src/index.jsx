@@ -1,5 +1,5 @@
 import '@babel/polyfill'
-import 'globalStyles'
+import 'styles/global'
 import React from 'react'
 import { render } from 'react-dom'
 import { createBrowserHistory } from 'history'
