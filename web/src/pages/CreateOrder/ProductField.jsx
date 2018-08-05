@@ -1,8 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { compose, flattenProp, setDisplayName } from 'recompose'
 import { css } from 'emotion'
+import { getProduct } from 'data/product/selectors'
 import { hideOnMobile } from 'styles/util'
 
-export const ProductField = ({ name, price, unit, minAmount, amount }) => (
+const mapStateToProps = (state, { id }) => ({
+  product: getProduct(state, id),
+})
+
+const enhancer = compose(
+  connect(mapStateToProps),
+  flattenProp('product'),
+  setDisplayName('ProductField'),
+)
+
+export const ProductField = enhancer(({ name, price, unit, minAmount, amount }) => (
   <tr className={fieldRow}>
     <td>
       <label htmlFor={name}>
@@ -28,7 +41,7 @@ export const ProductField = ({ name, price, unit, minAmount, amount }) => (
       $800
     </td>
   </tr>
-)
+))
 
 const fieldRow = css`
   label {
