@@ -19,8 +19,11 @@ const mapDispatchToProps = (dispatch, { id }) => ({
 const enhancer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
-    onAmountChange: ({ setOrderProductAmount }) => (e) => setOrderProductAmount(
-      parseFloat(e.target.value),
+    onAmountChange: ({ setOrderProductAmount }) => R.compose(
+      setOrderProductAmount,
+      R.when(RA.isNaN, R.always(0)),
+      parseFloat,
+      R.path([ 'target', 'value' ]),
     ),
   }),
   flattenProp('product'),
