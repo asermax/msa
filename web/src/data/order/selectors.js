@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
-import { getProductIds, getProductsById } from 'data/product/selectors'
+import { getProductsById } from 'data/product/selectors'
 
 export const getOrderProducts = R.path([ 'order', 'products' ])
 export const getOrderProductAmount = createCachedSelector(
@@ -13,9 +13,19 @@ export const getOrderProductAmount = createCachedSelector(
 )(R.nthArg(1))  // memoize by id
 export const getOrderTotal = createSelector(
   [
-    getProductIds,
     getProductsById,
     getOrderProducts,
   ],
-  R.always(100),
+  (products, orderProducts) => R.compose(
+    R.sum,
+    R.values,
+    R.evolve( // create an evolve object that multiplies by the product price
+      R.map(
+        R.compose(
+          R.multiply,
+          R.prop('price'),
+        ),
+      )(products),
+    ),
+  )(orderProducts),
 )
