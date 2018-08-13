@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
+import { getOrderTotal } from 'data/order/selectors'
 import { hideOnMobile } from 'styles/util'
 
-const mapStateToProps = () => ({
-  orderTotal: 0,
+const mapStateToProps = (state) => ({
+  orderTotal: getOrderTotal(state),
 })
 
 const enhancer = compose(
