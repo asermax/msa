@@ -1,3 +1,5 @@
+import * as R from 'ramda'
+import * as RA from 'ramda-adjunct'
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withHandlers, flattenProp, setDisplayName } from 'recompose'
@@ -46,7 +48,7 @@ export const ProductField = enhancer(({
       <input
         name={name}
         type="number"
-        min={minAmount}
+        min="0"
         step={minAmount}
         value={amount}
         onChange={onAmountChange}
