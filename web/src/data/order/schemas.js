@@ -13,7 +13,7 @@ export const orderSchema = yup.object().shape({
       ),
       (products) => yup.object().shape(
         R.map(
-          () => yup.number().integer().moreThan(0).required(),
+          () => yup.number().moreThan(0).required(),
         )(products),
       ),
     ),
