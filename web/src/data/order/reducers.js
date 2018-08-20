@@ -1,6 +1,15 @@
 import * as R from 'ramda'
 import { combineReducers } from 'redux'
-import { SET_ORDER_PRODUCT_AMOUNT } from './actions'
+import { SET_ORDER_USER, SET_ORDER_PRODUCT_AMOUNT } from './actions'
+
+const user = (state = '', action) => {
+  switch (action.type) {
+    case SET_ORDER_USER:
+      return action.user
+    default:
+      return state
+  }
+}
 
 const productsDefault = {}
 const products = (state = productsDefault, action) => {
@@ -24,5 +33,6 @@ const products = (state = productsDefault, action) => {
 }
 
 export const order = combineReducers({
+  user,
   products,
 })

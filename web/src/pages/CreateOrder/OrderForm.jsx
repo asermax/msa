@@ -2,27 +2,39 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { css } from 'emotion'
+import { setOrderUser } from 'data/order/actions'
+import { getOrderUser, isOrderEmpty } from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
 import { hideOnMobile, mq } from 'styles/util'
 import { ProductField } from './ProductField'
 import { OrderTotal } from './OrderTotal'
 
 const mapStateToProps = (state) => ({
+  user: getOrderUser(state),
   products: getProductIds(state),
+  isEmpty: isOrderEmpty(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch(setOrderUser(user)),
 })
 
 const enhancer = compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   setDisplayName('OrderForm'),
 )
 
-export const OrderForm = enhancer(({ products }) => (
+export const OrderForm = enhancer(({ products, isEmpty, onNameChange }) => (
   <form>
     <fieldset>
       <label htmlFor="name">
       Nombre*
       </label>
-      <input type="text" name="name" />
+      <input
+        type="text"
+        name="name"
+        onChange={onNameChange}
+      />
     </fieldset>
     <fieldset>
       <h2>Productos</h2>
@@ -52,7 +64,10 @@ export const OrderForm = enhancer(({ products }) => (
       </table>
     </fieldset>
     <div className={buttonContainer}>
-      <button type="submit">
+      <button
+        type="submit"
+        disabled={isEmpty}
+      >
         Enviar Orden
       </button>
     </div>

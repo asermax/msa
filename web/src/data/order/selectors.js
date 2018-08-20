@@ -3,6 +3,7 @@ import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getProductsById } from 'data/product/selectors'
 
+export const getOrderUser = R.path([ 'order', 'user' ])
 export const getOrderProducts = R.path([ 'order', 'products' ])
 export const getOrderProductAmount = createCachedSelector(
   [
