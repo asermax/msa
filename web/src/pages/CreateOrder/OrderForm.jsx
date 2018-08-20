@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { compose, setDisplayName } from 'recompose'
+import { compose, withHandlers, setDisplayName } from 'recompose'
 import { css } from 'emotion'
 import { setOrderUser } from 'data/order/actions'
-import { getOrderUser, isOrderEmpty } from 'data/order/selectors'
+import { getOrderUser, isOrderValid } from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
 import { hideOnMobile, mq } from 'styles/util'
 import { ProductField } from './ProductField'
@@ -12,7 +12,7 @@ import { OrderTotal } from './OrderTotal'
 const mapStateToProps = (state) => ({
   user: getOrderUser(state),
   products: getProductIds(state),
-  isEmpty: isOrderEmpty(state),
+  isValid: isOrderValid(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,10 +21,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 const enhancer = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withHandlers({
+    onNameChange: ({ setUser }) => (e) => setUser(e.target.value),
+  }),
   setDisplayName('OrderForm'),
 )
 
-export const OrderForm = enhancer(({ products, isEmpty, onNameChange }) => (
+export const OrderForm = enhancer(({ user, products, isValid, onNameChange }) => (
   <form>
     <fieldset>
       <label htmlFor="name">
@@ -33,6 +36,7 @@ export const OrderForm = enhancer(({ products, isEmpty, onNameChange }) => (
       <input
         type="text"
         name="name"
+        value={user}
         onChange={onNameChange}
       />
     </fieldset>
@@ -66,7 +70,7 @@ export const OrderForm = enhancer(({ products, isEmpty, onNameChange }) => (
     <div className={buttonContainer}>
       <button
         type="submit"
-        disabled={isEmpty}
+        disabled={!isValid}
       >
         Enviar Orden
       </button>

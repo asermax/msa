@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getProductsById } from 'data/product/selectors'
+import { orderSchema } from './schemas'
 
 export const getOrderUser = R.path([ 'order', 'user' ])
 export const getOrderProducts = R.path([ 'order', 'products' ])
@@ -29,4 +30,13 @@ export const getOrderTotal = createSelector(
       )(products),
     ),
   )(orderProducts),
+)
+export const isOrderValid = createSelector(
+  [ getOrderUser, getOrderProducts ],
+  R.compose(
+    R.bind(orderSchema.isValidSync, orderSchema),
+    R.unapply(
+      R.zipObj([ 'user', 'products' ]),
+    ),
+  ),
 )
