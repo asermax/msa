@@ -67,9 +67,13 @@ const fieldRow = css`
   label {
     font-weight: normal;
   }
+
+  input {
+    margin: 0;
+  }
 `
 
 const totalCell = css`
+  text-align: right;
   font-weight: bold;
 `
-
