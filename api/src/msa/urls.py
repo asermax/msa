@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import urls as rest_framework_urls
 
-from . import router
+from msa.router import ROUTER
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include(rest_framework_urls)),
-    path('api/', include(router.router.urls)),
+    path('api/', include(ROUTER.urls)),
 ]

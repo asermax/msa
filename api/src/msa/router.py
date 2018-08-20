@@ -1,6 +1,8 @@
 from rest_framework import routers
 
-from producer import views
+import producer.views
+import consumer.views
 
-router = routers.DefaultRouter()
-router.register('products', views.ProductViewSet)
+ROUTER = routers.DefaultRouter()
+ROUTER.register('products', producer.views.ProductViewSet)
+ROUTER.register('orders', consumer.views.OrderViewSet)
