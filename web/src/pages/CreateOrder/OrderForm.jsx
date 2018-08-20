@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withHandlers, setDisplayName } from 'recompose'
 import { css } from 'emotion'
-import { setOrderUser } from 'data/order/actions'
+import { setOrderUser, createOrderRequest } from 'data/order/actions'
 import { getOrderUser, isOrderValid } from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
 import { hideOnMobile, mq } from 'styles/util'
@@ -17,18 +17,23 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(setOrderUser(user)),
+  createOrder: () => dispatch(createOrderRequest()),
 })
 
 const enhancer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
+    onSubmit: ({ createOrder }) => (e) => {
+      e.preventDefault()
+      createOrder()
+    },
     onNameChange: ({ setUser }) => (e) => setUser(e.target.value),
   }),
   setDisplayName('OrderForm'),
 )
 
-export const OrderForm = enhancer(({ user, products, isValid, onNameChange }) => (
-  <form>
+export const OrderForm = enhancer(({ user, products, isValid, onNameChange, onSubmit }) => (
+  <form onSubmit={onSubmit}>
     <fieldset>
       <label htmlFor="name">
       Nombre*

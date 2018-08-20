@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects'
 import { routeInitSaga } from './route/sagas'
 import { productSaga } from './product/sagas'
+import { orderSaga } from './order/sagas'
 
 const initSagas = [
   routeInitSaga,
@@ -8,6 +9,7 @@ const initSagas = [
 
 const sagas = [
   productSaga,
+  orderSaga,
 ]
 
 export const rootInitSaga = function* rootSaga() {
