@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import { call, select, put, actionChannel, take } from 'redux-saga/effects'
 import { fetchProducts } from 'data/product/actions'
 import { INDEX, NOT_FOUND, goToIndex } from './actions'
@@ -25,7 +26,9 @@ export const routeInitSaga = function*() {
     // take the current route
     let route = yield select(getCurrentRoute)
 
-    yield call(mapRouteToSaga[route])
+    if (R.not(R.isNil(mapRouteToSaga[route]))) {
+      yield call(mapRouteToSaga[route])
+    }
 
     // wait for the next route change
     yield take(channel)
