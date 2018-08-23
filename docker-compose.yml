@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres:10.4-alpine
+    image: postgres:10.5-alpine
     volumes:
       - database:/var/lib/postgresql/data
     environment:
@@ -33,7 +33,7 @@ services:
     entrypoint: /opt/app/entrypoint.sh
     command: manage runserver 0.0.0.0:8000
   web:
-    image: node:10.7.0-alpine
+    image: node:10.9.0-alpine
     volumes:
       - ./web:/opt/app
     entrypoint: /opt/app/entrypoint.sh
