@@ -1,7 +1,15 @@
 import React from 'react'
+import { compose, setDisplayName } from 'recompose'
+import { forRoute } from 'hocs/forRoute'
+import { INDEX } from 'data/route/actions'
 import { OrderForm } from './OrderForm'
 
-export const CreateOrder = () => (
+const enhancer = compose(
+  forRoute(INDEX),
+  setDisplayName('CreateOrder'),
+)
+
+export const CreateOrder = enhancer(() => (
   <div>
     <h1>
       Enviar Orden
@@ -11,4 +19,4 @@ export const CreateOrder = () => (
     </p>
     <OrderForm />
   </div>
-)
+))
