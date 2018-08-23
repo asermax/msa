@@ -6,6 +6,10 @@ import { orderSchema } from './schemas'
 
 export const getOrderUser = R.path([ 'order', 'user' ])
 export const getOrderProducts = R.path([ 'order', 'products' ])
+export const getOrderProductsIds = createSelector(
+  [ getOrderProducts ],
+  R.keys,
+)
 export const getOrderProductAmount = createCachedSelector(
   [
     R.nthArg(1), // product id

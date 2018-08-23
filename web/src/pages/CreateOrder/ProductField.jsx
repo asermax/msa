@@ -1,8 +1,9 @@
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { compose, withHandlers, flattenProp, setDisplayName } from 'recompose'
+import { compose, withHandlers, flattenProp, setPropTypes, setDisplayName } from 'recompose'
 import { css } from 'emotion'
 import { getProduct } from 'data/product/selectors'
 import { setOrderProductAmount } from 'data/order/actions'
@@ -29,6 +30,9 @@ const enhancer = compose(
     ),
   }),
   flattenProp('product'),
+  setPropTypes({
+    id: PropTypes.number.isRequired,
+  }),
   setDisplayName('ProductField'),
 )
 
