@@ -8,6 +8,9 @@ class NestedOrderProductSerializer(serializers.ModelSerializer):
         model = models.OrderProduct
         fields = ('id', 'product', 'amount')
 
+    def to_representation(self, instance):
+        return instance.id
+
 
 class OrderSerializer(serializers.ModelSerializer):
     products = NestedOrderProductSerializer(many=True)
