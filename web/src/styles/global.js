@@ -1,4 +1,5 @@
 import { injectGlobal } from 'emotion'
+import { colors } from './util'
 
 injectGlobal`
   /*!
@@ -16,11 +17,13 @@ injectGlobal`
   }
 
   html {
+    height: 100vh;
     box-sizing: border-box;
     font-size: 62.5%;
   }
 
   body {
+    height: 100vh;
     color: #606c76;
     font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial",
       sans-serif;
@@ -30,8 +33,12 @@ injectGlobal`
     line-height: 1.6;
   }
 
+  #root {
+    height: 100vh;
+  }
+
   blockquote {
-    border-left: 0.3rem solid #d1d1d1;
+    border-left: 0.3rem solid ${colors.borderGray};
     margin-left: 0;
     margin-right: 0;
     padding: 1rem 1.5rem;
@@ -138,7 +145,7 @@ injectGlobal`
     -moz-appearance: none;
     appearance: none;
     background-color: transparent;
-    border: 0.1rem solid #d1d1d1;
+    border: 0.1rem solid ${colors.borderGray};
     border-radius: 0.4rem;
     box-shadow: none;
     box-sizing: inherit;
@@ -163,7 +170,7 @@ injectGlobal`
   select {
     background: url('data:image/svg+xml;utf8,
     <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29">
-    <path fill="#d1d1d1" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/>
+    <path fill="${colors.borderGray}" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/>
     </svg>');
       center right no-repeat;
     padding-right: 3rem;

@@ -14,3 +14,7 @@ export const hideOnMobile = css`
     display: none;
   }
 `
+
+export const colors = {
+  borderGray: '#d1d1d1',
+}
