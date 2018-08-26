@@ -11,7 +11,7 @@ import { rootSaga, rootInitSaga } from './sagas'
 function generateReducer(routerReducer) {
   return combineReducers(
     R.merge(appReducers)({
-      location: routerReducer,
+      route: routerReducer,
     }),
   )
 }
@@ -19,6 +19,7 @@ function generateReducer(routerReducer) {
 export function configureStore(history, initialState = {}) {
   // initialize middlewares
   const router = connectRoutes(history, routes, {
+    location: 'route',
     querySerializer: queryString,
   })
   const sagaMiddleware = createSagaMiddleware()
