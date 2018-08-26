@@ -1,5 +1,5 @@
 import { NOT_FOUND } from 'redux-first-router'
-export { NOT_FOUND } from 'redux-first-router'
+export { NOT_FOUND, redirect } from 'redux-first-router'
 
 export const INDEX = 'route/index'
 export const ORDER_CREATE = 'route/order/create'

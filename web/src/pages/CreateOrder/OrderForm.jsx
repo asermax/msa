@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { compose, withHandlers, setDisplayName } from 'recompose'
 import { css } from 'emotion'
 import { setOrderUser, createOrderRequest } from 'data/order/actions'
-import { getOrderUser, isOrderValid } from 'data/order/selectors'
+import { getOrderUser, getOrderOrganization, isOrderValid } from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
 import { hideOnMobile, mq } from 'styles/util'
 import { ProductField } from './ProductField'
@@ -11,6 +11,7 @@ import { OrderTotal } from './OrderTotal'
 
 const mapStateToProps = (state) => ({
   user: getOrderUser(state),
+  organization: getOrderOrganization(state),
   products: getProductIds(state),
   isValid: isOrderValid(state),
 })
@@ -32,9 +33,20 @@ const enhancer = compose(
   setDisplayName('OrderForm'),
 )
 
-export const OrderForm = enhancer(({ user, products, isValid, onNameChange, onSubmit }) => (
+export const OrderForm = enhancer(({
+  user, organization, products, isValid, onNameChange, onSubmit,
+}) => (
   <form onSubmit={onSubmit}>
     <fieldset>
+      <label htmlFor="name">
+      Organization*
+      </label>
+      <input
+        type="text"
+        name="name"
+        value={organization}
+        disabled
+      />
       <label htmlFor="name">
       Nombre*
       </label>
