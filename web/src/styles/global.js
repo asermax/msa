@@ -24,6 +24,7 @@ injectGlobal`
 
   body {
     height: 100vh;
+    margin: 0;
     color: #606c76;
     font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial",
       sans-serif;
