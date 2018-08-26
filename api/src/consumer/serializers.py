@@ -13,11 +13,15 @@ class NestedOrderProductSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    organization = serializers.SlugRelatedField(
+        slug_field='slug',
+        queryset=models.Organization.objects.all()
+    )
     products = NestedOrderProductSerializer(many=True)
 
     class Meta:
         model = models.Order
-        fields = ('id', 'user', 'products', 'created')
+        fields = ('id', 'user', 'organization', 'products', 'created')
         read_only_fields = ('created',)
 
     def create(self, validated_data):
