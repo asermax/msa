@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { connectRoutes } from 'redux-first-router'
+import queryString from 'query-string'
 import routes from './routes'
 import appReducers from './reducers'
 import { rootSaga, rootInitSaga } from './sagas'
@@ -17,7 +18,9 @@ function generateReducer(routerReducer) {
 
 export function configureStore(history, initialState = {}) {
   // initialize middlewares
-  const router = connectRoutes(history, routes)
+  const router = connectRoutes(history, routes, {
+    querySerializer: queryString,
+  })
   const sagaMiddleware = createSagaMiddleware()
 
   // create store
