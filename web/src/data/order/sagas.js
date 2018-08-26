@@ -3,11 +3,12 @@ import { put, select, call, all, takeLatest } from 'redux-saga/effects'
 import { ORDER_ENTRYPOINT, apiPost } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
 import { CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure } from './actions'
-import { getOrderProducts, getOrderUser } from './selectors'
+import { getOrderUser, getOrderOrganization, getOrderProducts } from './selectors'
 import { orderSchema } from './schemas'
 
 const createOrder = function*() {
   const user = yield select(getOrderUser)
+  const organization = yield select(getOrderOrganization)
   const products = yield select(getOrderProducts)
 
   try {
@@ -21,6 +22,7 @@ const createOrder = function*() {
       R.bind(orderSchema.cast, orderSchema), // validate and cast data
     )({
       user,
+      organization,
       products,
     })
 
