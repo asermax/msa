@@ -1,11 +1,11 @@
 import React from 'react'
 import { compose, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs/forRoute'
-import { INDEX } from 'data/route/actions'
+import { ORDER_CREATE } from 'data/route/actions'
 import { OrderForm } from './OrderForm'
 
 const enhancer = compose(
-  forRoute(INDEX),
+  forRoute(ORDER_CREATE),
   setDisplayName('CreateOrder'),
 )
 
