@@ -6,10 +6,10 @@ import { OrderForm } from './OrderForm'
 
 const enhancer = compose(
   forRoute(ORDER_CREATE),
-  setDisplayName('CreateOrder'),
+  setDisplayName('OrderCreate'),
 )
 
-export const CreateOrder = enhancer(() => (
+export const OrderCreate = enhancer(() => (
   <div>
     <h1>
       Enviar Orden

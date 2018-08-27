@@ -1,11 +1,11 @@
 import React from 'react'
 import { Container } from 'components/Container'
-import { CreateOrder } from 'pages/CreateOrder'
+import { OrderCreate } from 'pages/OrderCreate'
 import { OrderSummary } from 'pages/OrderSummary'
 
 export const App = () => (
   <Container>
-    <CreateOrder />
+    <OrderCreate />
     <OrderSummary />
   </Container>
 )
