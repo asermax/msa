@@ -49,3 +49,13 @@ export const isOrderValid = createSelector(
     ),
   ),
 )
+export const getOrdersIds = R.path([ 'order', 'ids' ])
+export const getOrdersById = R.path([ 'order', 'byId' ])
+export const getOrder = createCachedSelector(
+  [
+    R.nthArg(1), // order id
+    getOrdersById, // orders map
+  ],
+  R.prop, // return the order id from the map
+)(R.nthArg(1)) // cache by order id
+

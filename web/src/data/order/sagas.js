@@ -1,8 +1,11 @@
 import * as R from 'ramda'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
-import { ORDER_ENTRYPOINT, apiPost } from 'data/api'
+import { ORDER_ENTRYPOINT, apiGet, apiPost } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
-import { CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure } from './actions'
+import {
+  CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
+  FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
+} from './actions'
 import { getOrderUser, getOrderOrganization, getOrderProducts } from './selectors'
 import { orderSchema } from './schemas'
 
@@ -36,9 +39,21 @@ const createOrder = function*() {
   }
 }
 
+const fetchOrders = function*() {
+  try {
+    // create the order first
+    const orders = yield call(apiGet, ORDER_ENTRYPOINT)
+
+    yield put(fetchOrdersSuccess(orders))
+  } catch(e) {
+    yield put(fetchOrdersFailure(e.message))
+  }
+}
+
 
 export const orderSaga = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
+    takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),
   ])
 }

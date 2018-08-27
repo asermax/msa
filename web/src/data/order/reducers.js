@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { combineReducers } from 'redux'
-import { SET_ORDER_USER, SET_ORDER_PRODUCT_AMOUNT } from './actions'
+import { SET_ORDER_USER, SET_ORDER_PRODUCT_AMOUNT, FETCH_ORDERS_SUCCESS } from './actions'
 
 const user = (state = '', action) => {
   switch (action.type) {
@@ -32,7 +32,33 @@ const products = (state = productsDefault, action) => {
   }
 }
 
+const idsDefault = []
+const ids = (state = idsDefault, action) => {
+  switch (action.type) {
+    case FETCH_ORDERS_SUCCESS:
+      return R.map(
+        R.prop('id'),
+      )(action.payload)
+    default:
+      return state
+  }
+}
+
+const byIdDefault = {}
+const byId = (state = byIdDefault, action) => {
+  switch (action.type) {
+    case FETCH_ORDERS_SUCCESS:
+      return R.indexBy(
+        R.prop('id'),
+      )(action.payload)
+    default:
+      return state
+  }
+}
+
 export const order = combineReducers({
   user,
   products,
+  ids,
+  byId,
 })

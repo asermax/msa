@@ -1,7 +1,11 @@
 import * as R from 'ramda'
 import { call, select, put, actionChannel, take } from 'redux-saga/effects'
 import { fetchProducts } from 'data/product/actions'
-import { NOT_FOUND, INDEX, ORDER_CREATE, redirect, goToIndex, goToOrderCreate } from './actions'
+import { fetchOrders } from 'data/order/actions'
+import {
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDERS_LIST,
+  redirect, goToIndex, goToOrderCreate,
+} from './actions'
 import { getCurrentRoute } from './selectors'
 
 
@@ -17,10 +21,16 @@ const onOrderCreate = function*() {
   yield put(fetchProducts())
 }
 
+const onOrdersList = function*() {
+  yield put(fetchProducts())
+  yield put(fetchOrders())
+}
+
 const mapRouteToSaga = {
   [NOT_FOUND]: onNotFound,
   [INDEX]: onIndex,
   [ORDER_CREATE]: onOrderCreate,
+  [ORDERS_LIST]: onOrdersList,
 }
 
 export const routeInitSaga = function*() {
