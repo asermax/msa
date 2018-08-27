@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withHandlers, setDisplayName } from 'recompose'
 import { css } from 'emotion'
-import { setOrderUser, createOrderRequest } from 'data/order/actions'
+import { setOrderUser, createOrder } from 'data/order/actions'
 import { getOrderUser, getOrderOrganization, isOrderValid } from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
 import { hideOnMobile, mq } from 'styles/util'
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(setOrderUser(user)),
-  createOrder: () => dispatch(createOrderRequest()),
+  createOrder: () => dispatch(createOrder()),
 })
 
 const enhancer = compose(

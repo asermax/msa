@@ -15,7 +15,7 @@ export const setOrderProductAmount = (id, amount) => ({
   amount,
 })
 
-export const createOrderRequest = () => ({
+export const createOrder = () => ({
   type: CREATE_ORDER_REQUEST,
 })
 
