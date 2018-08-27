@@ -6,10 +6,7 @@ from . import models
 class NestedOrderProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderProduct
-        fields = ('id', 'product', 'amount')
-
-    def to_representation(self, instance):
-        return instance.id
+        fields = ('product', 'amount')
 
 
 class OrderSerializer(serializers.ModelSerializer):
