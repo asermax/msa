@@ -17,7 +17,7 @@ const enhancer = compose(
 export const OrderTotal = enhancer(({ orderTotal }) => (
   <tr>
     <td className={titleCell}>
-      TOTAL
+      Total
     </td>
     <td className={hideOnMobile}></td>
     <td></td>
@@ -29,6 +29,7 @@ export const OrderTotal = enhancer(({ orderTotal }) => (
 ))
 
 const titleCell = css`
+  text-transform: uppercase;
   font-weight: bold;
   font-size: 130%;
 `
