@@ -6,13 +6,15 @@ import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
 } from './actions'
-import { getOrderUser, getOrderOrganization, getOrderProducts } from './selectors'
+import {
+  getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts,
+} from './selectors'
 import { orderSchema } from './schemas'
 
 const createOrder = function*() {
-  const user = yield select(getOrderUser)
-  const organization = yield select(getOrderOrganization)
-  const products = yield select(getOrderProducts)
+  const user = yield select(getCurrentOrderUser)
+  const organization = yield select(getCurrentOrderOrganization)
+  const products = yield select(getCurrentOrderProducts)
 
   try {
     const data =  R.compose(

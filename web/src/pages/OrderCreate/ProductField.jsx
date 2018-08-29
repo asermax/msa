@@ -6,24 +6,24 @@ import { connect } from 'react-redux'
 import { compose, withHandlers, flattenProp, setPropTypes, setDisplayName } from 'recompose'
 import { css } from 'emotion'
 import { getProduct } from 'data/product/selectors'
-import { setOrderProductAmount } from 'data/order/actions'
-import { getOrderProductAmount } from 'data/order/selectors'
+import { setCurrentOrderProductAmount } from 'data/order/actions'
+import { getCurrentOrderProductAmount } from 'data/order/selectors'
 import { hideOnMobile } from 'styles/util'
 
 const mapStateToProps = (state, { id }) => ({
   product: getProduct(state, id),
-  amount: getOrderProductAmount(state, id),
+  amount: getCurrentOrderProductAmount(state, id),
 })
 
 const mapDispatchToProps = (dispatch, { id }) => ({
-  setOrderProductAmount: (amount) => dispatch(setOrderProductAmount(id, amount)),
+  setCurrentOrderProductAmount: (amount) => dispatch(setCurrentOrderProductAmount(id, amount)),
 })
 
 const enhancer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
-    onAmountChange: ({ setOrderProductAmount }) => R.compose(
-      setOrderProductAmount,
+    onAmountChange: ({ setCurrentOrderProductAmount }) => R.compose(
+      setCurrentOrderProductAmount,
       R.when(RA.isNaN, R.always(0)),
       parseFloat,
       R.path([ 'target', 'value' ]),

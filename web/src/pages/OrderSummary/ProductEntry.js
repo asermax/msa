@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { css } from 'emotion'
 import { compose, flattenProp, setPropTypes, setDisplayName } from 'recompose'
 import { getProduct } from 'data/product/selectors'
-import { getOrderProductAmount } from 'data/order/selectors'
+import { getCurrentOrderProductAmount } from 'data/order/selectors'
 
 const mapStateToProps = (state, { id }) => ({
   product: getProduct(state, id),
-  amount: getOrderProductAmount(state, id),
+  amount: getCurrentOrderProductAmount(state, id),
 })
 
 const enhancer = compose(

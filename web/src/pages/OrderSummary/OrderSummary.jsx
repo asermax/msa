@@ -4,14 +4,14 @@ import { compose, setDisplayName } from 'recompose'
 import { css } from 'emotion'
 import { forRoute } from 'hocs/forRoute'
 import { ORDER_SUMMARY } from 'data/route/actions'
-import { getOrderProductsIds } from 'data/order/selectors'
+import { getCurrentOrderProductsIds } from 'data/order/selectors'
 import { Paper } from 'components/Paper'
 import { Separator } from 'components/Separator'
 import { ProductEntry } from './ProductEntry'
 import { OrderTotal } from './OrderTotal'
 
 const mapStateToProps = (state) => ({
-  products: getOrderProductsIds(state),
+  products: getCurrentOrderProductsIds(state),
 })
 
 const enhancer = compose(

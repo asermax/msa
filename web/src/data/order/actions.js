@@ -7,12 +7,12 @@ export const FETCH_ORDERS_REQUEST = 'orders/fetch/request'
 export const FETCH_ORDERS_SUCCESS = 'orders/fetch/success'
 export const FETCH_ORDERS_FAILURE = 'orders/fetch/failure'
 
-export const setOrderUser = (user) => ({
+export const setCurrentOrderUser = (user) => ({
   type: SET_ORDER_USER,
   user,
 })
 
-export const setOrderProductAmount = (id, amount) => ({
+export const setCurrentOrderProductAmount = (id, amount) => ({
   type: SET_ORDER_PRODUCT_AMOUNT,
   id,
   amount,

@@ -5,43 +5,45 @@ import { getQuery } from 'data/route/selectors'
 import { getProductsById } from 'data/product/selectors'
 import { orderSchema } from './schemas'
 
-export const getOrderUser = R.path([ 'order', 'user' ])
-export const getOrderOrganization = createSelector(
+const calculateOrderTotal = (products, orderProducts) => R.compose(
+  R.sum,
+  R.values,
+  R.evolve( // create an evolve object that multiplies by the product price
+    R.map(
+      R.compose(
+        R.multiply,
+        R.prop('price'),
+      ),
+    )(products),
+  ),
+)(orderProducts)
+
+export const getCurrentOrderUser = R.path([ 'order', 'user' ])
+export const getCurrentOrderOrganization = createSelector(
   [ getQuery ],
   R.prop('org'),
 )
-export const getOrderProducts = R.path([ 'order', 'products' ])
-export const getOrderProductsIds = createSelector(
-  [ getOrderProducts ],
+export const getCurrentOrderProducts = R.path([ 'order', 'products' ])
+export const getCurrentOrderProductsIds = createSelector(
+  [ getCurrentOrderProducts ],
   R.keys,
 )
-export const getOrderProductAmount = createCachedSelector(
+export const getCurrentOrderProductAmount = createCachedSelector(
   [
     R.nthArg(1), // product id
-    getOrderProducts, // product map
+    getCurrentOrderProducts, // product map
   ],
   R.propOr(0), // receives (id, productMap), returns amount or 0
 )(R.nthArg(1))  // memoize by id
-export const getOrderTotal = createSelector(
+export const getCurrentOrderTotal = createSelector(
   [
     getProductsById,
-    getOrderProducts,
+    getCurrentOrderProducts,
   ],
-  (products, orderProducts) => R.compose(
-    R.sum,
-    R.values,
-    R.evolve( // create an evolve object that multiplies by the product price
-      R.map(
-        R.compose(
-          R.multiply,
-          R.prop('price'),
-        ),
-      )(products),
-    ),
-  )(orderProducts),
+  calculateOrderTotal,
 )
 export const isOrderValid = createSelector(
-  [ getOrderUser, getOrderOrganization, getOrderProducts ],
+  [ getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts ],
   R.compose(
     R.bind(orderSchema.isValidSync, orderSchema),
     R.unapply(
@@ -58,4 +60,3 @@ export const getOrder = createCachedSelector(
   ],
   R.prop, // return the order id from the map
 )(R.nthArg(1)) // cache by order id
-

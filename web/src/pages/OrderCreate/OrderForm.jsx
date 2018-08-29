@@ -2,22 +2,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withHandlers, setDisplayName } from 'recompose'
 import { css } from 'emotion'
-import { setOrderUser, createOrder } from 'data/order/actions'
-import { getOrderUser, getOrderOrganization, isOrderValid } from 'data/order/selectors'
+import { setCurrentOrderUser, createOrder } from 'data/order/actions'
+import {
+  getCurrentOrderUser, getCurrentOrderOrganization, isOrderValid,
+} from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
 import { hideOnMobile, mq } from 'styles/util'
 import { ProductField } from './ProductField'
 import { OrderTotal } from './OrderTotal'
 
 const mapStateToProps = (state) => ({
-  user: getOrderUser(state),
-  organization: getOrderOrganization(state),
+  user: getCurrentOrderUser(state),
+  organization: getCurrentOrderOrganization(state),
   products: getProductIds(state),
   isValid: isOrderValid(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setUser: (user) => dispatch(setOrderUser(user)),
+  setUser: (user) => dispatch(setCurrentOrderUser(user)),
   createOrder: () => dispatch(createOrder()),
 })
 
