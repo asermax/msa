@@ -60,3 +60,24 @@ export const getOrder = createCachedSelector(
   ],
   R.prop, // return the order id from the map
 )(R.nthArg(1)) // cache by order id
+export const getOrderTotal = createCachedSelector(
+  [
+    getProductsById,
+    getOrder,
+  ],
+  R.useWith(
+    calculateOrderTotal, // calculate the total
+    [
+      R.identity, // passthrough the products
+      R.compose(
+        R.map(R.prop('amount')),
+        R.indexBy(R.prop('product')), // index by the product id
+        R.prop('products'), // get the products from the order
+      ),
+    ],
+  ),
+)(R.nthArg(1)) // cache by order id
+export const getOrdersTotal = (state) => R.compose(
+  R.sum, // sum all orders together
+  R.map(R.partial(getOrderTotal, [ state ])), // calculate the total for each order
+)(getOrdersIds(state))
