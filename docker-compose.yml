@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_DB
   proxy:
-    image: nginx:1.15.2-alpine
+    image: nginx:1.15.3-alpine
     links:
       - api
     ports:
