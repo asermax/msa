@@ -4,7 +4,8 @@
       "useBuiltIns": "entry",
       "modules": false
     }],
-    "@babel/react"
+    "@babel/react",
+    "flow"
   ],
   "plugins": [
     "react-hot-loader/babel",
