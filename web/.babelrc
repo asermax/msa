@@ -5,7 +5,7 @@
       "modules": false
     }],
     "@babel/react",
-    "flow"
+    "@babel/flow"
   ],
   "plugins": [
     "react-hot-loader/babel",
