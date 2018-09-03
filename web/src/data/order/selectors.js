@@ -1,8 +1,7 @@
 // @flow
 import type { State } from 'data/types'
-import type {
-  Product, ProductsById, OrderProducts, OrderProduct, Order, OrdersById,
-} from './types'
+import type { Product, ProductsById } from 'data/product/types'
+import type { OrderProducts, OrderProduct, Order, OrdersById } from './types'
 import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
