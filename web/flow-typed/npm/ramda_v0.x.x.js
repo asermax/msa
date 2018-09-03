@@ -655,10 +655,10 @@ declare module ramda {
     x: ?E,
   ): (xs: Array<E>) => number;
 
-  declare function indexBy<V, T: { [key: string]: * }>(
+  declare function indexBy<T: { [key: string]: * }>(
     fn: (x: T) => string,
   ): (xs: Array<T>) => { [key: string]: T };
-  declare function indexBy<V, T: { [key: string]: * }>(
+  declare function indexBy<T: { [key: string]: * }>(
     fn: (x: T) => string,
     xs: Array<T>
   ): { [key: string]: T };
@@ -1798,6 +1798,7 @@ declare module ramda {
     ) => (A, B, C, D, E, F, G, H) => I);
 
   //TODO useWith
+  declare function useWith(after: Function, fns: Array<Function>): Function;
 
   declare function wrap<A, B, C, D, F: (...args: Array<A>) => B>(
     fn: F,
