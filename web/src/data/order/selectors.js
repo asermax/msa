@@ -59,7 +59,7 @@ export const isOrderValid = createSelector(
 )
 export const getOrdersIds = R.path([ 'order', 'ids' ])
 export const getOrdersById = R.path([ 'order', 'byId' ])
-export const getOrder: (State, number) => Order =
+export const getOrder: (state: State, id: string) => Order =
   createCachedSelector<State, any, OrdersById, Order>(
     [
       R.nthArg(1), // order id
@@ -67,24 +67,65 @@ export const getOrder: (State, number) => Order =
     ],
     R.prop, // return the order id from the map
   )(R.nthArg(1)) // cache by order id
-export const getOrderTotal: (State, number) => number = createCachedSelector(
+export const getOrderProducts: (state: State, id: string) => OrderProducts =
+  createCachedSelector<State, string, Order, OrderProducts>(
+    [
+      getOrder, // order for id
+    ],
+    R.compose(
+      R.map<OrderProduct, number, any>(R.prop('amount')),
+      R.indexBy(R.prop<any, OrderProduct>('product')), // index by the product id
+      R.prop('products'), // get the products from the order
+    ),
+  )(R.nthArg(1))
+export const getOrderTotal: (state: State, id: string) => number = createCachedSelector(
   [
     getProductsById,
-    getOrder,
+    getOrderProducts,
   ],
-  R.useWith(
-    calculateOrderTotal, // calculate the total
-    [
-      R.identity, // passthrough the products
-      R.compose(
-        R.map<OrderProduct, number, any>(R.prop('amount')),
-        R.indexBy(R.prop('product')), // index by the product id
-        R.prop('products'), // get the products from the order
-      ),
-    ],
-  ),
+  calculateOrderTotal, // calculate the total
 )(R.nthArg(1)) // cache by order id
-export const getOrdersTotal = (state: State) => R.compose(
+export const getOrdersTotal = (state: State): number => R.compose(
   R.sum, // sum all orders together
   R.map(R.partial(getOrderTotal, [ state ])), // calculate the total for each order
 )(getOrdersIds(state))
+export const getOrdersProducts = (state: State): Array<OrderProducts> => R.compose(
+  R.map(R.partial(getOrderProducts, [ state ])), // get the products for all the orders
+)(getOrdersIds(state))
+export const getOrdersWholeProducts: (state: State) => OrderProducts = createSelector(
+  [
+    getOrdersProducts,
+  ],
+  R.compose(
+    R.reduce(R.mergeWith(R.add), {}), // sum all values
+    R.map(R.map<number, number, any>(Math.floor)), // get only the integer part
+  ),
+)
+export const getOrdersWholeProductAmount: (state: State, id: string) => number =
+  createCachedSelector<State, string, any, OrderProducts, number>(
+    [
+      R.nthArg(1),
+      getOrdersWholeProducts,
+    ],
+    R.propOr(0),
+  )(R.nthArg(1))
+export const getOrdersFractionalProducts: (state: State) => OrderProducts = createSelector(
+  [
+    getOrdersProducts,
+  ],
+  R.compose(
+    R.reduce(R.mergeWith(R.add), {}),
+    R.map<OrderProduct, OrderProduct>(R.map<number, number, any>(R.compose(
+      Math.ceil, // round up
+      R.flip(R.modulo)(1), // remove the integer part
+    ))),
+  ),
+)
+export const getOrdersFractionalProductAmount: (state: State, id: string) => number =
+  createCachedSelector<State, string, any, OrderProducts, number>(
+    [
+      R.nthArg(1),
+      getOrdersFractionalProducts,
+    ],
+    R.propOr(0),
+  )(R.nthArg(1))

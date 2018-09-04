@@ -1,8 +1,6 @@
 // @flow
-export type OrderProductAmount = number
-
 export type OrderProducts = {
-  [string]: OrderProductAmount,
+  [string]: number,
 }
 
 export type OrderProduct = {

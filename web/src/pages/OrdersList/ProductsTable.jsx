@@ -1,10 +1,12 @@
+// @flow
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
-import { getOrdersIds } from 'data/order/selectors'
+import { getProductIds } from 'data/product/selectors'
+import { ProductDetails } from './ProductDetails'
 
 const mapStateToProps = (state) => ({
-  orders: getOrdersIds(state),
+  products: getProductIds(state),
 })
 
 const enhancer = compose(
@@ -12,7 +14,11 @@ const enhancer = compose(
   setDisplayName('ProductsTable'),
 )
 
-export const ProductsTable = enhancer(() => (
+type Props = {
+  products: Array<string>,
+}
+
+export const ProductsTable = enhancer(({ products }: Props) => (
   <Fragment>
     <h1>
       Productos
@@ -24,11 +30,20 @@ export const ProductsTable = enhancer(() => (
             Nombre
           </th>
           <th>
-            Cantidad
+            Fracción (1/2)
+          </th>
+          <th>
+            Entero
+          </th>
+          <th>
+            Total
           </th>
         </tr>
       </thead>
       <tbody>
+        {products.map((id) => (
+          <ProductDetails key={id} id={id} />
+        ))}
       </tbody>
     </table>
   </Fragment>
