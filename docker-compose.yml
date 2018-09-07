@@ -19,14 +19,15 @@ services:
   api:
     image: msa-api:latest
     build:
-      context: .
-      dockerfile: ./api/Dockerfile
+      context: ./api
+      dockerfile: ./Dockerfile
     links:
       - db
     volumes:
       - ./api:/opt/app
       - api_deps:/usr/local/lib/python3.7/site-packages
     environment:
+      - DJANGO_SECRET
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB

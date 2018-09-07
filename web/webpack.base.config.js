@@ -1,5 +1,4 @@
 /* eslint-env node */
-const webpack = require('webpack')
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -32,7 +31,7 @@ const config = {
       'src',
       'node_modules',
     ],
-    extensions: [ '.js', '.jsx'],
+    extensions: [ '.js', '.jsx' ],
   },
 
   optimization: {
@@ -55,26 +54,10 @@ const config = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: resolve(__dirname, 'src', 'index.html'),
-      includeGTM: false,
     }),
   ],
-
-  mode: 'development',
-
-  devtool: 'eval-source-map',
-
-  devServer: {
-    hotOnly: true,
-    contentBase: resolve(__dirname, 'src'),
-    historyApiFallback: true,
-    host: '0.0.0.0',
-    disableHostCheck: true,
-    port: '80',
-    publicPath: '/',
-  },
 }
 
 module.exports = config

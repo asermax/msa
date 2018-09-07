@@ -1,11 +1,12 @@
 {
   "name": "msa-web",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "author": "Agustin Carrasco <asermax at gmail dot com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --config webpack.dev.config.js",
+    "build": "webpack --config webpack.prod.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -28,7 +29,8 @@
     "react-hot-loader": "^4.3.5",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.7"
+    "webpack-dev-server": "^3.1.7",
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
