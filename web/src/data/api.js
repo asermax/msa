@@ -5,7 +5,7 @@ export const PRODUCT_ENTRYPOINT = 'api/entrypoint/product'
 export const ORDER_ENTRYPOINT = 'api/entrypoint/order'
 
 const baseWretch = wretch()
-  .url('http://localhost/api')
+  .url('/api')
 
 const modificationWretch = baseWretch
   .headers({
