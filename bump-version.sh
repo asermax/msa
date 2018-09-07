@@ -1,6 +1,6 @@
 # get version from argument
-VERSION=`git branch | sed -En "s/.*release\/(.*)/\1/p"`
-echo $VERSION
+VERSION=$1
+echo "Bumping to ${VERSION}"
 
 # update docker images
 sed -Ei "s/[0-9]\.[0-9]\.[0-9]/${VERSION}/" ./docker-compose.prod.yml
