@@ -1,0 +1,45 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB
+  proxy:
+    image: nginx:1.15.3-alpine
+    links:
+      - api
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+  api:
+    image: msa-api:latest
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    links:
+      - db
+    volumes:
+      - ./api:/opt/app
+      - api_deps:/usr/local/lib/python3.7/site-packages
+    environment:
+      - DJANGO_SECRET
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    entrypoint: /opt/app/entrypoint.sh
+    command: manage runserver 0.0.0.0:8000
+  web:
+    image: node:10.9.0-alpine
+    volumes:
+      - ./web:/opt/app
+    entrypoint: /opt/app/entrypoint.sh
+    command: start
+
+volumes:
+  database:
+  api_deps:
