@@ -1,6 +1,6 @@
 {
   "name": "msa-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "author": "Agustin Carrasco <asermax at gmail dot com>",
   "license": "MIT",
