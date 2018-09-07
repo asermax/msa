@@ -10,5 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir gunicorn
 
 EXPOSE 80
+ENV PYTHONPATH="/opt/app/src"
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["gunicorn", "--chdir=src", "msa.wsgi"]
+CMD ["gunicorn", "--config=python:msa.gunicorn", "msa.wsgi"]
