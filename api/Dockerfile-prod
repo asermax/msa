@@ -1,0 +1,14 @@
+FROM python:3.7.0-alpine
+LABEL maintainer="asermax@gmail.com"
+
+RUN apk add --no-cache bash gcc python-dev musl-dev postgresql-dev
+
+WORKDIR /opt/app
+COPY . ./
+COPY ./src/msa/settings_prod.py ./src/msa/settings.py
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir gunicorn
+
+EXPOSE 80
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["gunicorn", "--chdir=src", "msa.wsgi"]
