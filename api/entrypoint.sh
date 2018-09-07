@@ -1,8 +1,11 @@
 #!/bin/bash
-if [ $1 = 'manage' ]; then
-    cd "$(dirname $0)"
-    # wait for db to start
-    ./wait-for-it.sh db:5432
+SCRIPT_DIR="$(dirname $0)"
+
+# wait for db to start
+$SCRIPT_DIR/wait-for-it.sh db:5432
+
+if [[ $1 == 'manage' ]]; then
+    cd $SCRIPT_DIR
 
     # run manage command
     cd /opt/app/src
