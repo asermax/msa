@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { css } from 'emotion'
+import { mq } from 'styles/util'
 import { forRoute } from 'hocs/forRoute'
 import { ORDER_SUMMARY } from 'data/route/actions'
 import { getCurrentOrderProductsIds } from 'data/order/selectors'
@@ -43,10 +44,14 @@ const receiptContainer = css`
   justify-content: center;
 `
 const receipt = css`
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+
+  ${mq.mobile} {
+    width: 50%;
+  }
 `
 
 const receiptTitle = css`
