@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB
+  api:
+    image: msa-api-prod:0.1.0
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile-prod
+    links:
+      - db
+    environment:
+      - DJANGO_SECRET
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    restart: always
+  web:
+    image: msa-web-prod:0.1.0
+    build:
+      context: ./web
+      dockerfile: ./Dockerfile-prod
+    links:
+      - api
+    ports:
+      - 80:80
+    restart: always
+
+volumes:
+  database:
