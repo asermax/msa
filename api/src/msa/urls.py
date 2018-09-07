@@ -14,8 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.staticfiles import views as staticfiles_views
-from django.urls import path, re_path, include
+from django.urls import path, include
 from rest_framework import urls as rest_framework_urls
 
 from msa.router import ROUTER
@@ -24,5 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include(rest_framework_urls)),
     path('api/', include(ROUTER.urls)),
-    re_path(r'^static/(?P<path>.*)$', staticfiles_views.serve),
 ]
