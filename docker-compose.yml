@@ -27,6 +27,7 @@ services:
       - ./api:/opt/app
       - api_deps:/usr/local/lib/python3.7/site-packages
     environment:
+      - DJANGO_SECRET
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
