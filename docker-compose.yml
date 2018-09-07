@@ -19,8 +19,8 @@ services:
   api:
     image: msa-api:latest
     build:
-      context: .
-      dockerfile: ./api/Dockerfile
+      context: ./api
+      dockerfile: ./Dockerfile
     links:
       - db
     volumes:
