@@ -1,3 +1,5 @@
+// @flow
+import * as R from 'ramda'
 import wretch from 'wretch'
 import cookie from 'js-cookie'
 
@@ -17,12 +19,27 @@ const entrypointsMap = {
   [ORDER_ENTRYPOINT]: '/orders/',
 }
 
-export const apiGet = (entrypoint) => baseWretch
-  .url(entrypointsMap[entrypoint])
-  .get()
-  .json()
+export const apiGet = (entrypoint: string, params: {}): {} => R.compose(
+  R.invoker(0, 'json'),
+  R.invoker(0, 'get'),
+  R.when( // only add the query when there are params present
+    R.always(
+      R.compose(
+        R.not,
+        R.either(
+          R.isNil,
+          R.isEmpty,
+        ),
+      )(params),
+    ),
+    R.invoker(1, 'query')(params),
+  ),
+  R.tap(console.log),
+  R.invoker(1, 'url')(entrypointsMap[entrypoint]),
+  R.tap(console.log),
+)(baseWretch)
 
-export const apiPost = (entrypoint, data) => modificationWretch
+export const apiPost = (entrypoint: string, data: {}): {} => modificationWretch
   .url(entrypointsMap[entrypoint])
   .post(data)
   .json()
