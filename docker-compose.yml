@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   db:
     image: postgres:10.5-alpine
@@ -19,8 +19,8 @@ services:
   api:
     image: msa-api:latest
     build:
-      context: ./api
-      dockerfile: ./Dockerfile
+      context: .
+      target: api-dev
     links:
       - db
     volumes:
