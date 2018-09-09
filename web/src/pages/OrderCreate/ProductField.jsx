@@ -4,11 +4,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withHandlers, flattenProp, setPropTypes, setDisplayName } from 'recompose'
-import { css } from 'emotion'
 import { getProduct } from 'data/product/selectors'
 import { setCurrentOrderProductAmount } from 'data/order/actions'
 import { getCurrentOrderProductAmount } from 'data/order/selectors'
-import { hideOnMobile } from 'styles/util'
+import * as styles from './styles'
 
 const mapStateToProps = (state, { id }) => ({
   product: getProduct(state, id),
@@ -39,13 +38,13 @@ const enhancer = compose(
 export const ProductField = enhancer(({
   name, price, unit, minAmount, amount, onAmountChange,
 }) => (
-  <tr className={fieldRow}>
+  <tr className={styles.fieldRow}>
     <td>
       <label htmlFor={name}>
         {name}
       </label>
     </td>
-    <td className={hideOnMobile}>
+    <td className={styles.hideOnMobile}>
       x {unit}
     </td>
     <td>
@@ -58,26 +57,11 @@ export const ProductField = enhancer(({
         onChange={onAmountChange}
       />
     </td>
-    <td className={hideOnMobile}>
+    <td className={styles.hideOnMobile}>
       ${price}
     </td>
-    <td className={totalCell}>
+    <td className={styles.totalCell}>
       ${price * amount}
     </td>
   </tr>
 ))
-
-const fieldRow = css`
-  label {
-    font-weight: normal;
-  }
-
-  input {
-    margin: 0;
-  }
-`
-
-const totalCell = css`
-  text-align: right;
-  font-weight: bold;
-`

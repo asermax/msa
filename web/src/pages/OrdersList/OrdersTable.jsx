@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
-import { css } from 'emotion'
 import { getOrdersIds } from 'data/order/selectors'
 import { OrderDetails } from './OrderDetails'
 import { OrdersTotal } from './OrdersTotal'
+import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   orders: getOrdersIds(state),
@@ -26,7 +26,7 @@ export const OrdersTable = enhancer(({ orders }) => (
           <th>
             Nombre
           </th>
-          <th className={totalCell}>
+          <th className={styles.totalCell}>
             Total
           </th>
         </tr>
@@ -40,7 +40,3 @@ export const OrdersTable = enhancer(({ orders }) => (
     </table>
   </div>
 ))
-
-const totalCell = css`
-  text-align: right;
-`
