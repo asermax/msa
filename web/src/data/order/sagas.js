@@ -15,7 +15,7 @@ import {
 } from './selectors'
 import { orderSchema } from './schemas'
 
-const createOrder = function*(): Saga<*> {
+const createOrder: () => Saga<*> = function*() {
   const user = yield select(getCurrentOrderUser)
   const organization = yield select(getCurrentOrderOrganization)
   const products = yield select(getCurrentOrderProducts)
@@ -45,7 +45,7 @@ const createOrder = function*(): Saga<*> {
   }
 }
 
-const fetchOrders = function*(): Saga<*> {
+const fetchOrders: () => Saga<*> = function*() {
   const query = yield select(getQuery)
 
   try {
@@ -65,7 +65,7 @@ const fetchOrders = function*(): Saga<*> {
   }
 }
 
-export const orderSaga = function*(): Saga<*> {
+export const orderSaga: () => Saga<*> = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
     takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),
