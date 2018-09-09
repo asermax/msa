@@ -24,8 +24,7 @@ export const apiGet = (entrypoint: string, params: {}): {} => R.compose(
   R.invoker(0, 'get'),
   R.when( // only add the query when there are params present
     R.always(
-      R.compose(
-        R.not,
+      R.complement(
         R.either(
           R.isNil,
           R.isEmpty,
@@ -34,9 +33,7 @@ export const apiGet = (entrypoint: string, params: {}): {} => R.compose(
     ),
     R.invoker(1, 'query')(params),
   ),
-  R.tap(console.log),
   R.invoker(1, 'url')(entrypointsMap[entrypoint]),
-  R.tap(console.log),
 )(baseWretch)
 
 export const apiPost = (entrypoint: string, data: {}): {} => modificationWretch
