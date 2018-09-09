@@ -1,7 +1,11 @@
+// @flow
 import * as R from 'ramda'
+import * as RA from 'ramda-adjunct'
+import type { Saga } from 'redux-saga'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
 import { ORDER_ENTRYPOINT, apiGet, apiPost } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
+import { getQuery } from 'data/route/selectors'
 import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
@@ -11,7 +15,7 @@ import {
 } from './selectors'
 import { orderSchema } from './schemas'
 
-const createOrder = function*() {
+const createOrder: () => Saga<*> = function*() {
   const user = yield select(getCurrentOrderUser)
   const organization = yield select(getCurrentOrderOrganization)
   const products = yield select(getCurrentOrderProducts)
@@ -41,10 +45,19 @@ const createOrder = function*() {
   }
 }
 
-const fetchOrders = function*() {
+const fetchOrders: () => Saga<*> = function*() {
+  const query = yield select(getQuery)
+
   try {
-    // create the order first
-    const orders = yield call(apiGet, ORDER_ENTRYPOINT)
+    // fetch the orders for the given organization
+    const orders = yield call(
+      apiGet,
+      ORDER_ENTRYPOINT,
+      R.when(
+        R.compose(R.not, R.isNil),
+        RA.renameKeys({ org: 'organization' }),
+      )(query),
+    )
 
     yield put(fetchOrdersSuccess(orders))
   } catch(e) {
@@ -52,8 +65,7 @@ const fetchOrders = function*() {
   }
 }
 
-
-export const orderSaga = function*() {
+export const orderSaga: () => Saga<*> = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
     takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),

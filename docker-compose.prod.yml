@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   db:
     image: postgres:10.5-alpine
@@ -9,10 +9,10 @@ services:
       - POSTGRES_USER
       - POSTGRES_DB
   api:
-    image: msa-api-prod:0.1.2
+    image: msa-api-prod:0.1.3
     build:
-      context: ./api
-      dockerfile: ./Dockerfile-prod
+      context: .
+      target: api-prod
     links:
       - db
     environment:
@@ -22,10 +22,10 @@ services:
       - POSTGRES_DB
     restart: always
   web:
-    image: msa-web-prod:0.1.2
+    image: msa-web-prod:0.1.3
     build:
-      context: ./web
-      dockerfile: ./Dockerfile-prod
+      context: .
+      target: web-prod
     links:
       - api
     ports:

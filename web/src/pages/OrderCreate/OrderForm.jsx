@@ -1,15 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withHandlers, setDisplayName } from 'recompose'
-import { css } from 'emotion'
 import { setCurrentOrderUser, createOrder } from 'data/order/actions'
 import {
   getCurrentOrderUser, getCurrentOrderOrganization, isOrderValid,
 } from 'data/order/selectors'
 import { getProductIds } from 'data/product/selectors'
-import { hideOnMobile, mq } from 'styles/util'
 import { ProductField } from './ProductField'
 import { OrderTotal } from './OrderTotal'
+import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   user: getCurrentOrderUser(state),
@@ -67,12 +66,12 @@ export const OrderForm = enhancer(({
             <th>
               Producto
             </th>
-            <th className={hideOnMobile}>
+            <th className={styles.hideOnMobile}>
             </th>
             <th>
               Cantidad
             </th>
-            <th className={hideOnMobile}>
+            <th className={styles.hideOnMobile}>
               Precio
             </th>
             <th>
@@ -86,7 +85,7 @@ export const OrderForm = enhancer(({
         </tbody>
       </table>
     </fieldset>
-    <div className={buttonContainer}>
+    <div className={styles.buttonContainer}>
       <button
         type="submit"
         disabled={!isValid}
@@ -96,13 +95,3 @@ export const OrderForm = enhancer(({
     </div>
   </form>
 ))
-
-const buttonContainer = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  ${mq.mobile} {
-    align-items: end;
-  }
-`

@@ -1,8 +1,8 @@
 import React from 'react'
-import { css } from 'emotion'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { getOrdersTotal } from 'data/order/selectors'
+import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   total: getOrdersTotal(state),
@@ -15,22 +15,11 @@ const enhancer = compose(
 
 export const OrdersTotal = enhancer(({ total }) => (
   <tr>
-    <td className={titleCell}>
+    <td className={styles.titleCell}>
       Total
     </td>
-    <td className={totalCell}>
+    <td className={styles.totalCell}>
       ${total}
     </td>
   </tr>
 ))
-
-const titleCell = css`
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 130%;
-`
-
-const totalCell = css`
-  text-align: right;
-  font-weight: bold;
-`

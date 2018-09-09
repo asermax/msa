@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
-import { css } from 'emotion'
 import { getCurrentOrderTotal } from 'data/order/selectors'
+import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   orderTotal: getCurrentOrderTotal(state),
@@ -14,8 +14,8 @@ const enhancer = compose(
 )
 
 export const OrderTotal = enhancer(({ orderTotal }) => (
-  <div className={total}>
-    <div className={totalTitle}>
+  <div className={styles.total}>
+    <div className={styles.totalTitle}>
       Total
     </div>
     <div>
@@ -23,16 +23,3 @@ export const OrderTotal = enhancer(({ orderTotal }) => (
     </div>
   </div>
 ))
-
-const total = css`
-  display: flex;
-  flex-direction: row;
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-`
-
-const totalTitle = css`
-  padding-left: 10%;
-  flex-grow: 1;
-`

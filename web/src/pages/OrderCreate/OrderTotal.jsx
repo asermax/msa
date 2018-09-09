@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
-import { css } from 'emotion'
 import { getCurrentOrderTotal } from 'data/order/selectors'
-import { hideOnMobile } from 'styles/util'
+import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   orderTotal: getCurrentOrderTotal(state),
@@ -16,25 +15,14 @@ const enhancer = compose(
 
 export const OrderTotal = enhancer(({ orderTotal }) => (
   <tr>
-    <td className={titleCell}>
+    <td className={styles.titleCell}>
       Total
     </td>
-    <td className={hideOnMobile}></td>
+    <td className={styles.hideOnMobile}></td>
     <td></td>
-    <td className={hideOnMobile}></td>
-    <td className={totalCell}>
+    <td className={styles.hideOnMobile}></td>
+    <td className={styles.totalCell}>
       ${orderTotal}
     </td>
   </tr>
 ))
-
-const titleCell = css`
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 130%;
-`
-
-const totalCell = css`
-  text-align: right;
-  font-weight: bold;
-`
