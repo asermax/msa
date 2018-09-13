@@ -5,4 +5,5 @@ import consumer.views
 
 ROUTER = routers.DefaultRouter()
 ROUTER.register('products', producer.views.ProductViewSet)
+ROUTER.register('producers', producer.views.ProducerViewSet)
 ROUTER.register('orders', consumer.views.OrderViewSet)
