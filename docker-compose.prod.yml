@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_DB
   api:
-    image: msa-api-prod:0.1.4
+    image: msa-api-prod:0.1.5
     build:
       context: .
       target: api-prod
@@ -22,13 +22,14 @@ services:
       - POSTGRES_DB
     restart: always
   web:
-    image: msa-web-prod:0.1.4
+    image: msa-web-prod:0.1.5
     build:
       context: .
       target: web-prod
     links:
       - api
     ports:
+      - 80:80
       - 443:443
     volumes:
       - /etc/localtime:/etc/localtime:ro
