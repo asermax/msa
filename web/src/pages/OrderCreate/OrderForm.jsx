@@ -40,7 +40,7 @@ export const OrderForm = enhancer(({
   <form onSubmit={onSubmit}>
     <fieldset>
       <label htmlFor="name">
-      Organization*
+        Organización*
       </label>
       <input
         type="text"

@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_DB
   api:
-    image: msa-api-prod:0.1.3
+    image: msa-api-prod:0.1.4
     build:
       context: .
       target: api-prod
@@ -22,15 +22,37 @@ services:
       - POSTGRES_DB
     restart: always
   web:
-    image: msa-web-prod:0.1.3
+    image: msa-web-prod:0.1.4
     build:
       context: .
       target: web-prod
     links:
       - api
     ports:
-      - 80:80
+      - 443:443
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - letsencrypt:/etc/letsencrypt
+      - temp:/tmp/letsencrypt
+    environment:
+      - LE_RENEW_HOOK=docker kill -s HUP @CONTAINER_NAME@
     restart: always
+  letsencrypt:
+    restart: always
+    image: kvaps/letsencrypt-webroot
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - letsencrypt:/etc/letsencrypt
+      - temp:/tmp/letsencrypt
+    links:
+      - web
+    environment:
+      - DOMAINS=msalimentaria.com.ar
+      - EMAIL=asermax@gmail.com
+      - WEBROOT_PATH=/tmp/letsencrypt
 
 volumes:
   database:
+  letsencrypt:
+  temp:
