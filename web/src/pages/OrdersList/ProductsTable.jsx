@@ -35,9 +35,6 @@ export const ProductsTable = enhancer(({ products }: Props) => (
           <th>
             Entero
           </th>
-          <th>
-            Total
-          </th>
         </tr>
       </thead>
       <tbody>
