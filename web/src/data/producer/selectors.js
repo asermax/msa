@@ -1,7 +1,11 @@
 // @flow
 import type { State } from 'data/types'
+import type { ProductsIds } from 'data/product/types'
 import type { Producer, ProducersIds, ProducersById } from './types'
 import * as R from 'ramda'
+import { getQuery } from 'data/route/selectors'
+import { getProductsIds, getProductsById } from 'data/product/selectors'
+import { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 
 export const getProducersIds: (State) => ProducersIds = R.compose(
@@ -31,3 +35,30 @@ export const getProducerBySlug: (State, slug: string) => ?Producer =
       R.values,
     )(producers),
   )(R.nthArg(1))  // memoize by id
+
+// current
+export const getCurrentProducerSlug = createSelector(
+  [ getQuery ],
+  R.prop('prod'),
+)
+export const getCurrentProducer: (State) => ?Producer = (state) => R.unless(
+  R.isNil,
+  R.partial(getProducerBySlug, [ state ]),
+)(getCurrentProducerSlug(state))
+export const getCurrentProducerProducts: (State) => ProductsIds = createSelector(
+  [
+    getProductsIds,
+    getProductsById,
+    getCurrentProducer,
+  ],
+  (productsIds, products, producer) => {
+    if (producer != null) {
+      return R.filter(R.compose(
+        R.propEq('producer')(producer.id),
+        R.prop(R.__, products),
+      ))(productsIds)
+    } else {
+      return productsIds
+    }
+  },
+)
