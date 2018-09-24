@@ -1,11 +1,13 @@
 // @flow
 import type { State } from 'data/types'
+import type { Producer, ProducersIds } from 'data/producer/types'
 import type { Product, ProductsById } from 'data/product/types'
-import type { OrderProducts, OrderProduct, Order, OrdersById } from './types'
+import type { OrderProducts, OrderProduct, Order, OrdersIds, OrdersById } from './types'
 import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getQuery } from 'data/route/selectors'
+import { getProducerBySlug } from 'data/producer/selectors'
 import { getProductsById } from 'data/product/selectors'
 import { orderSchema } from './schemas'
 
@@ -66,6 +68,14 @@ export const isOrderValid = createSelector(
 // general
 export const getOrdersIds = R.compose(R.prop('ids'), R.prop('order'))
 export const getOrdersById = R.compose(R.prop('byId'), R.prop('order'))
+export const getCurrentProducerSlug = createSelector(
+  [ getQuery ],
+  R.prop('prod'),
+)
+export const getCurrentProducer: (State) => ?Producer = (state) => R.unless(
+  R.isNil,
+  R.partial(getProducerBySlug, [ state ]),
+)(getCurrentProducerSlug(state))
 export const getOrder: (state: State, id: string) => Order =
   createCachedSelector<State, any, OrdersById, Order>(
     [
@@ -74,7 +84,7 @@ export const getOrder: (state: State, id: string) => Order =
     ],
     R.prop, // return the order id from the map
   )(R.nthArg(1)) // cache by order id
-export const getOrderProducts: (state: State, id: string) => OrderProducts =
+export const getOrderProducts: (State, id: string) => OrderProducts =
   createCachedSelector<State, string, Order, OrderProducts>(
     [
       getOrder, // order for id
@@ -92,14 +102,41 @@ export const getOrderTotal: (state: State, id: string) => number = createCachedS
   ],
   calculateOrderTotal, // calculate the total
 )(R.nthArg(1)) // cache by order id
+
+export const getOrderProducers: (State, id: string) => ProducersIds = createCachedSelector(
+  [
+    getOrderProducts,
+    getProductsById,
+  ],
+  (orderProducts, products) => R.compose(
+    R.pluck('producer'),
+    R.map(R.prop(R.__, products)),
+    R.keys,
+  )(orderProducts),
+)(R.nthArg(1))
+export const getFilteredOrdersIds: (State) => OrdersIds = (state) => {
+  const producer = getCurrentProducer(state)
+  const ordersIds = getOrdersIds(state)
+
+  if (producer != null) {
+    return R.filter(
+      R.compose(
+        R.contains(producer.id),
+        R.partial(getOrderProducers, [ state ]),
+      ),
+    )(ordersIds)
+  } else {
+    return ordersIds
+  }
+}
 export const getOrdersTotal = (state: State): number => R.compose(
   R.sum, // sum all orders together
   R.map(R.partial(getOrderTotal, [ state ])), // calculate the total for each order
-)(getOrdersIds(state))
+)(getFilteredOrdersIds(state))
 
 export const getOrdersProducts = (state: State): Array<OrderProducts> => R.compose(
   R.map(R.partial(getOrderProducts, [ state ])), // get the products for all the orders
-)(getOrdersIds(state))
+)(getFilteredOrdersIds(state))
 export const getOrdersWholeProducts: (state: State) => OrderProducts = createSelector(
   [
     getOrdersProducts,
