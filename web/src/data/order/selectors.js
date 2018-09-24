@@ -9,6 +9,7 @@ import { getQuery } from 'data/route/selectors'
 import { getProductsById } from 'data/product/selectors'
 import { orderSchema } from './schemas'
 
+// helpers
 const calculateOrderTotal = (products: ProductsById, orderProducts: OrderProducts): number =>
   R.compose(
     R.sum,
@@ -23,12 +24,16 @@ const calculateOrderTotal = (products: ProductsById, orderProducts: OrderProduct
     ),
   )(orderProducts)
 
+// orden creation
 export const getCurrentOrderUser = R.path([ 'order', 'user' ])
 export const getCurrentOrderOrganization = createSelector(
   [ getQuery ],
   R.prop('org'),
 )
-export const getCurrentOrderProducts: (State) => OrderProducts = R.path([ 'order', 'products' ])
+export const getCurrentOrderProducts: (State) => OrderProducts = R.compose(
+  R.prop('products'),
+  R.prop('order'),
+)
 export const getCurrentOrderProductsIds: (State) => Array<string> = createSelector(
   [ getCurrentOrderProducts ],
   R.keys,
@@ -57,8 +62,10 @@ export const isOrderValid = createSelector(
     ),
   ),
 )
-export const getOrdersIds = R.path([ 'order', 'ids' ])
-export const getOrdersById = R.path([ 'order', 'byId' ])
+
+// general
+export const getOrdersIds = R.compose(R.prop('ids'), R.prop('order'))
+export const getOrdersById = R.compose(R.prop('byId'), R.prop('order'))
 export const getOrder: (state: State, id: string) => Order =
   createCachedSelector<State, any, OrdersById, Order>(
     [
@@ -89,6 +96,7 @@ export const getOrdersTotal = (state: State): number => R.compose(
   R.sum, // sum all orders together
   R.map(R.partial(getOrderTotal, [ state ])), // calculate the total for each order
 )(getOrdersIds(state))
+
 export const getOrdersProducts = (state: State): Array<OrderProducts> => R.compose(
   R.map(R.partial(getOrderProducts, [ state ])), // get the products for all the orders
 )(getOrdersIds(state))
@@ -109,13 +117,14 @@ export const getOrdersWholeProductAmount: (state: State, id: string) => number =
     ],
     R.propOr(0),
   )(R.nthArg(1))
+
 export const getOrdersFractionalProducts: (state: State) => OrderProducts = createSelector(
   [
     getOrdersProducts,
   ],
   R.compose(
     R.reduce(R.mergeWith(R.add), {}),
-    R.map<OrderProduct, OrderProduct>(R.map<number, number, any>(R.compose(
+    R.map<OrderProducts, OrderProducts>(R.map<number, number, any>(R.compose(
       Math.ceil, // round up
       R.flip(R.modulo)(1), // remove the integer part
     ))),
