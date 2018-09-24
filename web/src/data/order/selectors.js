@@ -90,8 +90,12 @@ export const getOrderTotal: (state: State, id: string) => number = createCachedS
   [
     getProductsById,
     getOrderProducts,
+    getCurrentProducerProducts,
   ],
-  calculateOrderTotal, // calculate the total
+  (products, orderProducts, producerProducts) => R.compose(
+    R.partial(calculateOrderTotal, [ products ]), // calculate the total
+    R.pick(producerProducts),
+  )(orderProducts),
 )(R.nthArg(1)) // cache by order id
 
 export const getFilteredOrdersIds: (State) => OrdersIds = createSelector(
