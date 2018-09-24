@@ -1509,13 +1509,13 @@ declare module ramda {
     o: ?A
   ): V | T;
 
-  declare function pick<A>(
-    keys: Array<string>,
-  ): (val: { [key: string]: A }) => { [key: string]: A };
-  declare function pick<A>(
-    keys: Array<string>,
-    val: { [key: string]: A }
-  ): { [key: string]: A };
+  declare function pick <T>(
+    keys: Array<$Keys<T>>
+  ): (T) => $Shape<T>;
+  declare function pick <T>(
+    keys: Array<$Keys<T>>,
+    val: T
+  ): $Shape<T>;
 
   declare function pickAll<A>(
     keys: Array<string>,
