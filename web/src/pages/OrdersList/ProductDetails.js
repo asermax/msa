@@ -1,9 +1,10 @@
 // @flow
 import type { State } from 'data/types'
 import type { Product } from 'data/product/types'
+import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-import { compose, withProps, setDisplayName, type HOC } from 'recompose'
+import { compose, branch, renderNothing, withProps, setDisplayName, type HOC } from 'recompose'
 import { getProduct } from 'data/product/selectors'
 import {
   getOrdersWholeProductAmount, getOrdersFractionalProductAmount,
@@ -32,6 +33,10 @@ const mapStateToProps = (state: State, { id }: Props): StateProps => ({
 const connector: HOC<StateProps, Props> = connect(mapStateToProps)
 const enhancer: HOC<EnhancedProps, Props> = compose(
   connector,
+  branch(
+    R.compose(R.all(R.equals(0)), R.values, R.pick<StateProps>([ 'whole', 'fraction' ])),
+    renderNothing,
+  ),
   withProps(({ product }: StateProps) => ({
     name: product.name,
   })),
