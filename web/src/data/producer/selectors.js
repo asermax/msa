@@ -45,6 +45,8 @@ export const getCurrentProducer: (State) => ?Producer = (state) => R.unless(
   R.isNil,
   R.partial(getProducerBySlug, [ state ]),
 )(getCurrentProducerSlug(state))
+
+export const propIfExists = (prop: string, obj: ?{}) => R.unless(R.isNil, R.prop(prop))(obj)
 export const getCurrentProducerProducts: (State) => ProductsIds = createSelector(
   [
     getProductsIds,
@@ -52,13 +54,12 @@ export const getCurrentProducerProducts: (State) => ProductsIds = createSelector
     getCurrentProducer,
   ],
   (productsIds, products, producer) => {
-    if (producer != null) {
-      return R.filter(R.compose(
-        R.propEq('producer')(producer.id),
+    return R.unless(
+      R.always(producer !== null),
+      R.filter(R.compose(
+        R.propEq('producer')(propIfExists('id', producer)),
         R.prop(R.__, products),
-      ))(productsIds)
-    } else {
-      return productsIds
-    }
+      )),
+    )(productsIds)
   },
 )
