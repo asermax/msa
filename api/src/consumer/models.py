@@ -20,6 +20,11 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         verbose_name='organización',
     )
+    operative = models.ForeignKey(
+        'operative.Operative',
+        on_delete=models.CASCADE,
+        verbose_name='operativo',
+    )
     created = models.DateTimeField(auto_now_add=True, verbose_name='fecha de creación')
 
     class Meta:
