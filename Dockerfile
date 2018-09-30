@@ -30,7 +30,7 @@ FROM api-prod AS api-static
 RUN DJANGO_SECRET=placeholder /opt/app/src/manage.py collectstatic --noinput
 
 # Web base build
-FROM node:10.9.0-alpine AS web-base
+FROM node:10.11.0-alpine AS web-base
 
 WORKDIR /opt/app
 COPY web ./
@@ -38,7 +38,7 @@ RUN yarn install
 RUN yarn build
 
 # Web prod build
-FROM nginx:1.15.3-alpine AS web-prod
+FROM nginx:1.15.4-alpine AS web-prod
 LABEL maintainer="asermax@gmail.com"
 
 COPY --from=web-base /opt/app/dist /usr/share/nginx/html
