@@ -5,7 +5,7 @@ import { setCurrentOrderUser, createOrder } from 'data/order/actions'
 import {
   getCurrentOrderUser, getCurrentOrderOrganization, isOrderValid,
 } from 'data/order/selectors'
-import { getProductIds } from 'data/product/selectors'
+import { getProductsIds } from 'data/product/selectors'
 import { ProductField } from './ProductField'
 import { OrderTotal } from './OrderTotal'
 import * as styles from './styles'
@@ -13,7 +13,7 @@ import * as styles from './styles'
 const mapStateToProps = (state) => ({
   user: getCurrentOrderUser(state),
   organization: getCurrentOrderOrganization(state),
-  products: getProductIds(state),
+  products: getProductsIds(state),
   isValid: isOrderValid(state),
 })
 

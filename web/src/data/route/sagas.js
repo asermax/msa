@@ -1,6 +1,9 @@
+//  @flow
 import * as R from 'ramda'
+import type { Saga } from 'redux-saga'
 import { call, select, put, actionChannel, take } from 'redux-saga/effects'
 import { fetchProducts } from 'data/product/actions'
+import { fetchProducers } from 'data/producer/actions'
 import { fetchOrders } from 'data/order/actions'
 import {
   NOT_FOUND, INDEX, ORDER_CREATE, ORDERS_LIST,
@@ -22,6 +25,7 @@ const onOrderCreate = function*() {
 }
 
 const onOrdersList = function*() {
+  yield put(fetchProducers())
   yield put(fetchProducts())
   yield put(fetchOrders())
 }
@@ -33,7 +37,7 @@ const mapRouteToSaga = {
   [ORDERS_LIST]: onOrdersList,
 }
 
-export const routeInitSaga = function*() {
+export const routeInitSaga: () => Saga<*> = function*() {
   const channel = yield actionChannel(Object.keys(mapRouteToSaga))
 
   do {

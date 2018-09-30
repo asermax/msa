@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import wretch from 'wretch'
 import cookie from 'js-cookie'
 
+export const PRODUCER_ENTRYPOINT = 'api/entrypoint/producer'
 export const PRODUCT_ENTRYPOINT = 'api/entrypoint/product'
 export const ORDER_ENTRYPOINT = 'api/entrypoint/order'
 
@@ -15,11 +16,12 @@ const modificationWretch = baseWretch
   })
 
 const entrypointsMap = {
+  [PRODUCER_ENTRYPOINT]: '/producers/',
   [PRODUCT_ENTRYPOINT]: '/products/',
   [ORDER_ENTRYPOINT]: '/orders/',
 }
 
-export const apiGet = (entrypoint: string, params: {}): {} => R.compose(
+export const apiGet = (entrypoint: string, params: ?{}): {} => R.compose(
   R.invoker(0, 'json'),
   R.invoker(0, 'get'),
   R.when( // only add the query when there are params present

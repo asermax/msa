@@ -4,18 +4,26 @@ export type OrderProducts = {
 }
 
 export type OrderProduct = {
-  product: number,
+  product: string,
   amount: number,
 }
 
 export type Order = {
-  id: number,
+  id: string,
   user: string,
   organization: string,
   created: number,
   products: Array<OrderProduct>,
 }
 
+// state
+export type OrdersIds = string[]
 export type OrdersById = {
   [string]: Order,
+}
+
+export type OrderState = {
+  ids: OrdersIds,
+  byId: OrdersById,
+  products: OrderProducts,
 }

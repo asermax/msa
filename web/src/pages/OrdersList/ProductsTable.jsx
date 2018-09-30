@@ -2,11 +2,11 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
-import { getProductIds } from 'data/product/selectors'
+import { getProductsIds } from 'data/product/selectors'
 import { ProductDetails } from './ProductDetails'
 
 const mapStateToProps = (state) => ({
-  products: getProductIds(state),
+  products: getProductsIds(state),
 })
 
 const enhancer = compose(
@@ -34,9 +34,6 @@ export const ProductsTable = enhancer(({ products }: Props) => (
           </th>
           <th>
             Entero
-          </th>
-          <th>
-            Total
           </th>
         </tr>
       </thead>

@@ -1,11 +1,14 @@
 // @flow
 import type { State } from 'data/types'
-import type { Product, ProductsById } from './types'
+import type { Product, ProductsIds, ProductsById } from './types'
 import * as R from 'ramda'
 import createCachedSelector from 're-reselect'
 
-export const getProductIds: (State) => Array<string> = R.path([ 'product', 'ids' ])
-export const getProductsById: (State) => ProductsById = R.path([ 'product', 'byId' ])
+export const getProductsIds: (State) => ProductsIds = R.compose(R.prop('ids'), R.prop('product'))
+export const getProductsById: (State) => ProductsById = R.compose(
+  R.prop('byId'),
+  R.prop('product'),
+)
 export const getProduct: (State, id: string) => Product =
   createCachedSelector<State, any, ProductsById, Product>(
     [
