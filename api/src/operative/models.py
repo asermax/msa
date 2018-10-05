@@ -14,7 +14,7 @@ class Operative(models.Model):
     objects = OperativeQueryset.as_manager()
 
     class Meta:
-        get_latest_by = ('-start_date',)
+        get_latest_by = ('start_date',)
         verbose_name = 'operativo'
 
     def __str__(self):
