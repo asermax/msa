@@ -1,6 +1,11 @@
 from django.db import models
 
 
+class ProductQueryset(models.QuerySet):
+    def only_enabled(self):
+        return self.exclude(disabled=True)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200, verbose_name='nombre')
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name='precio')
@@ -10,7 +15,10 @@ class Product(models.Model):
         decimal_places=2,
         verbose_name='cantidad mínima',
     )
+    disabled = models.BooleanField(default=False)
     producer = models.ForeignKey('producer.Producer', models.CASCADE, verbose_name='productor')
+
+    objects = ProductQueryset.as_manager()
 
     class Meta:
         ordering = ('id',)
