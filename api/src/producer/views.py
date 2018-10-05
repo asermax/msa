@@ -5,7 +5,7 @@ from . import serializers
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = models.Product.objects.all()
+    queryset = models.Product.objects.only_enabled()
     serializer_class = serializers.ProductSerializer
 
 
