@@ -15,14 +15,10 @@ def forward(apps, schema_editor):
 
 
 def backward(apps, schema_editor):
-    Producer = apps.get_model('producer', 'Producer')
     Product = apps.get_model('producer', 'Product')
 
     # remove the producer from all existing products
     Product.objects.update(producer=None)
-
-    # delete all producers
-    Producer.objects.all().delete()
 
 
 class Migration(migrations.Migration):
