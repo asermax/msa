@@ -1,3 +1,4 @@
+/* globals process */
 // @flow
 import * as R from 'ramda'
 import wretch from 'wretch'
@@ -22,22 +23,25 @@ const entrypointsMap = {
   [ORDER_ENTRYPOINT]: '/orders/',
 }
 
-export const apiGet = (entrypoint: string, params: ?{}): {} => R.compose(
-  R.invoker(0, 'json'),
-  R.invoker(0, 'get'),
-  R.when( // only add the query when there are params present
-    R.always(
-      R.complement(
-        R.either(
-          R.isNil,
-          R.isEmpty,
-        ),
-      )(params),
-    ),
-    R.invoker(1, 'query')(params),
-  ),
-  R.invoker(1, 'url')(entrypointsMap[entrypoint]),
-)(baseWretch)
+export const apiGet: (string, ?{ segments?: string[], params?: {} }) => {} =
+  (entrypoint, options) => {
+    let wretch = baseWretch.url(entrypointsMap[entrypoint])
+
+    if (options && options.segments) {
+      wretch = wretch.url(
+        R.compose(
+          R.join('/'),
+          R.defaultTo([]),
+        )(options.segments),
+      )
+    }
+
+    if (options && options.params) {
+      wretch = wretch.query(options.params)
+    }
+
+    return wretch.get().json()
+  }
 
 export const apiPost = (entrypoint: string, data: {}): {} => modificationWretch
   .url(entrypointsMap[entrypoint])
