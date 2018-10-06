@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.config.js",
-    "build": "webpack --config webpack.prod.config.js"
+    "build": "webpack --config webpack.prod.config.js",
+    "build-emails": "webpack --config webpack.email.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -35,6 +36,7 @@
     "emotion": "^9.2.10",
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",
+    "node-fetch": "^2.2.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "ramda": "^0.25.0",
@@ -43,11 +45,13 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-emotion": "^9.2.10",
+    "react-html-email": "^3.0.0",
     "react-redux": "^5.0.7",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
     "redux-first-router": "^0.0.16-next",
     "redux-first-router-link": "^1.4.2",
+    "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "rxjs": "^6.3.3",
