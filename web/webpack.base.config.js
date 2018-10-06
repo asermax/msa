@@ -1,6 +1,5 @@
 /* eslint-env node */
 const { resolve } = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
@@ -55,7 +54,6 @@ const config = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin([ 'BASE_URL' ]),
     new HtmlWebpackPlugin({
       template: resolve(__dirname, 'src', 'index.html'),
     }),
