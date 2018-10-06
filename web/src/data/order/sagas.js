@@ -9,6 +9,7 @@ import { getQuery } from 'data/route/selectors'
 import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
+  FETCH_ORDER_REQUEST, fetchOrderSuccess, fetchOrderFailure,
 } from './actions'
 import {
   getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts,
@@ -65,9 +66,23 @@ const fetchOrders: () => Saga<*> = function*() {
   }
 }
 
+const fetchOrder: ({ payload: string }) => Saga<*> = function*(action) {
+  const orderId = action.payload
+
+  try {
+    // fetch the orders for the given organization
+    const order = yield call(apiGet, ORDER_ENTRYPOINT, { segments: [ orderId ] })
+
+    yield put(fetchOrderSuccess(order))
+  } catch(e) {
+    yield put(fetchOrderFailure(e.message))
+  }
+}
+
 export const orderSaga: () => Saga<*> = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
     takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),
+    takeLatest(FETCH_ORDER_REQUEST, fetchOrder),
   ])
 }
