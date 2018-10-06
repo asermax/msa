@@ -8,6 +8,7 @@ export const PRODUCT_ENTRYPOINT = 'api/entrypoint/product'
 export const ORDER_ENTRYPOINT = 'api/entrypoint/order'
 
 const baseWretch = wretch()
+  .url(R.defaultTo('', process.env.BASE_URL))
   .url('/api')
 
 const modificationWretch = baseWretch
