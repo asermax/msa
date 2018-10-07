@@ -7,7 +7,7 @@ const enhancer = compose(
   setPropTypes({
     name: PropTypes.string.isRequired,
     unit: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
   }),
   setDisplayName('Product'),
@@ -22,7 +22,7 @@ export const Product = enhancer(({ name, unit, price, amount }) => (
       <b>{name}</b> <i>x {unit}</i>
     </div>
     <div className={styles.productTotal}>
-      ${amount * price}
+      ${amount * parseFloat(price)}
     </div>
   </div>
 ))
