@@ -139,7 +139,7 @@ export const getOrdersFractionalProducts = createSelector(
   ],
   R.compose(
     R.reduce(R.mergeWith(R.add), {}),
-    R.map(R.map<number, number, any>(R.compose(
+    R.map(R.map(R.compose(
       Math.ceil, // round up
       R.flip(R.modulo)(1), // remove the integer part
     ))),
