@@ -1,7 +1,5 @@
-// @flow
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
-import type { Saga } from 'redux-saga'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
 import { ORDER_ENTRYPOINT, apiGet, apiPost } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
@@ -16,7 +14,7 @@ import {
 } from './selectors'
 import { orderSchema } from './schemas'
 
-const createOrder: () => Saga<*> = function*() {
+const createOrder = function*() {
   const user = yield select(getCurrentOrderUser)
   const organization = yield select(getCurrentOrderOrganization)
   const products = yield select(getCurrentOrderProducts)
@@ -46,7 +44,7 @@ const createOrder: () => Saga<*> = function*() {
   }
 }
 
-const fetchOrders: () => Saga<*> = function*() {
+const fetchOrders = function*() {
   const query = yield select(getQuery)
 
   try {
@@ -66,7 +64,7 @@ const fetchOrders: () => Saga<*> = function*() {
   }
 }
 
-const fetchOrder: ({ payload: string }) => Saga<*> = function*(action) {
+const fetchOrder = function*(action) {
   const orderId = action.payload
 
   try {
@@ -79,7 +77,7 @@ const fetchOrder: ({ payload: string }) => Saga<*> = function*(action) {
   }
 }
 
-export const orderSaga: () => Saga<*> = function*() {
+export const orderSaga = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
     takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),

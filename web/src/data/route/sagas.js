@@ -1,6 +1,4 @@
-//  @flow
 import * as R from 'ramda'
-import type { Saga } from 'redux-saga'
 import { call, select, put, actionChannel, take } from 'redux-saga/effects'
 import { fetchProducts } from 'data/product/actions'
 import { fetchProducers } from 'data/producer/actions'
@@ -37,7 +35,7 @@ const mapRouteToSaga = {
   [ORDERS_LIST]: onOrdersList,
 }
 
-export const routeInitSaga: () => Saga<*> = function*() {
+export const routeInitSaga = function*() {
   const channel = yield actionChannel(Object.keys(mapRouteToSaga))
 
   do {

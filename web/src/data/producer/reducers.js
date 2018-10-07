@@ -1,11 +1,9 @@
-// @flow
 import * as R from 'ramda'
 import { combineReducers } from 'redux'
-import type { Action, ProducersIds, ProducersById } from './types'
 import { FETCH_PRODUCERS_SUCCESS } from './actions'
 
 const idsDefault = []
-const ids = (state: ProducersIds = idsDefault, action: Action): ProducersIds => {
+const ids = (state = idsDefault, action) => {
   switch (action.type) {
     case FETCH_PRODUCERS_SUCCESS:
       return R.compose(
@@ -18,7 +16,7 @@ const ids = (state: ProducersIds = idsDefault, action: Action): ProducersIds => 
 }
 
 const byIdDefault = {}
-const byId = (state: ProducersById = byIdDefault, action: Action): ProducersById => {
+const byId = (state = byIdDefault, action) => {
   switch (action.type) {
     case FETCH_PRODUCERS_SUCCESS:
       return R.compose(

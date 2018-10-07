@@ -1,4 +1,3 @@
-// @flow
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
@@ -14,11 +13,7 @@ const enhancer = compose(
   setDisplayName('ProductsTable'),
 )
 
-type Props = {
-  products: Array<string>,
-}
-
-export const ProductsTable = enhancer(({ products }: Props) => (
+export const ProductsTable = enhancer(({ products }) => (
   <Fragment>
     <h1>
       Productos

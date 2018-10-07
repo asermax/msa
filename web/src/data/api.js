@@ -1,5 +1,4 @@
 /* globals process */
-// @flow
 import * as R from 'ramda'
 import wretch from 'wretch'
 import cookie from 'js-cookie'
@@ -23,27 +22,26 @@ const entrypointsMap = {
   [ORDER_ENTRYPOINT]: '/orders/',
 }
 
-export const apiGet: (string, ?{ segments?: string[], params?: {} }) => {} =
-  (entrypoint, options) => {
-    let wretch = baseWretch.url(entrypointsMap[entrypoint])
+export const apiGet = (entrypoint, options) => {
+  let wretch = baseWretch.url(entrypointsMap[entrypoint])
 
-    if (options && options.segments) {
-      wretch = wretch.url(
-        R.compose(
-          R.join('/'),
-          R.defaultTo([]),
-        )(options.segments),
-      )
-    }
-
-    if (options && options.params) {
-      wretch = wretch.query(options.params)
-    }
-
-    return wretch.get().json()
+  if (options && options.segments) {
+    wretch = wretch.url(
+      R.compose(
+        R.join('/'),
+        R.defaultTo([]),
+      )(options.segments),
+    )
   }
 
-export const apiPost = (entrypoint: string, data: {}): {} => modificationWretch
+  if (options && options.params) {
+    wretch = wretch.query(options.params)
+  }
+
+  return wretch.get().json()
+}
+
+export const apiPost = (entrypoint, data) => modificationWretch
   .url(entrypointsMap[entrypoint])
   .post(data)
   .json()
