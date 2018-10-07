@@ -11,7 +11,7 @@ const enhancer = compose(
 )
 
 export const Summary = enhancer((({ slots, className, ...props }) => (
-  <Paper className={`${styles.receipt} className`} {...props}>
+  <Paper className={`${styles.receipt} ${className}`} {...props}>
     {slots.title}
     {slots.products}
     <Separator />
