@@ -4,7 +4,7 @@ import { Total } from 'components/OrderSummary'
 import { getCurrentOrderTotal } from 'data/order/selectors'
 
 const mapStateToProps = (state) => ({
-  orderTotal: getCurrentOrderTotal(state),
+  total: getCurrentOrderTotal(state),
 })
 
 const enhancer = compose(

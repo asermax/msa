@@ -5,18 +5,18 @@ import * as styles from './styles'
 
 const enhancer = compose(
   setPropTypes({
-    orderTotal: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
   }),
   setDisplayName('Total'),
 )
 
-export const Total = enhancer(({ orderTotal }) => (
+export const Total = enhancer(({ total }) => (
   <div className={styles.total}>
     <div className={styles.totalTitle}>
       Total
     </div>
     <div>
-      ${orderTotal}
+      ${total}
     </div>
   </div>
 ))
