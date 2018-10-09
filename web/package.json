@@ -46,6 +46,7 @@
     "ramda-adjunct": "^2.10.0",
     "re-reselect": "^2.1.0",
     "react": "^16.5.2",
+    "react-close-on-escape": "^3.0.0",
     "react-dom": "^16.5.2",
     "react-emotion": "^9.2.10",
     "react-html-email": "^3.0.0",
