@@ -39,6 +39,7 @@
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",
     "node-fetch": "^2.2.0",
+    "polished": "^2.2.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "ramda": "^0.25.0",
