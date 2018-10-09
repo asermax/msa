@@ -283,16 +283,6 @@ injectGlobal`
     text-align: left;
   }
 
-  td:first-child,
-  th:first-child {
-    padding-left: 0;
-  }
-
-  td:last-child,
-  th:last-child {
-    padding-right: 0;
-  }
-
   b,
   strong {
     font-weight: bold;
