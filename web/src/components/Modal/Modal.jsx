@@ -1,16 +1,22 @@
-import React, { Fragment } from 'react'
+import * as R from 'ramda'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { Centered } from 'components/Centered'
 import { Backdrop } from './Backdrop'
-import { Content } from './Content'
 
+const ifCurrentTarget = R.when(
+  R.compose(
+    R.apply(R.equals),
+    R.values,
+    R.pick([ 'target', 'currentTarget' ]),
+  ),
+)
 export const Modal = ({ children, onClose }) => (
-  <Fragment>
-    <Backdrop onClick={onClose}>
-    </Backdrop>
-    <Content>
+  <Backdrop >
+    <Centered onClick={ifCurrentTarget(onClose)}>
       {children}
-    </Content>
-  </Fragment>
+    </Centered>
+  </Backdrop>
 )
 
 Modal.propTypes = {

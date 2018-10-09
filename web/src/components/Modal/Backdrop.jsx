@@ -1,4 +1,5 @@
 import styled from 'react-emotion'
+import { transparentize } from 'polished'
 import { colors } from 'styles/util'
 
 export const Backdrop = styled.div`
@@ -7,6 +8,5 @@ export const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${colors.black};
-  opacity: 0.7;
+  background-color: ${transparentize(0.3, colors.black)};
 `
