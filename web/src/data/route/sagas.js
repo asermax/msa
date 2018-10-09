@@ -4,7 +4,7 @@ import { fetchProducts } from 'data/product/actions'
 import { fetchProducers } from 'data/producer/actions'
 import { fetchOrders } from 'data/order/actions'
 import {
-  NOT_FOUND, INDEX, ORDER_CREATE, ORDERS_LIST,
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDERS_LIST, ORDER_DETAILS,
   redirect, goToIndex, goToOrderCreate,
 } from './actions'
 import { getCurrentRoute } from './selectors'
@@ -33,6 +33,7 @@ const mapRouteToSaga = {
   [INDEX]: onIndex,
   [ORDER_CREATE]: onOrderCreate,
   [ORDERS_LIST]: onOrdersList,
+  [ORDER_DETAILS]: onOrdersList,
 }
 
 export const routeInitSaga = function*() {

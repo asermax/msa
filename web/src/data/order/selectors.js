@@ -78,6 +78,19 @@ export const getOrderProducts = createCachedSelector(
     R.prop('products'), // get the products from the order
   ),
 )(R.nthArg(1))
+export const getOrderProductAmount = createCachedSelector(
+  [
+    R.nthArg(2), // product id (second argument is the order id)
+    getOrderProducts, // products for the order
+  ],
+  R.prop,
+)(R.converge(
+  R.unapply(R.join(':')), // join the order id and the project id for the cache key
+  [
+    R.nthArg(1),
+    R.nthArg(2),
+  ],
+))
 export const getOrderTotal = createCachedSelector(
   [
     getProductsById,
