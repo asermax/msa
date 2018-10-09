@@ -20,7 +20,7 @@ const enhancer = compose(
 )
 
 export const OrderDetails = enhancer(({ user, total }) => (
-  <tr>
+  <tr className={styles.detailsRow}>
     <td>
       {user}
     </td>
