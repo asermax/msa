@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Centered } from 'components/Centered'
-import { Backdrop } from './Backdrop'
+import * as styles from './styles'
 
 const ifCurrentTarget = R.when(
   R.compose(
@@ -12,11 +12,11 @@ const ifCurrentTarget = R.when(
   ),
 )
 export const Modal = ({ children, onClose }) => (
-  <Backdrop >
+  <div className={styles.backdrop}>
     <Centered onClick={ifCurrentTarget(onClose)}>
       {children}
     </Centered>
-  </Backdrop>
+  </div>
 )
 
 Modal.propTypes = {
