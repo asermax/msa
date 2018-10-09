@@ -17,4 +17,6 @@ export const hideOnMobile = css`
 
 export const colors = {
   borderGray: '#d1d1d1',
+  black: '#000000',
+  white: '#ffffff',
 }
