@@ -6,7 +6,7 @@ export const tableHeader = css`
   text-overflow: ellipsis;
 
   & > * {
-    transform: translate(25px, 51px) rotate(315deg);
+    transform: translateY(76px) rotate(315deg);
     width: 30px;
   }
 `

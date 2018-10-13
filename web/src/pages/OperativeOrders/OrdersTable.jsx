@@ -21,7 +21,7 @@ export const OrdersTable = enhancer(({ orders, products }) => (
   <table>
     <thead>
       <tr>
-        <th className={styles.tableHeader}>
+        <th>
           <div>
             Nombre
           </div>
@@ -33,7 +33,7 @@ export const OrdersTable = enhancer(({ orders, products }) => (
             </div>
           </th>
         ))}
-        <th className={`${styles.totalCell} ${styles.tableHeader}`}>
+        <th>
           <div>
             Total
           </div>
