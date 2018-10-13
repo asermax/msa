@@ -5,9 +5,11 @@ export const INDEX = 'route/index'
 export const ORDER_CREATE = 'route/order/create'
 export const ORDER_SUMMARY = 'route/order/summary'
 export const ORDER_DETAILS = 'route/order/details'
-export const ORDERS_LIST = 'route/orders/list'
+export const OPERATIVE_ORDERS = 'route/operative/orders'
+export const OPERATIVE_PRODUCTS = 'route/operative/products'
 export const ALL_ROUTES = [
-  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_SUMMARY, ORDER_DETAILS, ORDERS_LIST,
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_SUMMARY, ORDER_DETAILS, OPERATIVE_ORDERS,
+  OPERATIVE_PRODUCTS,
 ]
 
 export const goToIndex = () => ({
@@ -29,6 +31,10 @@ export const goToOrderDetails = (id) => ({
   },
 })
 
-export const goToOrdersList = () => ({
-  type: ORDERS_LIST,
+export const goToOperativeOrders = () => ({
+  type: OPERATIVE_ORDERS,
+})
+
+export const goToOperativeProducts = () => ({
+  type: OPERATIVE_PRODUCTS,
 })

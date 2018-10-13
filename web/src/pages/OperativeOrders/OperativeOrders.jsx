@@ -1,18 +1,16 @@
 import React from 'react'
 import { compose, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs/forRoute'
-import { ORDERS_LIST, ORDER_DETAILS } from 'data/route/actions'
+import { OPERATIVE_ORDERS, ORDER_DETAILS } from 'data/route/actions'
 import { OrdersTable } from './OrdersTable'
-import { ProductsTable } from './ProductsTable'
 
 const enhancer = compose(
-  forRoute([ ORDERS_LIST, ORDER_DETAILS ]),
+  forRoute(OPERATIVE_ORDERS, ORDER_DETAILS),
   setDisplayName('OrdersList'),
 )
 
-export const OrdersList = enhancer(() => (
+export const OperativeOrders = enhancer(() => (
   <div>
     <OrdersTable />
-    <ProductsTable />
   </div>
 ))

@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, branch, renderNothing, flattenProp, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs'
-import { ORDER_DETAILS, goToOrdersList } from 'data/route/actions'
+import { ORDER_DETAILS, goToOperativeOrders } from 'data/route/actions'
 import { getParameter } from 'data/route/selectors'
 import { getOrder } from 'data/order/selectors'
 import { Modal } from 'components/Modal'
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onClose: () => dispatch(goToOrdersList()),
+  onClose: () => dispatch(goToOperativeOrders()),
 })
 
 const enhancer = compose(

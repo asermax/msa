@@ -32,10 +32,10 @@ export const ProductDetails = enhancer(({ name, whole, fraction }) => (
       {name}
     </td>
     <td>
-      {fraction}
+      {whole}
     </td>
     <td>
-      {whole}
+      {fraction}
     </td>
   </tr>
 ))

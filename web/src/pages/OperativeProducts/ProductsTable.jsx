@@ -14,29 +14,24 @@ const enhancer = compose(
 )
 
 export const ProductsTable = enhancer(({ products }) => (
-  <Fragment>
-    <h1>
-      Productos
-    </h1>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Nombre
-          </th>
-          <th>
-            Fracción (1/2)
-          </th>
-          <th>
-            Entero
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((id) => (
-          <ProductDetails key={id} id={id} />
-        ))}
-      </tbody>
-    </table>
-  </Fragment>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Nombre
+        </th>
+        <th>
+          Entero
+        </th>
+        <th>
+          Fracción (1/2)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {products.map((id) => (
+        <ProductDetails key={id} id={id} />
+      ))}
+    </tbody>
+  </table>
 ))

@@ -16,27 +16,22 @@ const enhancer = compose(
 )
 
 export const OrdersTable = enhancer(({ orders }) => (
-  <div>
-    <h1>
-      Ordenes
-    </h1>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Nombre
-          </th>
-          <th className={styles.totalCell}>
-            Total
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {orders.map((id) => (
-          <OrderDetails key={id} id={id} />
-        ))}
-        <OrdersTotal />
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Nombre
+        </th>
+        <th className={styles.totalCell}>
+          Total
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {orders.map((id) => (
+        <OrderDetails key={id} id={id} />
+      ))}
+      <OrdersTotal />
+    </tbody>
+  </table>
 ))
