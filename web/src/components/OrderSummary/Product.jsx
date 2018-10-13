@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { compose, setPropTypes, setDisplayName } from 'recompose'
+import { formatFraction } from 'utils'
 import * as styles from './styles'
 
 const enhancer = compose(
@@ -16,7 +17,7 @@ const enhancer = compose(
 export const Product = enhancer(({ name, unit, price, amount }) => (
   <div className={styles.productEntry}>
     <div className={styles.productAmount}>
-      {amount}
+      {formatFraction(amount)}
     </div>
     <div className={styles.productName}>
       <b>{name}</b> <i>x {unit}</i>
