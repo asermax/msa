@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "emotion": "^9.2.10",
+    "fractional": "^1.0.0",
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",
     "node-fetch": "^2.2.0",
