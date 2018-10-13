@@ -2,12 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { getFilteredOrdersIds } from 'data/order/selectors'
+import { getSortedProducts } from 'data/product/selectors'
 import { OrderDetails } from './OrderDetails'
 import { OrdersTotal } from './OrdersTotal'
 import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   orders: getFilteredOrdersIds(state),
+  products: getSortedProducts(state),
 })
 
 const enhancer = compose(
@@ -15,15 +17,26 @@ const enhancer = compose(
   setDisplayName('OrdersTable'),
 )
 
-export const OrdersTable = enhancer(({ orders }) => (
+export const OrdersTable = enhancer(({ orders, products }) => (
   <table>
     <thead>
       <tr>
-        <th>
-          Nombre
+        <th className={styles.tableHeader}>
+          <div>
+            Nombre
+          </div>
         </th>
-        <th className={styles.totalCell}>
-          Total
+        {products.map(({ id, name }) => (
+          <th className={styles.tableHeader} key={id}>
+            <div>
+              {name}
+            </div>
+          </th>
+        ))}
+        <th className={`${styles.totalCell} ${styles.tableHeader}`}>
+          <div>
+            Total
+          </div>
         </th>
       </tr>
     </thead>

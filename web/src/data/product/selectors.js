@@ -1,10 +1,14 @@
 import * as R from 'ramda'
+import { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 
-export const getProductsIds = R.compose(R.prop('ids'), R.prop('product'))
-export const getProductsById = R.compose(
-  R.prop('byId'),
-  R.prop('product'),
+export const getProductsIds = R.path([ 'product', 'ids' ])
+export const getProductsById = R.path([ 'product', 'byId' ])
+export const getSortedProducts = createSelector(
+  [ getProductsIds, getProductsById ],
+  (ids, products) => R.map(
+    R.prop(R.__, products),
+  )(ids),
 )
 export const getProduct = createCachedSelector(
   [

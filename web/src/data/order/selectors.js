@@ -83,7 +83,7 @@ export const getOrderProductAmount = createCachedSelector(
     R.nthArg(2), // product id (second argument is the order id)
     getOrderProducts, // products for the order
   ],
-  R.prop,
+  R.propOr('0'),
 )(R.converge(
   R.unapply(R.join(':')), // join the order id and the project id for the cache key
   [
