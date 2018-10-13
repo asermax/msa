@@ -1,13 +1,13 @@
 import React from 'react'
 import { compose, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs'
-import { OPERATIVE_ORDERS, OPERATIVE_PRODUCTS } from 'data/route/actions'
+import { OPERATIVE_ORDERS, OPERATIVE_PRODUCTS, ORDER_DETAILS } from 'data/route/actions'
 import { Tabs } from './Tabs'
 import { OperativeOrders } from 'pages/OperativeOrders'
 import { OperativeProducts } from 'pages/OperativeProducts'
 
 const enhancer = compose(
-  forRoute(OPERATIVE_ORDERS, OPERATIVE_PRODUCTS),
+  forRoute(OPERATIVE_ORDERS, OPERATIVE_PRODUCTS, ORDER_DETAILS),
   setDisplayName('OperativeDashboard'),
 )
 
