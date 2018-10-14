@@ -54,7 +54,10 @@ const fetchOrders = function*() {
       ORDER_ENTRYPOINT,
       R.when(
         R.compose(R.not, R.isNil),
-        RA.renameKeys({ org: 'organization' }),
+        R.compose(
+          R.objOf('params'),
+          RA.renameKeys({ org: 'organization' }),
+        ),
       )(query),
     )
 
