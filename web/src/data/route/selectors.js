@@ -12,3 +12,14 @@ export const getParameter = createSelector(
 )
 export const getQuery = R.path([ 'route', 'query' ])
 
+export const getPreviousRoute = (state, fallback) => R.compose(
+  R.ifElse(
+    R.compose(
+      R.isEmpty,
+      R.prop('type'),
+    ),
+    R.always(fallback),
+    R.pick([ 'type', 'payload', 'query' ]),
+  ),
+  R.path([ 'route', 'prev' ]),
+)(state)
