@@ -1,4 +1,4 @@
-// @flow
+/* globals process */
 import * as R from 'ramda'
 import wretch from 'wretch'
 import cookie from 'js-cookie'
@@ -8,6 +8,7 @@ export const PRODUCT_ENTRYPOINT = 'api/entrypoint/product'
 export const ORDER_ENTRYPOINT = 'api/entrypoint/order'
 
 const baseWretch = wretch()
+  .url(R.defaultTo('', process.env.BASE_URL))
   .url('/api')
 
 const modificationWretch = baseWretch
@@ -21,24 +22,26 @@ const entrypointsMap = {
   [ORDER_ENTRYPOINT]: '/orders/',
 }
 
-export const apiGet = (entrypoint: string, params: ?{}): {} => R.compose(
-  R.invoker(0, 'json'),
-  R.invoker(0, 'get'),
-  R.when( // only add the query when there are params present
-    R.always(
-      R.complement(
-        R.either(
-          R.isNil,
-          R.isEmpty,
-        ),
-      )(params),
-    ),
-    R.invoker(1, 'query')(params),
-  ),
-  R.invoker(1, 'url')(entrypointsMap[entrypoint]),
-)(baseWretch)
+export const apiGet = (entrypoint, options) => {
+  let wretch = baseWretch.url(entrypointsMap[entrypoint])
 
-export const apiPost = (entrypoint: string, data: {}): {} => modificationWretch
+  if (options && options.segments) {
+    wretch = wretch.url(
+      R.compose(
+        R.join('/'),
+        R.defaultTo([]),
+      )(options.segments),
+    )
+  }
+
+  if (options && options.params) {
+    wretch = wretch.query(options.params)
+  }
+
+  return wretch.get().json()
+}
+
+export const apiPost = (entrypoint, data) => modificationWretch
   .url(entrypointsMap[entrypoint])
   .post(data)
   .json()

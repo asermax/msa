@@ -16,5 +16,9 @@ export const hideOnMobile = css`
 `
 
 export const colors = {
+  transparent: 'transparent',
   borderGray: '#d1d1d1',
+  black: '#000000',
+  white: '#ffffff',
+  primary: '#9b4dca',
 }

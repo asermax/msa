@@ -1,13 +1,12 @@
-//  @flow
 import * as R from 'ramda'
-import type { Saga } from 'redux-saga'
 import { call, select, put, actionChannel, take } from 'redux-saga/effects'
 import { fetchProducts } from 'data/product/actions'
 import { fetchProducers } from 'data/producer/actions'
 import { fetchOrders } from 'data/order/actions'
 import {
-  NOT_FOUND, INDEX, ORDER_CREATE, ORDERS_LIST,
-  redirect, goToIndex, goToOrderCreate,
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_DETAILS,
+  OPERATIVE_DASHBOARD, OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
+  redirect, goToIndex, goToOrderCreate, goToOperativeOrders,
 } from './actions'
 import { getCurrentRoute } from './selectors'
 
@@ -24,20 +23,29 @@ const onOrderCreate = function*() {
   yield put(fetchProducts())
 }
 
-const onOrdersList = function*() {
-  yield put(fetchProducers())
-  yield put(fetchProducts())
-  yield put(fetchOrders())
+const onOperativeDashboard = function*() {
+  const route = yield select(getCurrentRoute)
+
+  if (route === OPERATIVE_DASHBOARD) {
+    yield put(redirect(goToOperativeOrders()))
+  } else {
+    yield put(fetchProducers())
+    yield put(fetchProducts())
+    yield put(fetchOrders())
+  }
 }
 
 const mapRouteToSaga = {
   [NOT_FOUND]: onNotFound,
   [INDEX]: onIndex,
   [ORDER_CREATE]: onOrderCreate,
-  [ORDERS_LIST]: onOrdersList,
+  [ORDER_DETAILS]: onOperativeDashboard,
+  [OPERATIVE_DASHBOARD]: onOperativeDashboard,
+  [OPERATIVE_ORDERS]: onOperativeDashboard,
+  [OPERATIVE_PRODUCTS]: onOperativeDashboard,
 }
 
-export const routeInitSaga: () => Saga<*> = function*() {
+export const routeInitSaga = function*() {
   const channel = yield actionChannel(Object.keys(mapRouteToSaga))
 
   do {

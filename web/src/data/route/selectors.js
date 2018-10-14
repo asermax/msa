@@ -1,10 +1,25 @@
-// @flow
-import type { State } from 'data/types'
 import * as R from 'ramda'
+import { createSelector } from 'reselect'
 
-export const getCurrentRoute: (State) => string = R.compose(R.prop('type'), R.prop('route'))
-export const getQuery: (State) => { [string]: string } = R.compose(
-  R.prop('query'),
-  R.prop('route'),
+export const getCurrentRoute = R.path([ 'route', 'type' ])
+export const getParameters = R.path([ 'route', 'payload' ])
+export const getParameter = createSelector(
+  [
+    R.nthArg(1),
+    getParameters,
+  ],
+  R.prop,
 )
+export const getQuery = R.path([ 'route', 'query' ])
 
+export const getPreviousRoute = (state, fallback) => R.compose(
+  R.ifElse(
+    R.compose(
+      R.isEmpty,
+      R.prop('type'),
+    ),
+    R.always(fallback),
+    R.pick([ 'type', 'payload', 'query' ]),
+  ),
+  R.path([ 'route', 'prev' ]),
+)(state)

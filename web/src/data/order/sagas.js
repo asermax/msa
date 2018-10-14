@@ -1,7 +1,5 @@
-// @flow
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
-import type { Saga } from 'redux-saga'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
 import { ORDER_ENTRYPOINT, apiGet, apiPost } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
@@ -9,13 +7,14 @@ import { getQuery } from 'data/route/selectors'
 import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
+  FETCH_ORDER_REQUEST, fetchOrderSuccess, fetchOrderFailure,
 } from './actions'
 import {
   getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts,
 } from './selectors'
 import { orderSchema } from './schemas'
 
-const createOrder: () => Saga<*> = function*() {
+const createOrder = function*() {
   const user = yield select(getCurrentOrderUser)
   const organization = yield select(getCurrentOrderOrganization)
   const products = yield select(getCurrentOrderProducts)
@@ -45,7 +44,7 @@ const createOrder: () => Saga<*> = function*() {
   }
 }
 
-const fetchOrders: () => Saga<*> = function*() {
+const fetchOrders = function*() {
   const query = yield select(getQuery)
 
   try {
@@ -55,7 +54,10 @@ const fetchOrders: () => Saga<*> = function*() {
       ORDER_ENTRYPOINT,
       R.when(
         R.compose(R.not, R.isNil),
-        RA.renameKeys({ org: 'organization' }),
+        R.compose(
+          R.objOf('params'),
+          RA.renameKeys({ org: 'organization' }),
+        ),
       )(query),
     )
 
@@ -65,9 +67,23 @@ const fetchOrders: () => Saga<*> = function*() {
   }
 }
 
-export const orderSaga: () => Saga<*> = function*() {
+const fetchOrder = function*(action) {
+  const orderId = action.payload
+
+  try {
+    // fetch the orders for the given organization
+    const order = yield call(apiGet, ORDER_ENTRYPOINT, { segments: [ orderId ] })
+
+    yield put(fetchOrderSuccess(order))
+  } catch(e) {
+    yield put(fetchOrderFailure(e.message))
+  }
+}
+
+export const orderSaga = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
     takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),
+    takeLatest(FETCH_ORDER_REQUEST, fetchOrder),
   ])
 }

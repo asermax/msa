@@ -1,13 +1,14 @@
-import React from 'react'
-import { Container } from 'components/Container'
+import React, { Fragment } from 'react'
 import { OrderCreate } from 'pages/OrderCreate'
 import { OrderSummary } from 'pages/OrderSummary'
-import { OrdersList } from 'pages/OrdersList'
+import { OrderDetails } from 'pages/OrderDetails'
+import { OperativeDashboard } from 'pages/OperativeDashboard'
 
 export const App = () => (
-  <Container>
+  <Fragment>
     <OrderCreate />
     <OrderSummary />
-    <OrdersList />
-  </Container>
+    <OperativeDashboard />
+    <OrderDetails />
+  </Fragment>
 )

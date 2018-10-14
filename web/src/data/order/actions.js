@@ -6,6 +6,9 @@ export const CREATE_ORDER_FAILURE = 'order/save/failure'
 export const FETCH_ORDERS_REQUEST = 'orders/fetch/request'
 export const FETCH_ORDERS_SUCCESS = 'orders/fetch/success'
 export const FETCH_ORDERS_FAILURE = 'orders/fetch/failure'
+export const FETCH_ORDER_REQUEST = 'order/fetch/request'
+export const FETCH_ORDER_SUCCESS = 'order/fetch/success'
+export const FETCH_ORDER_FAILURE = 'order/fetch/failure'
 
 export const setCurrentOrderUser = (user) => ({
   type: SET_ORDER_USER,
@@ -28,7 +31,7 @@ export const createOrderSuccess = () => ({
 
 export const createOrderFailure = (reason) => ({
   type: CREATE_ORDER_FAILURE,
-  reason,
+  payload: reason,
 })
 
 export const fetchOrders = () => ({
@@ -42,5 +45,20 @@ export const fetchOrdersSuccess = (orders) => ({
 
 export const fetchOrdersFailure = (reason) => ({
   type: FETCH_ORDERS_FAILURE,
-  reason,
+  payload: reason,
+})
+
+export const fetchOrder = (id) => ({
+  type: FETCH_ORDER_REQUEST,
+  payload: id,
+})
+
+export const fetchOrderSuccess = (order) => ({
+  type: FETCH_ORDER_SUCCESS,
+  payload: order,
+})
+
+export const fetchOrderFailure = (reason) => ({
+  type: FETCH_ORDER_FAILURE,
+  payload: reason,
 })

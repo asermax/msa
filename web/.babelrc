@@ -5,7 +5,6 @@
       "modules": false
     }],
     "@babel/react",
-    "@babel/flow"
   ],
   "plugins": [
     "react-hot-loader/babel",
@@ -15,6 +14,6 @@
     ["emotion", {
         "sourceMap": true,
         "autoLabel": true
-    }],
+    }]
   ]
 }
