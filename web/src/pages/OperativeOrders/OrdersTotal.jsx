@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
+import { hideOnMobile } from 'styles/util'
 import { getOrdersTotal } from 'data/order/selectors'
 import { getProductsIds } from 'data/product/selectors'
 import * as styles from './styles'
@@ -21,7 +22,7 @@ export const OrdersTotal = enhancer(({ products, total }) => (
       Total
     </td>
     {products.map((id) => (
-      <td key={id}>
+      <td key={id} className={hideOnMobile}>
       </td>
     ))}
     <td className={styles.totalCell}>

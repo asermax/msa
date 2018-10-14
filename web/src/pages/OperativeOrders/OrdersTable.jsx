@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
+import { hideOnMobile } from 'styles/util'
 import { getFilteredOrdersIds } from 'data/order/selectors'
 import { getSortedProducts } from 'data/product/selectors'
 import { OrderDetails } from './OrderDetails'
@@ -21,22 +22,18 @@ export const OrdersTable = enhancer(({ orders, products }) => (
   <table>
     <thead>
       <tr>
-        <th>
-          <div>
-            Nombre
-          </div>
+        <th className={styles.nameHeader}>
+          Nombre
         </th>
         {products.map(({ id, name }) => (
-          <th className={styles.tableHeader} key={id}>
+          <th className={`${styles.productHeader} ${hideOnMobile}`} key={id}>
             <div>
               {name}
             </div>
           </th>
         ))}
-        <th>
-          <div>
-            Total
-          </div>
+        <th className={styles.totalHeader}>
+          Total
         </th>
       </tr>
     </thead>
