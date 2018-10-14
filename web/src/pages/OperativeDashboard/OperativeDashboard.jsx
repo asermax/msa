@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { compose, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs'
 import { OPERATIVE_ORDERS, OPERATIVE_PRODUCTS, ORDER_DETAILS } from 'data/route/actions'
@@ -12,12 +12,12 @@ const enhancer = compose(
 )
 
 export const OperativeDashboard = enhancer(() => (
-  <div>
+  <Fragment>
     <h1>
       Detalles del Operativo
     </h1>
     <Tabs />
     <OperativeOrders />
     <OperativeProducts />
-  </div>
+  </Fragment>
 ))

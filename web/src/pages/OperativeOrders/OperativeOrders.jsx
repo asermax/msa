@@ -6,11 +6,9 @@ import { OrdersTable } from './OrdersTable'
 
 const enhancer = compose(
   forRoute(OPERATIVE_ORDERS, ORDER_DETAILS),
-  setDisplayName('OrdersList'),
+  setDisplayName('OperativeOrders'),
 )
 
 export const OperativeOrders = enhancer(() => (
-  <div>
-    <OrdersTable />
-  </div>
+  <OrdersTable />
 ))

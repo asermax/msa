@@ -10,7 +10,5 @@ const enhancer = compose(
 )
 
 export const OperativeProducts = enhancer(() => (
-  <div>
-    <ProductsTable />
-  </div>
+  <ProductsTable />
 ))
