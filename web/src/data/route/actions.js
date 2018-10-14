@@ -5,11 +5,12 @@ export const INDEX = 'route/index'
 export const ORDER_CREATE = 'route/order/create'
 export const ORDER_SUMMARY = 'route/order/summary'
 export const ORDER_DETAILS = 'route/order/details'
+export const OPERATIVE_DASHBOARD = 'route/operative/dashboard'
 export const OPERATIVE_ORDERS = 'route/operative/orders'
 export const OPERATIVE_PRODUCTS = 'route/operative/products'
 export const ALL_ROUTES = [
-  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_SUMMARY, ORDER_DETAILS, OPERATIVE_ORDERS,
-  OPERATIVE_PRODUCTS,
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_SUMMARY, ORDER_DETAILS,
+  OPERATIVE_DASHBOARD, OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
 ]
 
 export const goToIndex = () => ({
@@ -29,6 +30,10 @@ export const goToOrderDetails = (id) => ({
   payload: {
     id,
   },
+})
+
+export const goToOperativeDashboard = () => ({
+  type: OPERATIVE_DASHBOARD,
 })
 
 export const goToOperativeOrders = () => ({

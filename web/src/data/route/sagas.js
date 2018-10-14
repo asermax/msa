@@ -4,8 +4,9 @@ import { fetchProducts } from 'data/product/actions'
 import { fetchProducers } from 'data/producer/actions'
 import { fetchOrders } from 'data/order/actions'
 import {
-  NOT_FOUND, INDEX, ORDER_CREATE, OPERATIVE_ORDERS, ORDER_DETAILS, OPERATIVE_PRODUCTS,
-  redirect, goToIndex, goToOrderCreate,
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_DETAILS,
+  OPERATIVE_DASHBOARD, OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
+  redirect, goToIndex, goToOrderCreate, goToOperativeOrders,
 } from './actions'
 import { getCurrentRoute } from './selectors'
 
@@ -23,17 +24,24 @@ const onOrderCreate = function*() {
 }
 
 const onOperativeDashboard = function*() {
-  yield put(fetchProducers())
-  yield put(fetchProducts())
-  yield put(fetchOrders())
+  const route = yield select(getCurrentRoute)
+
+  if (route === OPERATIVE_DASHBOARD) {
+    yield put(redirect(goToOperativeOrders()))
+  } else {
+    yield put(fetchProducers())
+    yield put(fetchProducts())
+    yield put(fetchOrders())
+  }
 }
 
 const mapRouteToSaga = {
   [NOT_FOUND]: onNotFound,
   [INDEX]: onIndex,
   [ORDER_CREATE]: onOrderCreate,
-  [OPERATIVE_ORDERS]: onOperativeDashboard,
   [ORDER_DETAILS]: onOperativeDashboard,
+  [OPERATIVE_DASHBOARD]: onOperativeDashboard,
+  [OPERATIVE_ORDERS]: onOperativeDashboard,
   [OPERATIVE_PRODUCTS]: onOperativeDashboard,
 }
 

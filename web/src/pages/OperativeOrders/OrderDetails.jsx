@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, flattenProp, setPropTypes, setDisplayName } from 'recompose'
+import { hideOnMobile } from 'styles/util'
 import { goToOrderDetails } from 'data/route/actions'
 import { getOrder, getOrderTotal } from 'data/order/selectors'
 import { getProductsIds } from 'data/product/selectors'
@@ -32,11 +33,14 @@ export const OrderDetails = enhancer(({ id, productIds, user, total, goToDetail 
     className={styles.detailsRow}
     onClick={goToDetail}
   >
-    <td>
+    <td
+      className={styles.nameCell}
+      title={user}
+    >
       {user}
     </td>
     {productIds.map((productId) => (
-      <td key={productId}>
+      <td key={productId} className={`${styles.productCell} ${hideOnMobile}`}>
         <OrderProductAmount orderId={id} productId={productId} />
       </td>
     ))}
