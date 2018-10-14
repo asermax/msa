@@ -2,6 +2,7 @@ import React from 'react'
 import { compose, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs/forRoute'
 import { ORDER_CREATE } from 'data/route/actions'
+import { Container } from 'components/Container'
 import { OrderForm } from './OrderForm'
 
 const enhancer = compose(
@@ -10,7 +11,7 @@ const enhancer = compose(
 )
 
 export const OrderCreate = enhancer(() => (
-  <div>
+  <Container>
     <h1>
       Enviar Orden
     </h1>
@@ -18,5 +19,5 @@ export const OrderCreate = enhancer(() => (
       Complete el siguiente formulario para hacer una orden.
     </p>
     <OrderForm />
-  </div>
+  </Container>
 ))

@@ -4,6 +4,7 @@ import { compose, setDisplayName } from 'recompose'
 import { forRoute } from 'hocs/forRoute'
 import { ORDER_SUMMARY } from 'data/route/actions'
 import { getCurrentOrderProductsIds } from 'data/order/selectors'
+import { Container } from 'components/Container'
 import { Centered } from 'components/Centered'
 import { Summary, Title, Products } from 'components/OrderSummary'
 import { ProductEntry } from './ProductEntry'
@@ -21,17 +22,19 @@ const enhancer = compose(
 )
 
 export const OrderSummary = enhancer(({ products }) => (
-  <Centered>
-    <Summary className={styles.receipt}>
-      <Title>
-        Este fué tu pedido
-      </Title>
-      <Products>
-        {products.map((id) => (
-          <ProductEntry id={id} key={id} />
-        ))}
-      </Products>
-      <OrderTotal />
-    </Summary>
-  </Centered>
+  <Container>
+    <Centered>
+      <Summary className={styles.receipt}>
+        <Title>
+          Este fué tu pedido
+        </Title>
+        <Products>
+          {products.map((id) => (
+            <ProductEntry id={id} key={id} />
+          ))}
+        </Products>
+        <OrderTotal />
+      </Summary>
+    </Centered>
+  </Container>
 ))
