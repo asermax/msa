@@ -21,4 +21,5 @@ export const colors = {
   black: '#000000',
   white: '#ffffff',
   primary: '#9b4dca',
+  secondary: '#606c76',
 }

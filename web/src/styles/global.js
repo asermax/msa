@@ -1,3 +1,4 @@
+import './fontawesome'
 import { injectGlobal } from 'emotion'
 import { colors } from './util'
 
