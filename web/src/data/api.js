@@ -6,6 +6,7 @@ import cookie from 'js-cookie'
 export const PRODUCER_ENTRYPOINT = 'api/entrypoint/producer'
 export const PRODUCT_ENTRYPOINT = 'api/entrypoint/product'
 export const ORDER_ENTRYPOINT = 'api/entrypoint/order'
+export const SESSION_ENTRYPOINT = 'api/entrypoint/session'
 
 const baseWretch = wretch()
   .url(R.defaultTo('', process.env.BASE_URL))
@@ -20,6 +21,7 @@ const entrypointsMap = {
   [PRODUCER_ENTRYPOINT]: '/producers/',
   [PRODUCT_ENTRYPOINT]: '/products/',
   [ORDER_ENTRYPOINT]: '/orders/',
+  [SESSION_ENTRYPOINT]: '/sessions/',
 }
 
 export const apiGet = (entrypoint, options) => {
