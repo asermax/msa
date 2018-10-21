@@ -1,5 +1,6 @@
 /* eslint-env node */
 const { resolve } = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
@@ -57,6 +58,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: resolve(__dirname, 'src', 'index.html'),
     }),
+    new webpack.EnvironmentPlugin([ 'GOOGLE_OAUTH_CLIENT_ID' ]),
   ],
 }
 
