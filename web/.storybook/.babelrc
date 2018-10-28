@@ -1,0 +1,21 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns": "entry",
+      "modules": false
+    }],
+    ["@babel/react", {
+        "pragma": "jsx",
+    }]
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    ["ramda", {
+      "useEs": true
+    }],
+    ["emotion", {
+        "sourceMap": true,
+        "autoLabel": true
+    }]
+  ]
+}

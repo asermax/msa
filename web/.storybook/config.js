@@ -1,7 +1,8 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
-import 'styles/global'
 import styled from 'react-emotion'
+import { Global } from '@emotion/core'
+import { globalStyles } from 'styles/global'
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -11,7 +12,10 @@ const Wrapper = styled.div`
 `
 
 addDecorator((story) => (
-  <Wrapper>{story()}</Wrapper>
+  <>
+    <Global styles={globalStyles} />
+    <Wrapper>{story()}</Wrapper>
+  </>
 ))
 
 // automatically import all files ending in *.stories.js
