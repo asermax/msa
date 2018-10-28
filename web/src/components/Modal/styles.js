@@ -1,4 +1,4 @@
-import { css } from 'emotion'
+import { css } from '@emotion/core'
 import { transparentize } from 'polished'
 import { colors } from 'styles/util'
 

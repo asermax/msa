@@ -38,7 +38,7 @@ const enhancer = compose(
 
 export const OrderDetails = enhancer(({ id, user, products, onClose }) => (
   <Modal onClose={onClose}>
-    <Summary className={styles.details}>
+    <Summary css={styles.details}>
       <Title>
         Pedido de {user}
       </Title>

@@ -15,14 +15,14 @@ const enhancer = compose(
 )
 
 export const Product = enhancer(({ name, unit, price, amount }) => (
-  <div className={styles.productEntry}>
-    <div className={styles.productAmount}>
+  <div css={styles.productEntry}>
+    <div css={styles.productAmount}>
       {formatFraction(amount)}
     </div>
-    <div className={styles.productName}>
+    <div css={styles.productName}>
       <b>{name}</b> <i>x {unit}</i>
     </div>
-    <div className={styles.productTotal}>
+    <div css={styles.productTotal}>
       ${parseFloat(amount) * parseFloat(price)}
     </div>
   </div>

@@ -55,6 +55,9 @@ const config = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      'jsx': [ '@emotion/core', 'jsx' ],
+    }),
     new HtmlWebpackPlugin({
       template: resolve(__dirname, 'src', 'index.html'),
     }),

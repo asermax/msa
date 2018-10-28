@@ -1,5 +1,4 @@
 import '@babel/polyfill'
-import 'styles/global'
 import React from 'react'
 import { render } from 'react-dom'
 import { configureStore } from './data/store'

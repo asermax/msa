@@ -11,8 +11,8 @@ const enhancer = compose(
 )
 
 export const Total = enhancer(({ total }) => (
-  <div className={styles.total}>
-    <div className={styles.totalTitle}>
+  <div css={styles.total}>
+    <div css={styles.totalTitle}>
       Total
     </div>
     <div>

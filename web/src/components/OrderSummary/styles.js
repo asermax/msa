@@ -1,4 +1,4 @@
-import { css } from 'emotion'
+import { css } from '@emotion/core'
 import { mq } from 'styles/util'
 
 export const receipt = css`

@@ -30,21 +30,21 @@ const enhancer = compose(
 
 export const OrderDetails = enhancer(({ id, productIds, user, total, goToDetail }) => (
   <tr
-    className={styles.detailsRow}
+    css={styles.detailsRow}
     onClick={goToDetail}
   >
     <td
-      className={styles.nameCell}
+      css={styles.nameCell}
       title={user}
     >
       {user}
     </td>
     {productIds.map((productId) => (
-      <td key={productId} className={`${styles.productCell} ${hideOnMobile}`}>
+      <td key={productId} css={[ styles.productCell, hideOnMobile ]}>
         <OrderProductAmount orderId={id} productId={productId} />
       </td>
     ))}
-    <td className={styles.totalCell}>
+    <td css={styles.totalCell}>
       ${total}
     </td>
   </tr>

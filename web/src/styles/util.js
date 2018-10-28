@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { css } from 'emotion'
+import { css } from '@emotion/core'
 
 const breakpoints = {
   mobile: '40rem',

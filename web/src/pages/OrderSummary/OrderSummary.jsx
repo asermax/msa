@@ -24,7 +24,7 @@ const enhancer = compose(
 export const OrderSummary = enhancer(({ products }) => (
   <Container>
     <Centered>
-      <Summary className={styles.receipt}>
+      <Summary css={styles.receipt}>
         <Title>
           Este fué tu pedido
         </Title>

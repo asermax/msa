@@ -4,7 +4,9 @@
       "useBuiltIns": "entry",
       "modules": false
     }],
-    "@babel/react",
+    ["@babel/react", {
+        "pragma": "jsx",
+    }]
   ],
   "plugins": [
     "react-hot-loader/babel",

@@ -18,14 +18,14 @@ const enhancer = compose(
 
 export const OrdersTotal = enhancer(({ products, total }) => (
   <tr>
-    <td className={styles.titleCell}>
+    <td css={styles.titleCell}>
       Total
     </td>
     {products.map((id) => (
-      <td key={id} className={hideOnMobile}>
+      <td key={id} css={hideOnMobile}>
       </td>
     ))}
-    <td className={styles.totalCell}>
+    <td css={styles.totalCell}>
       ${total}
     </td>
   </tr>

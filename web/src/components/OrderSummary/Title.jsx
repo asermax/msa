@@ -11,7 +11,7 @@ const enhancer = compose(
 )
 
 export const Title = enhancer(({ children }) => (
-  <h2 className={styles.receiptTitle}>
+  <h2 css={styles.receiptTitle}>
     {children}
   </h2>
 ))

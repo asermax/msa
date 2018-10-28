@@ -22,17 +22,17 @@ export const OrdersTable = enhancer(({ orders, products }) => (
   <table>
     <thead>
       <tr>
-        <th className={styles.nameHeader}>
+        <th css={styles.nameHeader}>
           Nombre
         </th>
         {products.map(({ id, name }) => (
-          <th className={`${styles.productHeader} ${hideOnMobile}`} key={id}>
+          <th css={[ styles.productHeader, hideOnMobile ]} key={id}>
             <div>
               {name}
             </div>
           </th>
         ))}
-        <th className={styles.totalHeader}>
+        <th css={styles.totalHeader}>
           Total
         </th>
       </tr>
