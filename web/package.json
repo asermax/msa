@@ -19,6 +19,7 @@
     "@storybook/addon-links": "^4.0.0-alpha.24",
     "@storybook/addons": "^4.0.0-alpha.24",
     "@storybook/react": "^4.0.0-alpha.24",
+    "@types/ramda": "types/npm-ramda#dist",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-emotion": "^10.0.0-beta.6",

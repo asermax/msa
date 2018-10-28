@@ -2,7 +2,13 @@
   "compilerOptions": {
     "target": "es6",
     "checkJs": true,
+    "moduleResolution": "node",
+    "jsx": "preserve",
     "baseUrl": "./src",
-    "moduleResolution": "node"
+    "paths" : {
+      "ramda/src/*": [
+        "location-of-types/npm-ramda-package/index"
+      ]
+    }
   }
 }
