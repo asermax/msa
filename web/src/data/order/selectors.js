@@ -1,3 +1,5 @@
+/** @typedef {import('types/data').State} State */
+/** @typedef {import('types/data').OrdersById} OrdersById */
 import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
@@ -60,7 +62,10 @@ export const isOrderValid = createSelector(
 
 // general
 export const getOrdersIds = R.compose(R.prop('ids'), R.prop('order'))
+
+/** @type {import('reselect').ParametricSelector<State, string, OrdersById>} */
 export const getOrdersById = R.compose(R.prop('byId'), R.prop('order'))
+
 export const getOrder = createCachedSelector(
   [
     R.nthArg(1), // order id
