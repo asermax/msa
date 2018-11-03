@@ -1,9 +1,11 @@
 /* globals module */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { hot } from 'react-hot-loader'
+import { hot, setConfig } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import { App } from 'pages/App'
+
+setConfig({ pureSFC: true })
 
 const Bootstrap = ({ store }) => (
   <Provider store={store}>
