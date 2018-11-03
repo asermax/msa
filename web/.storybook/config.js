@@ -1,8 +1,11 @@
 import React from 'react'
+import { setConfig } from 'react-hot-loader'
 import { configure, addDecorator } from '@storybook/react'
 import styled from 'react-emotion'
 import { Global } from '@emotion/core'
 import { globalStyles } from 'styles/global'
+
+setConfig({ pureSFC: true })
 
 const Wrapper = styled.div`
   padding: 20px;
