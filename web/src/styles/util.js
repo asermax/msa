@@ -23,3 +23,8 @@ export const colors = {
   primary: '#9b4dca',
   secondary: '#606c76',
 }
+
+export const measurements = {
+  borderWidth: '0.1rem',
+  borderRadius: '0.4rem',
+}
