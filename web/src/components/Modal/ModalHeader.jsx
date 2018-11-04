@@ -4,6 +4,7 @@ export const ModalHeader = styled.div`
   flex-shrink: 0;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   position: absolute;
   top: 0;

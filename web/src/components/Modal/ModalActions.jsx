@@ -18,11 +18,13 @@ export const ModalActions = ({ actions }) => {
       css={styles.actionsContainer}
       ref={ref}
     >
-      <div onClick={() => toggle()}>
+      <div
+        css={styles.actionsButton}
+        onClick={() => toggle()}
+      >
         <FontAwesomeIcon
-          icon="ellipsis-h"
+          icon="ellipsis-v"
           size="lg"
-          css={styles.actionsButton}
         />
       </div>
       {open ? (

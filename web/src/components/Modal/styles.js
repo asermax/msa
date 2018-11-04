@@ -20,13 +20,15 @@ export const actionsContainer = css`
 `
 
 export const actionsButton = css`
+  width: 25px;
+  text-align: center;
   cursor: pointer;
 `
 
 export const actionsList = css`
   position: absolute;
-  top: 2rem;
-  right: 0;
+  top: 3rem;
+  left: 0;
   border: ${measurements.borderWidth} solid ${colors.borderGray};
   border-radius: ${measurements.borderRadius};
   list-style: none;
@@ -44,12 +46,12 @@ export const actionItem = css`
     color: ${colors.white};
   }
 
-  &:first-child {
+  &:first-of-type {
     border-top-left-radius: ${measurements.borderRadius};
     border-top-right-radius: ${measurements.borderRadius};
   }
 
-  &:last-child {
+  &:last-of-type {
     border-bottom-left-radius: ${measurements.borderRadius};
     border-bottom-right-radius: ${measurements.borderRadius};
   }
