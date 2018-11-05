@@ -6,7 +6,7 @@ import { fetchOrders } from 'data/order/actions'
 import { CHECK_SESSION_SUCCESS, CHECK_SESSION_FAILURE, checkSession } from 'data/user/actions'
 import { getCurrentUser } from 'data/user/selectors'
 import {
-  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_DETAILS,
+  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_DETAILS, ORDER_DELETE,
   OPERATIVE_DASHBOARD, OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
   redirect, goToIndex, goToLogin, goToOrderCreate, goToOperativeOrders,
 } from './actions'
@@ -73,6 +73,7 @@ const mapRouteToSaga = {
   [INDEX]: onIndex,
   [ORDER_CREATE]: onOrderCreate,
   [ORDER_DETAILS]: onOperativeDashboard,
+  [ORDER_DELETE]: onOperativeDashboard,
   [OPERATIVE_DASHBOARD]: onOperativeDashboard,
   [OPERATIVE_ORDERS]: onOperativeDashboard,
   [OPERATIVE_PRODUCTS]: onOperativeDashboard,

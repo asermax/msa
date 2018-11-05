@@ -1,7 +1,13 @@
+/**
+ * @typedef {import('types/data').OrderAction} OrderAction
+ * @typedef {import('types/data').OrderIds} OrderIds
+ * @typedef {import('types/data').OrdersById} OrdersById
+ */
 import * as R from 'ramda'
 import { combineReducers } from 'redux'
 import {
   SET_ORDER_USER, SET_ORDER_PRODUCT_AMOUNT, FETCH_ORDERS_SUCCESS, FETCH_ORDER_SUCCESS,
+  DELETE_ORDER_SUCCESS,
 } from './actions'
 
 const user = (state = '', action) => {
@@ -34,7 +40,14 @@ const products = (state = productsDefault, action) => {
   }
 }
 
+/** @type {OrderIds} */
 const idsDefault = []
+
+/**
+ * @param {OrderIds} state - ids of the orders on state
+ * @param {OrderAction} action - action to process
+ * @returns {OrderIds}
+ */
 const ids = (state = idsDefault, action) => {
   switch (action.type) {
     case FETCH_ORDERS_SUCCESS:
@@ -45,12 +58,23 @@ const ids = (state = idsDefault, action) => {
       return R.append(
         R.prop('id')(action.payload),
       )(state)
+    case DELETE_ORDER_SUCCESS:
+      return R.without(
+        R.of(action.payload),
+      )(state)
     default:
       return state
   }
 }
 
+/** @type {OrdersById} */
 const byIdDefault = {}
+
+/**
+ * @param {OrdersById} state - orders in the state
+ * @param {OrderAction} action - action to process
+ * @returns {OrdersById}
+ */
 const byId = (state = byIdDefault, action) => {
   switch (action.type) {
     case FETCH_ORDERS_SUCCESS:
@@ -61,6 +85,10 @@ const byId = (state = byIdDefault, action) => {
       return R.assoc(
         R.prop('id')(action.payload),
         action.payload,
+      )(state)
+    case DELETE_ORDER_SUCCESS:
+      return R.omit(
+        R.of(action.payload),
       )(state)
     default:
       return state
