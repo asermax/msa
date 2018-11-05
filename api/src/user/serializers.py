@@ -14,7 +14,6 @@ class SessionSerializer(serializers.Serializer):
         backend.redirect_uri = social_strategy.get_setting(
             'SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI'
         )
-        print(backend.redirect_uri)
         params = backend.auth_complete_params()
         response = backend.request_access_token(
             backend.access_token_url(),
