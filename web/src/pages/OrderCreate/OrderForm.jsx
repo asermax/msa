@@ -66,12 +66,12 @@ export const OrderForm = enhancer(({
             <th>
               Producto
             </th>
-            <th className={styles.hideOnMobile}>
+            <th css={styles.hideOnMobile}>
             </th>
             <th>
               Cantidad
             </th>
-            <th className={styles.hideOnMobile}>
+            <th css={styles.hideOnMobile}>
               Precio
             </th>
             <th>
@@ -85,7 +85,7 @@ export const OrderForm = enhancer(({
         </tbody>
       </table>
     </fieldset>
-    <div className={styles.buttonContainer}>
+    <div css={styles.buttonContainer}>
       <button
         type="submit"
         disabled={!isValid}

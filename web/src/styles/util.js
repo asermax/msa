@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { css } from 'emotion'
+import { css } from '@emotion/core'
 
 const breakpoints = {
   mobile: '40rem',
@@ -21,4 +21,10 @@ export const colors = {
   black: '#000000',
   white: '#ffffff',
   primary: '#9b4dca',
+  secondary: '#606c76',
+}
+
+export const measurements = {
+  borderWidth: '0.1rem',
+  borderRadius: '0.4rem',
 }

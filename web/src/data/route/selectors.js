@@ -1,8 +1,12 @@
+/** @typedef {import('types/data').State} State */
 import * as R from 'ramda'
 import { createSelector } from 'reselect'
 
 export const getCurrentRoute = R.path([ 'route', 'type' ])
+
+/** @type {import('reselect').ParametricSelector<State, string, object>} */
 export const getParameters = R.path([ 'route', 'payload' ])
+
 export const getParameter = createSelector(
   [
     R.nthArg(1),

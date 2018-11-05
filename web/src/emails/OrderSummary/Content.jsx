@@ -1,11 +1,7 @@
 // @flow
 import React from 'react'
 
-export type Props = {
-  user: string,
-}
-
-export const Content = ({ user }: Props) => (
+export const Content = ({ user }) => (
   <div>
     Hello {user}
   </div>

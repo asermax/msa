@@ -1,24 +1,25 @@
-import { css } from 'emotion'
+import { css } from '@emotion/core'
 import { mq } from 'styles/util'
 
 export const receipt = css`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'title'
+    'products'
+    'separator'
+    'total';
 `
 
 export const receiptTitle = css`
+  grid-area: title;
   text-align: center;
-  padding: 0 0 2rem;
-`
-
-export const totalTitle = css`
-  padding-left: 10%;
-  flex-grow: 1;
 `
 
 export const products = css`
+  grid-area: products;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -54,10 +55,20 @@ export const productTotal = css`
   text-align: right;
 `
 
+export const separator = css`
+  grid-area: separator;
+`
+
 export const total = css`
+  grid-area: total;
   display: flex;
   flex-direction: row;
   font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
+`
+
+export const totalTitle = css`
+  padding-left: 10%;
+  flex-grow: 1;
 `

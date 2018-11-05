@@ -38,13 +38,13 @@ const enhancer = compose(
 export const ProductField = enhancer(({
   name, price, unit, minAmount, amount, onAmountChange,
 }) => (
-  <tr className={styles.fieldRow}>
+  <tr css={styles.fieldRow}>
     <td>
       <label htmlFor={name}>
         {name}
       </label>
     </td>
-    <td className={styles.hideOnMobile}>
+    <td css={styles.hideOnMobile}>
       x {unit}
     </td>
     <td>
@@ -57,10 +57,10 @@ export const ProductField = enhancer(({
         onChange={onAmountChange}
       />
     </td>
-    <td className={styles.hideOnMobile}>
+    <td css={styles.hideOnMobile}>
       ${price}
     </td>
-    <td className={styles.totalCell}>
+    <td css={styles.totalCell}>
       ${price * amount}
     </td>
   </tr>

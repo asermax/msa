@@ -11,7 +11,7 @@ const enhancer = compose(
 )
 
 export const Products = enhancer(({ children }) => (
-  <div className={styles.products}>
+  <div css={styles.products}>
     {children}
   </div>
 ))

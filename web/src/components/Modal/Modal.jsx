@@ -15,8 +15,10 @@ const ifCurrentTarget = R.when(
 
 export const Modal = ({ children, onClose }) => (
   <CloseOnEscape onEscape={onClose}>
-    <div className={styles.backdrop}>
-      <Centered onClick={ifCurrentTarget(onClose)}>
+    <div css={styles.backdrop}>
+      <Centered
+        onClick={ifCurrentTarget(onClose)}
+      >
         {children}
       </Centered>
     </div>

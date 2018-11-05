@@ -1,13 +1,14 @@
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
-import { ORDER_ENTRYPOINT, apiGet, apiPost } from 'data/api'
+import { ORDER_ENTRYPOINT, apiGet, apiPost, apiDelete } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
 import { getQuery } from 'data/route/selectors'
 import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
   FETCH_ORDER_REQUEST, fetchOrderSuccess, fetchOrderFailure,
+  DELETE_ORDER_REQUEST, deleteOrderSuccess, deleteOrderFailure,
 } from './actions'
 import {
   getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts,
@@ -80,10 +81,26 @@ const fetchOrder = function*(action) {
   }
 }
 
+/**
+ * @param {import('types/data').DeleteOrderRequestAction} action
+ */
+const deleteOrder = function*(action) {
+  const orderId = action.payload
+
+  try {
+    yield call(apiDelete, ORDER_ENTRYPOINT, { segments: [ orderId ] })
+
+    yield put(deleteOrderSuccess(orderId))
+  } catch(e) {
+    yield put(deleteOrderFailure(e.message))
+  }
+}
+
 export const orderSaga = function*() {
   yield all([
     takeLatest(CREATE_ORDER_REQUEST, createOrder),
     takeLatest(FETCH_ORDERS_REQUEST, fetchOrders),
     takeLatest(FETCH_ORDER_REQUEST, fetchOrder),
+    takeLatest(DELETE_ORDER_REQUEST, deleteOrder),
   ])
 }

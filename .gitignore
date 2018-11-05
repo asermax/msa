@@ -60,5 +60,8 @@ typings/
 # dist folders
 dist/
 
+# storybook
+.cache
+
 # django settings
 api/src/msa/settings.py

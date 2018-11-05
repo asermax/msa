@@ -15,13 +15,13 @@ const enhancer = compose(
 
 export const OrderTotal = enhancer(({ orderTotal }) => (
   <tr>
-    <td className={styles.titleCell}>
+    <td css={styles.titleCell}>
       Total
     </td>
-    <td className={styles.hideOnMobile}></td>
+    <td css={styles.hideOnMobile}></td>
     <td></td>
-    <td className={styles.hideOnMobile}></td>
-    <td className={styles.totalCell}>
+    <td css={styles.hideOnMobile}></td>
+    <td css={styles.totalCell}>
       ${orderTotal}
     </td>
   </tr>

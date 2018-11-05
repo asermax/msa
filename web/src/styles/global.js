@@ -1,7 +1,8 @@
-import { injectGlobal } from 'emotion'
+import './fontawesome'
+import { css } from '@emotion/core'
 import { colors } from './util'
 
-injectGlobal`
+export const globalStyles = css`
   /*!
  * Milligram v1.3.0
  * https://milligram.github.io

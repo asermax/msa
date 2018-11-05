@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withProps, setDisplayName } from 'recompose'
 import {
-  OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
+  OPERATIVE_ORDERS, ORDER_DETAILS, ORDER_DELETE, OPERATIVE_PRODUCTS,
   goToOperativeOrders, goToOperativeProducts,
 } from 'data/route/actions'
 import { getCurrentRoute } from 'data/route/selectors'
@@ -17,7 +17,11 @@ const mapStateToProps = (state) => ({
 const enhancer = compose(
   connect(mapStateToProps),
   withProps(({ route }) => ({
-    ordersActive: R.ifElse(R.equals(OPERATIVE_ORDERS), R.always(1), R.always(0))(route),
+    ordersActive: R.ifElse(
+      R.contains(R.__, [ OPERATIVE_ORDERS, ORDER_DETAILS, ORDER_DELETE ]),
+      R.always(1),
+      R.always(0),
+    )(route),
     productsActive: R.ifElse(R.equals(OPERATIVE_PRODUCTS), R.always(1), R.always(0))(route),
   })),
   setDisplayName('Tabs'),

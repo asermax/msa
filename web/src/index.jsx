@@ -1,13 +1,10 @@
 import '@babel/polyfill'
-import 'styles/global'
 import React from 'react'
 import { render } from 'react-dom'
-import { createBrowserHistory } from 'history'
 import { configureStore } from './data/store'
 import Bootstrap from './Bootstrap'
 
-const history = createBrowserHistory()
-const store = configureStore(history)
+const store = configureStore()
 
 render(
   <Bootstrap store={store} />,

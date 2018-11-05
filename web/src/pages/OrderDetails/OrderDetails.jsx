@@ -1,12 +1,14 @@
 import * as R from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
-import { compose, branch, renderNothing, mapProps, flattenProp, setDisplayName } from 'recompose'
+import {
+  compose, branch, renderNothing, withHandlers, flattenProp, setDisplayName,
+} from 'recompose'
 import { forRoute } from 'hocs'
-import { ORDER_DETAILS, goToOperativeOrders } from 'data/route/actions'
-import { getParameter, getPreviousRoute } from 'data/route/selectors'
+import { ORDER_DETAILS, goToOperativeOrders, goToOrderDelete } from 'data/route/actions'
+import { getParameter, getQuery } from 'data/route/selectors'
 import { getOrder } from 'data/order/selectors'
-import { Modal } from 'components/Modal'
+import { Modal, ModalHeader, ModalCloseButton, ModalActions } from 'components/Modal'
 import { Summary, Title, Products } from 'components/OrderSummary'
 import { Product } from './Product'
 import { Total } from './Total'
@@ -14,31 +16,40 @@ import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   order: getOrder(state, getParameter(state, 'id')),
-  previousRoute: getPreviousRoute(state, goToOperativeOrders()),
+  query: getQuery(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onClose: (route) => dispatch(route),
+  onClose: (query) => dispatch(goToOperativeOrders(query)),
+  onOrderDelete: (orderId, query) => dispatch(goToOrderDelete(orderId, query)),
 })
 
 const enhancer = compose(
   forRoute(ORDER_DETAILS),
   connect(mapStateToProps, mapDispatchToProps),
   branch(
-    R.compose(R.any(R.isNil), R.values),
+    R.compose(R.isNil, R.prop('order')),
     renderNothing,
   ),
-  mapProps(({ previousRoute, onClose, ...props }) => ({
-    ...props,
-    onClose: R.partial(onClose, [ previousRoute ]),
-  })),
   flattenProp('order'),
+  withHandlers({
+    onClose: ({ query, onClose }) => R.partial(onClose, [ query ]),
+    onOrderDelete: ({ id, query, onOrderDelete }) => R.partial(onOrderDelete, [ id, query ]),
+  }),
   setDisplayName('OrderDetails'),
 )
 
-export const OrderDetails = enhancer(({ id, user, products, onClose }) => (
+export const OrderDetails = enhancer(({ id, user, products, onClose, onOrderDelete }) => (
   <Modal onClose={onClose}>
-    <Summary className={styles.details}>
+    <Summary css={styles.details}>
+      <ModalHeader>
+        <ModalActions
+          actions={[
+            { name: 'Eliminar Order', action: onOrderDelete },
+          ]}
+        />
+        <ModalCloseButton onClose={onClose} />
+      </ModalHeader>
       <Title>
         Pedido de {user}
       </Title>

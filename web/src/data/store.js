@@ -16,9 +16,9 @@ function generateReducer(routerReducer) {
   )
 }
 
-export function configureStore(history, initialState = {}) {
+export function configureStore(initialState = {}) {
   // initialize middlewares
-  const router = connectRoutes(history, routes, {
+  const router = connectRoutes(routes, {
     location: 'route',
     querySerializer: queryString,
   })
