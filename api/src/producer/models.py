@@ -15,7 +15,7 @@ class Product(models.Model):
         decimal_places=2,
         verbose_name='cantidad mínima',
     )
-    disabled = models.BooleanField(default=False)
+    disabled = models.BooleanField(default=False, verbose_name='deshabilitado')
     producer = models.ForeignKey('producer.Producer', models.CASCADE, verbose_name='productor')
 
     objects = ProductQueryset.as_manager()
