@@ -1,9 +1,11 @@
+import * as R from 'ramda'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { compose, flattenProp, setPropTypes, setDisplayName } from 'recompose'
+import { compose, withHandlers, flattenProp, setPropTypes, setDisplayName } from 'recompose'
 import { hideOnMobile } from 'styles/util'
 import { goToOrderDetails } from 'data/route/actions'
+import { getQuery } from 'data/route/selectors'
 import { getOrder, getOrderTotal } from 'data/order/selectors'
 import { getProductsIds } from 'data/product/selectors'
 import { OrderProductAmount } from './OrderProductAmount'
@@ -13,14 +15,18 @@ const mapStateToProps = (state, { id }) => ({
   productIds: getProductsIds(state),
   order: getOrder(state, id),
   total: getOrderTotal(state, id),
+  query: getQuery(state),
 })
 
 const mapDispatchToProps = (dispatch, { id }) => ({
-  goToDetail: () => dispatch(goToOrderDetails(id)),
+  goToDetail: (query) => dispatch(goToOrderDetails(id, query)),
 })
 
 const enhancer = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withHandlers({
+    goToDetail: ({ query, goToDetail }) => R.partial(goToDetail, [ query ]),
+  }),
   flattenProp('order'),
   setPropTypes({
     id: PropTypes.number.isRequired,
