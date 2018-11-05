@@ -25,6 +25,7 @@
     "babel-loader": "^8.0.4",
     "babel-plugin-emotion": "^10.0.0-beta.6",
     "babel-plugin-ramda": "^1.6.3",
+    "copy-webpack-plugin": "^4.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-emotion": "^10.0.0-beta.6",
     "eslint-plugin-react": "^7.11.1",
