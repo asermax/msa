@@ -32,6 +32,8 @@ RUN DJANGO_SECRET=placeholder /opt/app/src/manage.py collectstatic --noinput
 # Web base build
 FROM node:10.11.0-alpine AS web-base
 
+ARG GOOGLE_OAUTH_CLIENT_ID
+
 WORKDIR /opt/app
 COPY web ./
 RUN yarn install
