@@ -28,5 +28,6 @@ export const OrdersTotal = enhancer(({ products, total }) => (
     <td css={styles.totalCell}>
       ${total}
     </td>
+    <td></td>
   </tr>
 ))

@@ -19,6 +19,17 @@ export const totalHeader = css`
   text-align: right;
 `
 
+export const paidHeader = css`
+  width: 0;
+  height: 200px;
+  white-space: nowrap;
+
+  & > * {
+    width: 0;
+    transform: translateY(76px) translateX(10px) rotate(270deg);
+  }
+`
+
 export const detailsRow = css`
   cursor: pointer;
 
@@ -47,4 +58,10 @@ export const titleCell = css`
   text-transform: uppercase;
   font-weight: bold;
   font-size: 130%;
+`
+
+export const paidCell = css`
+  input {
+    margin: 0;
+  }
 `

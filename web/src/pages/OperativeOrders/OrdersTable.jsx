@@ -35,6 +35,11 @@ export const OrdersTable = enhancer(({ orders, products }) => (
         <th css={styles.totalHeader}>
           Total
         </th>
+        <th css={styles.paidHeader}>
+          <div>
+            Pagado
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>
