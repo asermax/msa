@@ -12,6 +12,9 @@ export const FETCH_ORDER_FAILURE = 'order/fetch/failure'
 export const DELETE_ORDER_REQUEST = 'order/delete/request'
 export const DELETE_ORDER_SUCCESS = 'order/delete/success'
 export const DELETE_ORDER_FAILURE = 'order/delete/failure'
+export const EDIT_ORDER_REQUEST = 'order/edit/request'
+export const EDIT_ORDER_SUCCESS = 'order/edit/success'
+export const EDIT_ORDER_FAILURE = 'order/edit/failure'
 
 export const setCurrentOrderUser = (user) => ({
   type: SET_ORDER_USER,
@@ -113,5 +116,36 @@ export const deleteOrderSuccess = (id) => ({
  */
 export const deleteOrderFailure = (reason) => ({
   type: DELETE_ORDER_FAILURE,
+  payload: reason,
+})
+
+/**
+ * @param {string} id - order id
+ * @param {Partial<import('types/data').Order>} changes - changes to be made on the order
+ * @returns {import('types/data').EditOrderRequestAction}
+ */
+export const editOrder = (id, changes) => ({
+  type: EDIT_ORDER_REQUEST,
+  payload: {
+    id,
+    changes,
+  },
+})
+
+/**
+ * @param {import('types/data').Order} order
+ * @returns {import('types/data').EditOrderSuccessAction}
+ */
+export const editOrderSuccess = (order) => ({
+  type: EDIT_ORDER_SUCCESS,
+  payload: order,
+})
+
+/**
+ * @param {string} reason - reason of the failure
+ * @returns {import('types/data').EditOrderFailureAction}
+ */
+export const editOrderFailure = (reason) => ({
+  type: EDIT_ORDER_FAILURE,
   payload: reason,
 })

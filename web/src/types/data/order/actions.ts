@@ -11,6 +11,14 @@ export type DeleteOrderRequestAction = PayloadAction<'order/delete/request', str
 export type DeleteOrderSuccessAction = PayloadAction<'order/delete/success', string>
 export type DeleteOrderFailureAction = PayloadAction<'order/delete/failure', string>
 
+type EditOrderPayload = {
+  readonly id: string
+  readonly changes: Partial<Order>
+}
+export type EditOrderRequestAction = PayloadAction<'order/edit/request', EditOrderPayload>
+export type EditOrderSuccessAction = PayloadAction<'order/edit/success', Order>
+export type EditOrderFailureAction = PayloadAction<'order/edit/failure', string>
+
 export type OrderAction = FetchOrdersRequestAction
   | FetchOrdersSuccessAction
   | FetchOrdersFailureAction
@@ -20,3 +28,6 @@ export type OrderAction = FetchOrdersRequestAction
   | DeleteOrderRequestAction
   | DeleteOrderSuccessAction
   | DeleteOrderFailureAction
+  | EditOrderRequestAction
+  | EditOrderSuccessAction
+  | EditOrderFailureAction
