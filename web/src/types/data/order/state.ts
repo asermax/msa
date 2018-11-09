@@ -9,6 +9,7 @@ export type Order = {
   readonly organization: string
   readonly products: ReadonlyArray<OrderProduct>
   readonly created: string
+  readonly paid: boolean
 }
 
 export type OrderIds = ReadonlyArray<string>
