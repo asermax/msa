@@ -28,7 +28,10 @@ const entrypointsMap = {
  * @param {string[]?} segments
  * @returns string
  */
-const buildSegments = (segments = []) => R.join('/')(segments)
+const buildSegments = (segments = []) => R.compose(
+  R.join('/'),
+  R.append(''), // add empty string at the end to add a trailing slash
+)(segments)
 
 /**
  * @param {string} entrypoint
@@ -72,4 +75,36 @@ export const apiDelete = (entrypoint, options) => {
   }
 
   return wretch.delete().res()
+}
+
+/**
+ * @param {string} entrypoint
+ * @param {object} data
+ * @param {{segments?: string[], params?: object}} options
+ * @returns {Promise}
+ */
+export const apiPut = (entrypoint, data, options) => {
+  let wretch = modificationWretch.url(entrypointsMap[entrypoint])
+
+  if (options && options.segments) {
+    wretch = wretch.url(buildSegments(options.segments))
+  }
+
+  return wretch.put(data).json()
+}
+
+/**
+ * @param {string} entrypoint
+ * @param {object} data
+ * @param {{segments?: string[], params?: object}} options
+ * @returns {Promise}
+ */
+export const apiPatch = (entrypoint, data, options) => {
+  let wretch = modificationWretch.url(entrypointsMap[entrypoint])
+
+  if (options && options.segments) {
+    wretch = wretch.url(buildSegments(options.segments))
+  }
+
+  return wretch.patch(data).json()
 }
