@@ -26,6 +26,7 @@ class Order(models.Model):
         verbose_name='operativo',
     )
     created = models.DateTimeField(auto_now_add=True, verbose_name='fecha de creación')
+    paid = models.BooleanField(default=False, verbose_name='pagado')
 
     class Meta:
         verbose_name = 'orden'
