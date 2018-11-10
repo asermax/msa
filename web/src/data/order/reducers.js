@@ -7,7 +7,7 @@ import * as R from 'ramda'
 import { combineReducers } from 'redux'
 import {
   SET_ORDER_USER, SET_ORDER_PRODUCT_AMOUNT, FETCH_ORDERS_SUCCESS, FETCH_ORDER_SUCCESS,
-  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_SUCCESS, EDIT_ORDER_SUCCESS,
 } from './actions'
 
 const user = (state = '', action) => {
@@ -90,6 +90,10 @@ const byId = (state = byIdDefault, action) => {
       return R.omit(
         R.of(action.payload),
       )(state)
+    case EDIT_ORDER_SUCCESS:
+      return R.evolve({
+        [action.payload.id]: R.mergeDeepLeft(action.payload),
+      })(state)
     default:
       return state
   }
