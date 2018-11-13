@@ -6,6 +6,7 @@ import {
   getCurrentOrderUser, getCurrentOrderOrganization, isOrderValid,
 } from 'data/order/selectors'
 import { getProductsIds } from 'data/product/selectors'
+import { Input } from 'components/Input'
 import { ProductField } from './ProductField'
 import { OrderTotal } from './OrderTotal'
 import * as styles from './styles'
@@ -42,7 +43,7 @@ export const OrderForm = enhancer(({
       <label htmlFor="name">
         Organización*
       </label>
-      <input
+      <Input
         type="text"
         name="name"
         value={organization}
@@ -51,7 +52,7 @@ export const OrderForm = enhancer(({
       <label htmlFor="name">
       Nombre*
       </label>
-      <input
+      <Input
         type="text"
         name="name"
         value={user}
