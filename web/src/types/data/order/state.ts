@@ -2,6 +2,9 @@ export type OrderProduct = {
   readonly product: string
   readonly amount: string
 }
+export type IndexedOrderProduct = {
+  readonly [id: string]: string
+}
 
 export type Order = {
   readonly id: string

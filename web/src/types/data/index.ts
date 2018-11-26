@@ -7,3 +7,4 @@ export type State = {
 }
 export * from './route'
 export * from './order'
+export * from './product'

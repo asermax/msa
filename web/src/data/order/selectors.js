@@ -1,5 +1,8 @@
 /** @typedef {import('types/data').State} State */
+/** @typedef {import('types/data').ProductsById} ProductsById */
 /** @typedef {import('types/data').OrdersById} OrdersById */
+/** @typedef {import('types/data').OrderIds} OrderIds */
+/** @typedef {import('types/data').IndexedOrderProduct } IndexedOrderProducts */
 import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
@@ -9,6 +12,11 @@ import { getProductsById } from 'data/product/selectors'
 import { orderSchema } from './schemas'
 
 // helpers
+/**
+ * @param products {ProductsById} - all products indexed by ids
+ * @param orderProducts {IndexedOrderProducts} - products for an order indexed by product id
+ * @returns number - total
+ */
 const calculateOrderTotal = (products, orderProducts) => R.compose(
   R.sum,
   R.values,
@@ -63,8 +71,8 @@ export const isOrderValid = createSelector(
 // general
 export const getOrdersIds = R.compose(R.prop('ids'), R.prop('order'))
 
-/** @type {import('reselect').ParametricSelector<State, string, OrdersById>} */
-export const getOrdersById = R.compose(R.prop('byId'), R.prop('order'))
+/** @type {(State) => OrdersById} */
+export const getOrdersById = R.path([ 'order', 'byId' ])
 
 export const getOrder = createCachedSelector(
   [
