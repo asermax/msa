@@ -4,11 +4,6 @@
     "checkJs": true,
     "moduleResolution": "node",
     "jsx": "preserve",
-    "baseUrl": "./src",
-    "paths" : {
-      "ramda/src/*": [
-        "location-of-types/npm-ramda-package/index"
-      ]
-    }
+    "baseUrl": "./src"
   }
 }
