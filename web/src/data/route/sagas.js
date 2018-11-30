@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { call, select, put, actionChannel, take } from 'redux-saga/effects'
 import { fetchProducts } from 'data/product/actions'
 import { fetchProducers } from 'data/producer/actions'
+import { fetchOrganizations } from 'data/organization/actions'
 import { fetchOrders } from 'data/order/actions'
 import { CHECK_SESSION_SUCCESS, CHECK_SESSION_FAILURE, checkSession } from 'data/user/actions'
 import { getCurrentUser } from 'data/user/selectors'
@@ -58,6 +59,7 @@ const prepareOperativeDashboard = function*() {
   if (route === OPERATIVE_DASHBOARD) {
     yield put(redirect(goToOperativeOrders()))
   } else {
+    yield put(fetchOrganizations())
     yield put(fetchProducers())
     yield put(fetchProducts())
     yield put(fetchOrders())
