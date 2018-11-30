@@ -35,7 +35,7 @@ const buildSegments = (segments = []) => R.compose(
 
 /**
  * @param {string} entrypoint
- * @param {{segments?: string[], params?: object}} options
+ * @param {{segments?: string[], params?: object}} [options]
  * @returns {Promise}
  */
 export const apiGet = (entrypoint, options) => {
