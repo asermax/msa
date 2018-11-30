@@ -1,6 +1,7 @@
 /** @typedef {import('types/data').State} State */
 import * as R from 'ramda'
 import { createSelector } from 'reselect'
+import createCachedSelector from 're-reselect'
 
 export const getCurrentRoute = R.path([ 'route', 'type' ])
 
@@ -24,6 +25,10 @@ export const getQueryParameters = createSelector(
     R.toPairs,
   ),
 )
+export const getQueryParameter = createCachedSelector(
+  [ R.nthArg(1), getQueryParameters ],
+  R.propOr(''),
+)(R.nthArg(1))
 export const getStickyQueryParameters = createSelector(
   [ getQuery ],
   R.pickBy((value, key) => R.endsWith('!')(key)),
