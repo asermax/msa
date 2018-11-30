@@ -15,6 +15,19 @@ export const getParameter = createSelector(
   R.prop,
 )
 export const getQuery = R.path([ 'route', 'query' ])
+const headLens = R.lensIndex(0)
+export const getQueryParameters = createSelector(
+  [ getQuery ],
+  R.compose(
+    R.fromPairs,
+    R.map(R.over(headLens, R.replace('!', ''))),
+    R.toPairs,
+  ),
+)
+export const getStickyQueryParameters = createSelector(
+  [ getQuery ],
+  R.pickBy((value, key) => R.endsWith('!')(key)),
+)
 
 export const getPreviousRoute = (state, fallback) => R.compose(
   R.ifElse(
