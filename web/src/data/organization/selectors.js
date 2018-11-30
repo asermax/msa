@@ -6,7 +6,7 @@ export const getOrganizationsById = R.path([ 'organization', 'byId' ])
 export const getOrganizationsOptions = createSelector(
   [ getOrganizationsIds, getOrganizationsById ],
   (ids, organizations) => R.map((id) => ({
-    value: id,
+    value: organizations[id].slug,
     label: organizations[id].name,
   }))(ids),
 )
