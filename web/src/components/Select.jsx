@@ -6,7 +6,7 @@ import BaseSelect from 'react-select'
 const styles = {
   control: (styles, state) => ({
     ...styles,
-    height: 38,
+    minHeight: 38,
     borderWidth: 1,
     borderColor: state.isFocused ? colors.primary : colors.borderGray,
     ':hover': { borderColor: colors.primary },
