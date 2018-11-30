@@ -6,7 +6,7 @@ from . import models
 class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Organization
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'slug')
 
 
 class NestedOrderProductSerializer(serializers.ModelSerializer):
