@@ -32,10 +32,13 @@ export const Login = enhancer(({ login }) => (
       uxMode="popup"
       onSuccess={login}
       outlined
-    >
-      <FontAwesomeIcon icon={[ 'fab', 'google' ]}/>
-      &nbsp;
-      Ingresar
-    </StyledGoogleLogin>
+      render={(props) => (
+        <button {...props}>
+          <FontAwesomeIcon icon={[ 'fab', 'google' ]}/>
+          &nbsp;
+          Ingresar
+        </button>
+      )}
+    />
   </Centered>
 ))
