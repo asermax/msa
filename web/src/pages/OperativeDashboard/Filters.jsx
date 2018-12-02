@@ -6,6 +6,7 @@ import { setRouteQueryParam } from 'data/route/actions'
 import { getQueryParameter } from 'data/route/selectors'
 import { getOrganizationsOptions } from 'data/organization/selectors'
 import { Select } from 'components/Select'
+import { Input } from 'components/Input'
 import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
@@ -39,5 +40,17 @@ export const Filters = enhancer(({ organizationOptions, organizationValues, setF
       noOptionsMessage={() => 'No hay organizaciones para seleccionar'}
       isMulti
     />
+    <label css={styles.filterLabel}>Productor:</label>
+    <Select
+      options={[
+        { value: 'test', label: 'Test' },
+        { value: 'test', label: 'Test' },
+      ]}
+      placeholder=""
+      noOptionsMessage={() => 'No hay organizaciones para seleccionar'}
+      isMulti
+    />
+    <label css={styles.filterLabel}>Nombre:</label>
+    <Input css={styles.searchInput} />
   </div>
 ))
