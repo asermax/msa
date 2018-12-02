@@ -65,3 +65,6 @@ dist/
 
 # django settings
 api/src/msa/settings.py
+
+# backups
+backup
