@@ -3,15 +3,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { setRouteQueryParam } from 'data/route/actions'
-import { getQueryParameter } from 'data/route/selectors'
-import { getOrganizationsOptions } from 'data/organization/selectors'
+import { getOrganizationOptions, getOrganizationValues } from 'data/organization/selectors'
 import { Select } from 'components/Select'
 import { Input } from 'components/Input'
 import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
-  organizationOptions: getOrganizationsOptions(state),
-  organizationValues: getQueryParameter(state, 'org'),
+  organizationOptions: getOrganizationOptions(state),
+  organizationValues: getOrganizationValues(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,7 +27,7 @@ export const Filters = enhancer(({ organizationOptions, organizationValues, setF
     <label css={styles.filterLabel}>Organización:</label>
     <Select
       options={organizationOptions}
-      values={organizationValues}
+      value={organizationValues}
       onChange={(values) => setFilter('org', R.pluck('value')(values))}
       placeholder=""
       noOptionsMessage={() => 'No hay organizaciones para seleccionar'}
