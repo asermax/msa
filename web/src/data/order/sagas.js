@@ -3,7 +3,7 @@ import * as RA from 'ramda-adjunct'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
 import { ORDER_ENTRYPOINT, apiGet, apiPost, apiDelete, apiPatch } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
-import { getQuery } from 'data/route/selectors'
+import { getQueryParameters } from 'data/route/selectors'
 import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
@@ -47,7 +47,10 @@ const createOrder = function*() {
 }
 
 const fetchOrders = function*() {
-  const query = yield select(getQuery)
+  const params = R.compose(
+    R.mapObjIndexed(R.split('|')), // multi-value filters are joined with |
+    R.pick([ 'org' ]),
+  )(yield select(getQueryParameters))
 
   try {
     // fetch the orders for the given organization
@@ -60,7 +63,7 @@ const fetchOrders = function*() {
           R.objOf('params'),
           RA.renameKeys({ org: 'organization' }),
         ),
-      )(query),
+      )(params),
     )
 
     yield put(fetchOrdersSuccess(orders))
