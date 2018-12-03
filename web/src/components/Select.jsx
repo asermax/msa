@@ -35,6 +35,9 @@ const styles = {
     paddingBottom: 5,
     backgroundColor: state.isFocused ? colors.primary : colors.white,
     color: state.isFocused ? colors.white : colors.primary,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   }),
   multiValue: (styles) => ({
     ...styles,
