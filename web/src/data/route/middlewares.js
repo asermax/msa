@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import * as RA from 'ramda-adjunct'
 import { ALL_ROUTES, SET_ROUTE_QUERY_PARAM } from './actions'
 import { getQuery, getStickyQueryParameters, getCurrentRoute } from './selectors'
 
@@ -20,7 +21,10 @@ export const queryParametersMiddleware = R.curry((store, next, action) => {
 
     const { name, sticky, value } = action.payload
     const parameterName = `${name}${sticky ? '!' : ''}`
-    const change = R.isEmpty(value) ? R.dissoc(parameterName) : R.assoc(parameterName, value)
+    const finalValue = RA.isArray(value) ? R.join('|', value) : value
+    const change = R.isEmpty(finalValue)
+      ? R.dissoc(parameterName)
+      : R.assoc(parameterName, finalValue)
     const newParams = change(queryParams)
 
     action = {

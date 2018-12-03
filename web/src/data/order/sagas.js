@@ -47,10 +47,7 @@ const createOrder = function*() {
 }
 
 const fetchOrders = function*() {
-  const params = R.compose(
-    R.mapObjIndexed(R.split('|')), // multi-value filters are joined with |
-    R.pick([ 'org' ]),
-  )(yield select(getQueryParameters))
+  const params = yield select(getQueryParameters)
 
   try {
     // fetch the orders for the given organization

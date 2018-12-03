@@ -16,12 +16,18 @@ export const getParameter = createSelector(
   R.prop,
 )
 export const getQuery = R.path([ 'route', 'query' ])
-const headLens = R.lensIndex(0)
+const keyLens = R.lensIndex(0)
+const valueLens = R.lensIndex(1)
 export const getQueryParameters = createSelector(
   [ getQuery ],
   R.compose(
     R.fromPairs,
-    R.map(R.over(headLens, R.replace('!', ''))),
+    R.map(
+      R.compose(
+        R.over(keyLens, R.replace('!', '')),
+        R.over(valueLens, R.split('|')),
+      ),
+    ),
     R.toPairs,
   ),
 )

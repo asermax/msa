@@ -11,7 +11,7 @@ import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   organizationOptions: getOrganizationsOptions(state),
-  organizationValues: R.split('|', getQueryParameter(state, 'org')),
+  organizationValues: getQueryParameter(state, 'org'),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,13 +29,7 @@ export const Filters = enhancer(({ organizationOptions, organizationValues, setF
     <Select
       options={organizationOptions}
       values={organizationValues}
-      onChange={(values) => setFilter(
-        'org',
-        R.compose(
-          R.join('|'),
-          R.map(R.prop('value')),
-        )(values),
-      )}
+      onChange={(values) => setFilter('org', R.pluck('value')(values))}
       placeholder=""
       noOptionsMessage={() => 'No hay organizaciones para seleccionar'}
       isMulti
