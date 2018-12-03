@@ -1,7 +1,7 @@
 # Base api build
 FROM python:3.7.1-alpine AS api-base
 
-RUN apk add --no-cache bash gcc python-dev musl-dev postgresql-dev
+RUN apk add --no-cache bash gcc musl-dev postgresql-dev
 
 EXPOSE 8000
 
