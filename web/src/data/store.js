@@ -33,8 +33,8 @@ export function configureStore(initialState = {}) {
     composeEnhancers(
       router.enhancer,
       applyMiddleware(
-        sagaMiddleware,
         queryParametersMiddleware,
+        sagaMiddleware,
         router.middleware,
       ),
     ),

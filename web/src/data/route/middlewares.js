@@ -31,5 +31,5 @@ export const queryParametersMiddleware = R.curry((store, next, action) => {
     }
   }
 
-  next(action)
+  return next(action)
 })
