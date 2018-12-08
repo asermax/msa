@@ -22,7 +22,6 @@
     "eslint-plugin-emotion": "^10.0.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-hooks": "^0.0.0",
-    "react-hot-loader": "^4.3.12",
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
@@ -54,6 +53,7 @@
     "react-close-on-escape": "^3.0.0",
     "react-dom": "^16.7.0-alpha.2",
     "react-google-login": "^4.0.0",
+    "react-hot-loader": "^4.3.12",
     "react-html-email": "^3.0.0",
     "react-redux": "^5.1.1",
     "react-select": "^2.1.2",
