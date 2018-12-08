@@ -8,7 +8,7 @@ import { fetchOrders } from 'data/order/actions'
 import { CHECK_SESSION_SUCCESS, CHECK_SESSION_FAILURE, checkSession } from 'data/user/actions'
 import { getCurrentUser } from 'data/user/selectors'
 import {
-  NOT_FOUND, INDEX, ORDER_CREATE, ORDER_DETAILS, ORDER_DELETE,
+  NOT_FOUND, INDEX, ORDER_DETAILS, ORDER_DELETE,
   OPERATIVE_DASHBOARD, OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
   redirect, goToIndex, goToLogin, goToOrderCreate, goToOperativeOrders,
 } from './actions'
@@ -72,10 +72,6 @@ const onIndex = function*() {
   yield put(redirect(goToOrderCreate()))
 }
 
-const onOrderCreate = function*() {
-  yield put(fetchProducts())
-}
-
 const onOperativeDashboardIndex = function*() {
   yield put(redirect(goToOperativeOrders()))
 }
@@ -83,9 +79,6 @@ const onOperativeDashboardIndex = function*() {
 const prepareOperativeDashboard = memoizeSaga(
   [ getCurrentOrganization ],
   function*() {
-    yield put(fetchOrganizations())
-    yield put(fetchProducers())
-    yield put(fetchProducts())
     yield put(fetchOrders())
   },
 )
@@ -97,7 +90,6 @@ const onOperativeDashboard = composeSaga(
 const mapRouteToSaga = {
   [NOT_FOUND]: onNotFound,
   [INDEX]: onIndex,
-  [ORDER_CREATE]: onOrderCreate,
   [OPERATIVE_DASHBOARD]: onOperativeDashboardIndex,
   [ORDER_DETAILS]: onOperativeDashboard,
   [ORDER_DELETE]: onOperativeDashboard,
@@ -107,6 +99,11 @@ const mapRouteToSaga = {
 
 export const routeInitSaga = function*() {
   const channel = yield actionChannel(Object.keys(mapRouteToSaga))
+
+  // common initial setup
+  yield put(fetchOrganizations())
+  yield put(fetchProducers())
+  yield put(fetchProducts())
 
   do {
     // take the current route
