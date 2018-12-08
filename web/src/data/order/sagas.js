@@ -1,9 +1,8 @@
 import * as R from 'ramda'
-import * as RA from 'ramda-adjunct'
 import { put, select, call, all, takeLatest } from 'redux-saga/effects'
 import { ORDER_ENTRYPOINT, apiGet, apiPost, apiDelete, apiPatch } from 'data/api'
 import { goToOrderSummary } from 'data/route/actions'
-import { getQueryParameters } from 'data/route/selectors'
+import { getCurrentOrganization } from 'data/organization/selectors'
 import {
   CREATE_ORDER_REQUEST, createOrderSuccess, createOrderFailure,
   FETCH_ORDERS_REQUEST, fetchOrdersSuccess, fetchOrdersFailure,
@@ -11,30 +10,25 @@ import {
   DELETE_ORDER_REQUEST, deleteOrderSuccess, deleteOrderFailure,
   EDIT_ORDER_REQUEST, editOrderSuccess, editOrderFailure,
 } from './actions'
-import {
-  getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts,
-} from './selectors'
+import { getCurrentOrderUser, getCurrentOrderProducts } from './selectors'
 import { orderSchema } from './schemas'
 
 const createOrder = function*() {
   const user = yield select(getCurrentOrderUser)
-  const organization = yield select(getCurrentOrderOrganization)
+  const organization = yield select(getCurrentOrganization)
   const products = yield select(getCurrentOrderProducts)
 
   try {
-    const data =  R.compose(
-      R.evolve({
-        products: R.compose( // transform products object into an array
-          R.values,
-          R.mapObjIndexed((amount, product) => ({ product, amount })),
-        ),
-      }),
-      R.bind(orderSchema.cast, orderSchema), // validate and cast data
-    )({
+    const data =  R.evolve({
+      products: R.compose( // transform products object into an array
+        R.values,
+        R.mapObjIndexed((amount, product) => ({ product, amount })),
+      ),
+    })(orderSchema.cast({
       user,
       organization,
       products,
-    })
+    }))
 
     // create the order first
     yield call(apiPost, ORDER_ENTRYPOINT, data)
@@ -47,20 +41,20 @@ const createOrder = function*() {
 }
 
 const fetchOrders = function*() {
-  const params = yield select(getQueryParameters)
+  const organization = yield select(getCurrentOrganization)
 
   try {
     // fetch the orders for the given organization
     const orders = yield call(
       apiGet,
       ORDER_ENTRYPOINT,
-      R.when(
-        R.compose(R.not, R.isNil),
+      R.unless(
+        R.isEmpty,
         R.compose(
           R.objOf('params'),
-          RA.renameKeys({ org: 'organization' }),
+          R.objOf('organization'),
         ),
-      )(params),
+      )(organization),
     )
 
     yield put(fetchOrdersSuccess(orders))

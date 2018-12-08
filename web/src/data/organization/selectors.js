@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { createSelector } from 'reselect'
 import { getQueryParameter } from 'data/route/selectors'
 
+export const getCurrentOrganization = (state) => getQueryParameter(state, 'org')
 export const getOrganizationsIds = R.path([ 'organization', 'ids' ])
 export const getOrganizationsById = R.path([ 'organization', 'byId' ])
 export const getOrganizationOptions = createSelector(
@@ -12,7 +13,7 @@ export const getOrganizationOptions = createSelector(
   }))(ids),
 )
 export const getOrganizationValues = createSelector(
-  [ (state) => getQueryParameter(state, 'org'), getOrganizationOptions ],
+  [ getCurrentOrganization, getOrganizationOptions ],
   (values, options) => R.filter(
     R.compose(
       R.contains(R.__, values),

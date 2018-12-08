@@ -2,9 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, withHandlers, setDisplayName } from 'recompose'
 import { setCurrentOrderUser, createOrder } from 'data/order/actions'
-import {
-  getCurrentOrderUser, getCurrentOrderOrganization, isOrderValid,
-} from 'data/order/selectors'
+import { getCurrentOrderUser, isOrderValid } from 'data/order/selectors'
+import { getCurrentOrganization } from 'data/organization/selectors'
 import { getProductsIds } from 'data/product/selectors'
 import { Input } from 'components/Input'
 import { ProductField } from './ProductField'
@@ -13,7 +12,7 @@ import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   user: getCurrentOrderUser(state),
-  organization: getCurrentOrderOrganization(state),
+  organization: getCurrentOrganization(state),
   products: getProductsIds(state),
   isValid: isOrderValid(state),
 })
