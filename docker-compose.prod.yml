@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_DB
   api:
-    image: msa-api-prod:0.2.3
+    image: msa-api-prod:0.2.4
     build:
       context: .
       target: api-prod
@@ -25,7 +25,7 @@ services:
       - GOOGLE_OAUTH_REDIRECT_URI
     restart: always
   web:
-    image: msa-web-prod:0.2.3
+    image: msa-web-prod:0.2.4
     build:
       context: .
       target: web-prod
