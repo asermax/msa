@@ -7,6 +7,7 @@ import { compose, withHandlers, flattenProp, setPropTypes, setDisplayName } from
 import { getProduct } from 'data/product/selectors'
 import { setCurrentOrderProductAmount } from 'data/order/actions'
 import { getCurrentOrderProductAmount } from 'data/order/selectors'
+import { Input } from 'components/Input'
 import * as styles from './styles'
 
 const mapStateToProps = (state, { id }) => ({
@@ -48,7 +49,7 @@ export const ProductField = enhancer(({
       x {unit}
     </td>
     <td>
-      <input
+      <Input
         name={name}
         type="number"
         min="0"

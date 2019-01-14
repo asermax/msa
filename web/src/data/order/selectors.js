@@ -1,14 +1,22 @@
 /** @typedef {import('types/data').State} State */
+/** @typedef {import('types/data').ProductsById} ProductsById */
 /** @typedef {import('types/data').OrdersById} OrdersById */
+/** @typedef {import('types/data').OrderIds} OrderIds */
+/** @typedef {import('types/data').IndexedOrderProduct } IndexedOrderProducts */
 import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
-import { getQuery } from 'data/route/selectors'
+import { getCurrentOrganization } from 'data/organization/selectors'
 import { getCurrentProducerProducts } from 'data/producer/selectors'
 import { getProductsById } from 'data/product/selectors'
 import { orderSchema } from './schemas'
 
 // helpers
+/**
+ * @param products {ProductsById} - all products indexed by ids
+ * @param orderProducts {IndexedOrderProducts} - products for an order indexed by product id
+ * @returns number - total
+ */
 const calculateOrderTotal = (products, orderProducts) => R.compose(
   R.sum,
   R.values,
@@ -24,10 +32,6 @@ const calculateOrderTotal = (products, orderProducts) => R.compose(
 
 // orden creation
 export const getCurrentOrderUser = R.path([ 'order', 'user' ])
-export const getCurrentOrderOrganization = createSelector(
-  [ getQuery ],
-  R.prop('org'),
-)
 export const getCurrentOrderProducts = R.compose(
   R.prop('products'),
   R.prop('order'),
@@ -51,7 +55,7 @@ export const getCurrentOrderTotal = createSelector(
   calculateOrderTotal,
 )
 export const isOrderValid = createSelector(
-  [ getCurrentOrderUser, getCurrentOrderOrganization, getCurrentOrderProducts ],
+  [ getCurrentOrderUser, getCurrentOrganization, getCurrentOrderProducts ],
   R.compose(
     R.bind(orderSchema.isValidSync, orderSchema),
     R.unapply(
@@ -63,8 +67,8 @@ export const isOrderValid = createSelector(
 // general
 export const getOrdersIds = R.compose(R.prop('ids'), R.prop('order'))
 
-/** @type {import('reselect').ParametricSelector<State, string, OrdersById>} */
-export const getOrdersById = R.compose(R.prop('byId'), R.prop('order'))
+/** @type {(State) => OrdersById} */
+export const getOrdersById = R.path([ 'order', 'byId' ])
 
 export const getOrder = createCachedSelector(
   [

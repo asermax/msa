@@ -5,7 +5,11 @@ from . import models
 
 
 class OrderFilterSet(filters.FilterSet):
-    organization = filters.CharFilter(field_name='organization__slug')
+    organization = filters.ModelMultipleChoiceFilter(
+        field_name='organization__slug',
+        to_field_name='slug',
+        queryset=models.Organization.objects.all(),
+    )
 
     class Meta:
         model = models.Order

@@ -6,6 +6,7 @@ import { connectRoutes } from 'redux-first-router'
 import queryString from 'query-string'
 import routes from './routes'
 import appReducers from './reducers'
+import { queryParametersMiddleware } from './middlewares'
 import { rootSaga, rootInitSaga } from './sagas'
 
 function generateReducer(routerReducer) {
@@ -32,6 +33,7 @@ export function configureStore(initialState = {}) {
     composeEnhancers(
       router.enhancer,
       applyMiddleware(
+        queryParametersMiddleware,
         sagaMiddleware,
         router.middleware,
       ),

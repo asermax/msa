@@ -4,6 +4,7 @@ import { producerSaga } from './producer/sagas'
 import { productSaga } from './product/sagas'
 import { orderSaga } from './order/sagas'
 import { userSaga } from './user/sagas'
+import { organizationSaga } from './organization/sagas'
 
 const initSagas = [
   routeInitSaga,
@@ -14,6 +15,7 @@ const sagas = [
   productSaga,
   orderSaga,
   userSaga,
+  organizationSaga,
 ]
 
 export const rootInitSaga = function* rootSaga() {

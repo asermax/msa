@@ -3,6 +3,12 @@ from rest_framework import serializers
 from . import models
 
 
+class OrganizationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Organization
+        fields = ('id', 'name', 'slug')
+
+
 class NestedOrderProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderProduct

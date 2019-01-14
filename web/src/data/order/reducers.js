@@ -51,9 +51,7 @@ const idsDefault = []
 const ids = (state = idsDefault, action) => {
   switch (action.type) {
     case FETCH_ORDERS_SUCCESS:
-      return R.map(
-        R.prop('id'),
-      )(action.payload)
+      return R.pluck('id')(action.payload)
     case FETCH_ORDER_SUCCESS:
       return R.append(
         R.prop('id')(action.payload),

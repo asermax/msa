@@ -5,11 +5,10 @@ export const nameHeader = css`
 `
 
 export const productHeader = css`
-  height: 200px;
   white-space: nowrap;
 
   & > * {
-    transform: translateY(76px) rotate(315deg);
+    transform: rotate(345deg);
     width: 30px;
   }
 `
@@ -21,12 +20,11 @@ export const totalHeader = css`
 
 export const paidHeader = css`
   width: 0;
-  height: 200px;
   white-space: nowrap;
 
   & > * {
     width: 0;
-    transform: translateY(76px) translateX(10px) rotate(270deg);
+    transform: translateY(6px) translateX(10px) rotate(270deg);
   }
 `
 

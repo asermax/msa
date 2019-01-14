@@ -5,6 +5,7 @@ import {
   OPERATIVE_ORDERS, OPERATIVE_PRODUCTS, ORDER_DETAILS, ORDER_DELETE,
 } from 'data/route/actions'
 import { Container } from 'components/Container'
+import { Filters } from './Filters'
 import { Tabs } from './Tabs'
 import { OperativeOrders } from 'pages/OperativeOrders'
 import { OperativeProducts } from 'pages/OperativeProducts'
@@ -20,6 +21,7 @@ export const OperativeDashboard = enhancer(() => (
       <h1>
         Detalles del Operativo
       </h1>
+      <Filters />
       <Tabs />
     </Container>
     <OperativeOrders />

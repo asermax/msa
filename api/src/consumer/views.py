@@ -5,6 +5,11 @@ from operative import models as operative_models
 from . import models, serializers, filters
 
 
+class OrganizationViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.Organization.objects.all()
+    serializer_class = serializers.OrganizationSerializer
+
+
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer

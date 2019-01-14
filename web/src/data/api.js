@@ -5,6 +5,7 @@ import cookie from 'js-cookie'
 
 export const PRODUCER_ENTRYPOINT = 'api/entrypoint/producer'
 export const PRODUCT_ENTRYPOINT = 'api/entrypoint/product'
+export const ORGANIZATION_ENTRYPOINT = 'api/entrypoint/organization'
 export const ORDER_ENTRYPOINT = 'api/entrypoint/order'
 export const SESSION_ENTRYPOINT = 'api/entrypoint/session'
 
@@ -20,6 +21,7 @@ const modificationWretch = baseWretch
 const entrypointsMap = {
   [PRODUCER_ENTRYPOINT]: '/producers/',
   [PRODUCT_ENTRYPOINT]: '/products/',
+  [ORGANIZATION_ENTRYPOINT]: '/organizations/',
   [ORDER_ENTRYPOINT]: '/orders/',
   [SESSION_ENTRYPOINT]: '/sessions/',
 }
@@ -35,7 +37,7 @@ const buildSegments = (segments = []) => R.compose(
 
 /**
  * @param {string} entrypoint
- * @param {{segments?: string[], params?: object}} options
+ * @param {{segments?: string[], params?: object}} [options]
  * @returns {Promise}
  */
 export const apiGet = (entrypoint, options) => {

@@ -14,6 +14,7 @@ export const ALL_ROUTES = [
   NOT_FOUND, INDEX, LOGIN, ORDER_CREATE, ORDER_SUMMARY, ORDER_DETAILS, ORDER_DELETE,
   OPERATIVE_DASHBOARD, OPERATIVE_ORDERS, OPERATIVE_PRODUCTS,
 ]
+export const SET_ROUTE_QUERY_PARAM = 'route/query-param/set'
 
 export const goToIndex = () => ({
   type: INDEX,
@@ -74,4 +75,13 @@ export const goToOperativeOrders = (query) => ({
 
 export const goToOperativeProducts = () => ({
   type: OPERATIVE_PRODUCTS,
+})
+
+export const setRouteQueryParam = (name, value, sticky = false) => ({
+  type: SET_ROUTE_QUERY_PARAM,
+  payload: {
+    name,
+    value,
+    sticky,
+  },
 })
