@@ -33,7 +33,7 @@ export const getQueryParameters = createSelector(
 )
 export const getQueryParameter = createCachedSelector(
   [ R.nthArg(1), getQueryParameters ],
-  R.propOr(''),
+  R.propOr([]),
 )(R.nthArg(1))
 export const getStickyQueryParameters = createSelector(
   [ getQuery ],

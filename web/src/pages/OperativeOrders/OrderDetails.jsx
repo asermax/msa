@@ -7,15 +7,15 @@ import { hideOnMobile } from 'styles/util'
 import { goToOrderDetails } from 'data/route/actions'
 import { getQuery } from 'data/route/selectors'
 import { editOrder } from 'data/order/actions'
-import { getOrder, getOrderTotal } from 'data/order/selectors'
-import { getProductsIds } from 'data/product/selectors'
+import { getOrder, getOrderTotalForCurrentProducers } from 'data/order/selectors'
+import { getCurrentProducersProductIds } from 'data/producer/selectors'
 import { OrderProductAmount } from './OrderProductAmount'
 import * as styles from './styles'
 
 const mapStateToProps = (state, { id }) => ({
-  productIds: getProductsIds(state),
+  productIds: getCurrentProducersProductIds(state),
   order: getOrder(state, id),
-  total: getOrderTotal(state, id),
+  total: getOrderTotalForCurrentProducers(state, id),
   query: getQuery(state),
 })
 
@@ -37,7 +37,7 @@ const enhancer = compose(
 )
 
 export const OrderDetails = enhancer(({
-  id, productIds, user, total, paid, editOrderPaid, goToDetail
+  id, productIds, user, total, paid, editOrderPaid, goToDetail,
 }) => (
   <tr
     css={styles.detailsRow}

@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { hideOnMobile } from 'styles/util'
 import { getOrdersTotal } from 'data/order/selectors'
-import { getProductsIds } from 'data/product/selectors'
+import { getCurrentProducersProductIds } from 'data/producer/selectors'
 import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
-  products: getProductsIds(state),
+  products: getCurrentProducersProductIds(state),
   total: getOrdersTotal(state),
 })
 
