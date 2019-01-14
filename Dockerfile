@@ -32,6 +32,7 @@ RUN DJANGO_SECRET=placeholder /opt/app/src/manage.py collectstatic --noinput
 # Web base build
 FROM node:11.3.0-alpine AS web-base
 
+ARG NODE_ENV=production
 ARG GOOGLE_OAUTH_CLIENT_ID
 
 WORKDIR /opt/app
