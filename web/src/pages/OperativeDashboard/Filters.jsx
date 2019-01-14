@@ -37,7 +37,7 @@ export const Filters = enhancer(({
       noOptionsMessage={() => 'No hay organizaciones para seleccionar'}
       isMulti
     />
-    <label css={styles.filterLabel}>Producer:</label>
+    <label css={styles.filterLabel}>Productor:</label>
     <Select
       options={producerOptions}
       value={producerValues}
