@@ -7,7 +7,7 @@ import * as R from 'ramda'
 import  { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getCurrentOrganization } from 'data/organization/selectors'
-import { getCurrentProducerProducts } from 'data/producer/selectors'
+import { getCurrentProducersProductIds } from 'data/producer/selectors'
 import { getProductsById } from 'data/product/selectors'
 import { orderSchema } from './schemas'
 
@@ -104,7 +104,14 @@ export const getOrderTotal = createCachedSelector(
   [
     getProductsById,
     getOrderProducts,
-    getCurrentProducerProducts,
+  ],
+  calculateOrderTotal,
+)(R.nthArg(1)) // cache by order id
+export const getOrderTotalForCurrentProducers = createCachedSelector(
+  [
+    getProductsById,
+    getOrderProducts,
+    getCurrentProducersProductIds,
   ],
   (products, orderProducts, producerProducts) => R.compose(
     R.partial(calculateOrderTotal, [ products ]), // calculate the total
@@ -116,7 +123,7 @@ export const getFilteredOrdersIds = createSelector(
   [
     getOrdersIds,
     getOrdersById,
-    getCurrentProducerProducts,
+    getCurrentProducersProductIds,
   ],
   (ids, orders, producerProducts) => R.filter(
     R.compose(
@@ -129,14 +136,16 @@ export const getFilteredOrdersIds = createSelector(
 )
 export const getOrdersTotal = (state) => R.compose(
   R.sum, // sum all orders together
-  R.map(R.partial(getOrderTotal, [ state ])), // calculate the total for each order
+  R.map( // calculate the total for each order
+    R.partial(getOrderTotalForCurrentProducers, [ state ])
+  ),
 )(getFilteredOrdersIds(state))
 
 export const getOrdersProducts = (state) => R.compose(
   R.map(R.partial(getOrderProducts, [ state ])), // get the products for all the orders
 )(getFilteredOrdersIds(state))
 export const getFilteredOrdersProducts = (state) => R.map(
-  R.pick(getCurrentProducerProducts(state)),
+  R.pick(getCurrentProducersProductIds(state)),
 )(getOrdersProducts(state))
 export const getOrdersWholeProducts = createSelector(
   [

@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { getQuery } from 'data/route/selectors'
+import { getQueryParameter } from 'data/route/selectors'
 import { getProductsIds, getProductsById } from 'data/product/selectors'
 import { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
@@ -31,29 +31,52 @@ export const getProducerBySlug = createCachedSelector(
 )(R.nthArg(1))  // memoize by id
 
 // current
-export const getCurrentProducerSlug = createSelector(
-  [ getQuery ],
-  R.prop('prod'),
+export const getCurrentProducersSlugs = (state) => getQueryParameter(state, 'prod')
+export const getCurrentProducersIds = createSelector(
+  [ getProducersById, getCurrentProducersSlugs ],
+  (producers, slugs) => R.compose(
+    R.pluck('id'),
+    R.filter(R.compose(
+      R.contains(R.__, slugs),
+      R.prop('slug'),
+    )),
+    R.values,
+  )(producers),
 )
-export const getCurrentProducer = (state) => R.unless(
-  R.isNil,
-  R.partial(getProducerBySlug, [ state ]),
-)(getCurrentProducerSlug(state))
-
-export const propIfExists = (prop, obj) => R.unless(R.isNil, R.prop(prop))(obj)
-export const getCurrentProducerProducts = createSelector(
+export const getCurrentProducersProductIds = createSelector(
   [
     getProductsIds,
     getProductsById,
-    getCurrentProducer,
+    getCurrentProducersIds,
   ],
-  (productsIds, products, producer) => {
-    return R.unless(
-      R.always(producer !== null),
-      R.filter(R.compose(
-        R.propEq('producer')(propIfExists('id', producer)),
-        R.prop(R.__, products),
-      )),
-    )(productsIds)
-  },
+  (productsIds, products, producers) => R.unless(
+    R.always(R.isEmpty(producers)),
+    R.filter(R.compose(
+      R.contains(R.__, producers),
+      R.prop('producer'),
+      R.prop(R.__, products),
+    )),
+  )(productsIds),
+)
+export const getCurrentProducersProducts = createSelector(
+  [ getCurrentProducersProductIds, getProductsById ],
+  R.compose(R.values, R.pick),
+)
+
+// filters
+export const getProducerOptions = createSelector(
+  [ getProducersIds, getProducersById ],
+  (ids, producers) => R.map((id) => ({
+    value: producers[id].slug,
+    label: producers[id].name,
+  }))(ids),
+)
+export const getProducerValues = createSelector(
+  [ getCurrentProducersSlugs, getProducerOptions ],
+  (values, options) => R.filter(
+    R.compose(
+      R.contains(R.__, values),
+      R.prop('value'),
+    ),
+  )(options),
 )

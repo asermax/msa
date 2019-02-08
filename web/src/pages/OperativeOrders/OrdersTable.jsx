@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { compose, setDisplayName } from 'recompose'
 import { hideOnMobile } from 'styles/util'
 import { getFilteredOrdersIds } from 'data/order/selectors'
-import { getSortedProducts } from 'data/product/selectors'
+import { getCurrentProducersProducts } from 'data/producer/selectors'
 import { OrderDetails } from './OrderDetails'
 import { OrdersTotal } from './OrdersTotal'
 import * as styles from './styles'
 
 const mapStateToProps = (state) => ({
   orders: getFilteredOrdersIds(state),
-  products: getSortedProducts(state),
+  products: getCurrentProducersProducts(state),
 })
 
 const enhancer = compose(
