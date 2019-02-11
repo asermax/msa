@@ -7,6 +7,7 @@ from . import serializers
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Product.objects.only_enabled()
     serializer_class = serializers.ProductSerializer
+    ordering_fields = ('producer', 'category')
 
 
 class ProducerViewSet(viewsets.ReadOnlyModelViewSet):
