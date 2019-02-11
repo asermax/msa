@@ -5,7 +5,13 @@ import { FETCH_PRODUCTS_REQUEST, fetchProductsSuccess, fetchProductsFailure } fr
 const fetchProducts = function*() {
   try {
     // create the order first
-    const products = yield call(apiGet, PRODUCT_ENTRYPOINT)
+    const products = yield call(
+      apiGet,
+      PRODUCT_ENTRYPOINT,
+      {
+        params: { 'order': 'producer,category' },
+      },
+    )
 
     yield put(fetchProductsSuccess(products))
   } catch(e) {
