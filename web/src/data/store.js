@@ -54,7 +54,7 @@ export function configureStore(initialState = {}) {
 
     module.hot.accept('./sagas', async() => {
       currentSagas.cancel()
-      await currentSagas.done
+      await currentSagas.toPromise()
       currentSagas = sagaMiddleware.run(rootSaga)
     })
   }
