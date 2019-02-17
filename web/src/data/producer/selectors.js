@@ -60,7 +60,7 @@ export const getCurrentProducersProductIds = createSelector(
 )
 export const getCurrentProducersProducts = createSelector(
   [ getCurrentProducersProductIds, getProductsById ],
-  R.compose(R.values, R.pick),
+  R.props,
 )
 
 // filters
